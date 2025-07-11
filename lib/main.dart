@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:yolapp/features/auth/pages/login_page.dart';
-import 'package:yolapp/features/auth/services/auth_service.dart';
-import 'package:yolapp/features/navigation/main_navigator.dart';
+import 'package:benicio/features/auth/pages/login_page.dart';
+import 'package:benicio/features/auth/services/auth_service.dart';
+import 'package:benicio/features/navigation/main_navigator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
               .of(context)
               .textTheme;
           return MaterialApp(
-            title: 'Yol App',
+            title: 'Benicio',
             theme: ThemeData(
               primaryColor: const Color(0xFF582FFF),
               colorScheme: ColorScheme.fromSeed(
