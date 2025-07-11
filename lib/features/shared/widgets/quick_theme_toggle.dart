@@ -11,15 +11,15 @@ class QuickThemeToggle extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return GestureDetector(
-          onTap: () => themeProvider.toggleDarkMode(),
+          onTap: () => themeProvider.toggleTheme(),
           onLongPress: () => _showThemeSelector(context, themeProvider),
           child: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: themeProvider.themeColor.withOpacity(0.1),
+              color: themeProvider.primaryColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: themeProvider.themeColor.withOpacity(0.2),
+                color: themeProvider.primaryColor.withOpacity(0.2),
               ),
             ),
             child: AnimatedSwitcher(
@@ -29,7 +29,7 @@ class QuickThemeToggle extends StatelessWidget {
                     ? Icons.light_mode_rounded
                     : Icons.dark_mode_rounded,
                 key: ValueKey(themeProvider.isDarkMode),
-                color: themeProvider.themeColor,
+                color: themeProvider.primaryColor,
                 size: 20,
               ),
             ),
@@ -73,80 +73,92 @@ class QuickThemeToggle extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
-                childAspectRatio: 3,
-              ),
-              itemCount: themeProvider.availableThemes.length,
-              itemBuilder: (context, index) {
-                final theme = themeProvider.availableThemes[index];
-                final isSelected = themeProvider.currentTheme == theme;
-
-                return GestureDetector(
-                  onTap: () {
-                    themeProvider.setTheme(theme);
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          themeProvider
-                              .getThemePreviewColor(theme)
-                              .withOpacity(0.1),
-                          themeProvider
-                              .getThemePreviewColor(theme)
-                              .withOpacity(0.05),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: isSelected
-                            ? themeProvider.getThemePreviewColor(theme)
-                            : themeProvider
-                                .getThemePreviewColor(theme)
-                                .withOpacity(0.2),
-                        width: isSelected ? 2 : 1,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          themeProvider.getThemeIcon(theme),
-                          color: themeProvider.getThemePreviewColor(theme),
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            themeProvider.getThemeName(theme),
-                            style: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: themeProvider
-                                  .themeData.textTheme.bodyMedium?.color,
-                            ),
-                          ),
-                        ),
-                        if (isSelected)
-                          Icon(
-                            Icons.check_rounded,
-                            color: themeProvider.getThemePreviewColor(theme),
-                            size: 16,
-                          ),
-                      ],
-                    ),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildThemeOption(
+                    context: context,
+                    themeProvider: themeProvider,
+                    theme: AppThemeMode.light,
+                    title: 'Claro',
+                    icon: Icons.light_mode_rounded,
                   ),
-                );
-              },
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildThemeOption(
+                    context: context,
+                    themeProvider: themeProvider,
+                    theme: AppThemeMode.dark,
+                    title: 'Escuro',
+                    icon: Icons.dark_mode_rounded,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThemeOption({
+    required BuildContext context,
+    required ThemeProvider themeProvider,
+    required AppThemeMode theme,
+    required String title,
+    required IconData icon,
+  }) {
+    final isSelected = themeProvider.currentTheme == theme;
+    
+    return GestureDetector(
+      onTap: () {
+        themeProvider.setTheme(theme);
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              themeProvider.primaryColor.withOpacity(0.1),
+              themeProvider.primaryColor.withOpacity(0.05),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected 
+              ? themeProvider.primaryColor
+              : themeProvider.primaryColor.withOpacity(0.2),
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: themeProvider.primaryColor,
+              size: 24,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: GoogleFonts.inter(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: themeProvider.themeData.textTheme.bodyMedium?.color,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            if (isSelected) ...[
+              const SizedBox(height: 4),
+              Icon(
+                Icons.check_rounded,
+                color: themeProvider.primaryColor,
+                size: 16,
+              ),
+            ],
           ],
         ),
       ),
