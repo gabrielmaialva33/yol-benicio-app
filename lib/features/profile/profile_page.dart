@@ -246,20 +246,17 @@ class _ProfilePageState extends State<ProfilePage>
       },
     ];
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Wrap(
+      spacing: 16,
+      runSpacing: 16,
+      alignment: WrapAlignment.center,
       children: actions.map((action) {
-        return Expanded(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4),
-            child: _buildQuickActionCard(
-              icon: action['icon'] as IconData,
-              title: action['title'] as String,
-              color: action['color'] as Color,
-              onTap: action['onTap'] as VoidCallback,
-              themeProvider: themeProvider,
-            ),
-          ),
+        return _buildQuickActionCard(
+          icon: action['icon'] as IconData,
+          title: action['title'] as String,
+          color: action['color'] as Color,
+          onTap: action['onTap'] as VoidCallback,
+          themeProvider: themeProvider,
         );
       }).toList(),
     );
