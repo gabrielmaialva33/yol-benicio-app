@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import '../widgets/dashboard_layout.dart';
 import '../widgets/metric_card.dart';
 
@@ -31,7 +31,6 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             const SizedBox(height: 8),
-
             const Text(
               'Encontre aqui todas as suas pastas',
               style: TextStyle(
@@ -42,7 +41,6 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             const SizedBox(height: 32),
-
             LayoutBuilder(
               builder: (context, constraints) {
                 bool isDesktop = constraints.maxWidth > 900;
@@ -95,7 +93,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         const SizedBox(height: 24),
-
         MetricCard(
           title: 'Prazos de Pastas',
           subtitle: 'Entregues dentro do prazo x Não entregues',
@@ -222,7 +219,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
         const SizedBox(height: 24),
-
         MetricCard(
           title: 'Atividade Pastas',
           subtitle: 'de 20/12/24 à 03/01/25',
@@ -293,7 +289,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
         const SizedBox(height: 24),
-
         Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -343,7 +338,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         const SizedBox(height: 24),
-
         MetricCard(
           title: 'Entradas',
           value: _mockData.totalRevenue,
@@ -351,7 +345,6 @@ class _DashboardPageState extends State<DashboardPage> {
           backgroundColor: Colors.white,
         ),
         const SizedBox(height: 16),
-
         MetricCard(
           title: 'Atrasos',
           value: _mockData.delayedRevenue,

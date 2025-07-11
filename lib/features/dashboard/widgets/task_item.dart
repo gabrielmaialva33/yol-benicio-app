@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/task.dart';
 
 class TaskItem extends StatelessWidget {
@@ -49,7 +50,7 @@ class TaskItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          
+
           // Task content
           Expanded(
             child: Column(
@@ -60,8 +61,11 @@ class TaskItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: task.completed ? const Color(0xFF9CA3AF) : const Color(0xFF111827),
-                    decoration: task.completed ? TextDecoration.lineThrough : null,
+                    color: task.completed
+                        ? const Color(0xFF9CA3AF)
+                        : const Color(0xFF111827),
+                    decoration:
+                        task.completed ? TextDecoration.lineThrough : null,
                   ),
                 ),
                 if (task.category.isNotEmpty) ...[

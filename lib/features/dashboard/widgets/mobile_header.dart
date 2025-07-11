@@ -21,7 +21,8 @@ class MobileHeader extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       image: const DecorationImage(
-                        image: AssetImage('assets/images/yol_logo_circle_orange.png'),
+                        image: AssetImage(
+                            'assets/images/yol_logo_circle_orange.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -38,7 +39,6 @@ class MobileHeader extends StatelessWidget {
                   ),
                 ],
               ),
-
               Row(
                 children: [
                   Container(
@@ -84,7 +84,6 @@ class MobileHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-
                   Container(
                     width: 27.91,
                     height: 18.6,
@@ -97,7 +96,6 @@ class MobileHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-
                   Container(
                     width: 37.05,
                     height: 18.15,
@@ -142,7 +140,6 @@ class MobileHeader extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-
           Row(
             children: [
               Container(
@@ -165,7 +162,6 @@ class MobileHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-
               Container(
                 width: 56,
                 height: 56,
@@ -186,7 +182,6 @@ class MobileHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-
               Container(
                 width: 56,
                 height: 56,

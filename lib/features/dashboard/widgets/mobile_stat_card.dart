@@ -55,7 +55,7 @@ class MobileStatCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          
+
           // Valor principal
           Text(
             value,
@@ -66,7 +66,7 @@ class MobileStatCard extends StatelessWidget {
               color: valueColor ?? const Color(0xFF1E293B),
             ),
           ),
-          
+
           if (subtitle != null) ...[
             const SizedBox(height: 4),
             Text(
@@ -79,7 +79,7 @@ class MobileStatCard extends StatelessWidget {
               ),
             ),
           ],
-          
+
           if (additionalInfo != null && isRevenueCard) ...[
             const Spacer(),
             Container(
@@ -160,7 +160,7 @@ class FolderStatCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          
+
           // Linha com Ativas e Fechadas
           Row(
             children: [
@@ -217,7 +217,7 @@ class FolderStatCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          
+
           // Total
           Text(
             totalValue,
@@ -238,7 +238,7 @@ class FolderStatCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          
+
           // Linha com Entregues e Atrasadas
           Row(
             children: [

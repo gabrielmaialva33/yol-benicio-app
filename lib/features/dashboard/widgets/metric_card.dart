@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MetricCard extends StatelessWidget {
   final String title;
@@ -83,7 +82,7 @@ class MetricCard extends StatelessWidget {
                 ),
             ],
           ),
-          
+
           if (customContent != null) ...[
             customContent!,
           ] else ...[
@@ -100,7 +99,7 @@ class MetricCard extends StatelessWidget {
               ),
             ],
           ],
-          
+
           if (subtitle != null) ...[
             const SizedBox(height: 8),
             Text(
@@ -113,7 +112,7 @@ class MetricCard extends StatelessWidget {
               ),
             ),
           ],
-          
+
           if (linkText != null) ...[
             const SizedBox(height: 12),
             GestureDetector(

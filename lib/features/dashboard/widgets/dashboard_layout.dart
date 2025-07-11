@@ -148,7 +148,8 @@ class DashboardLayout extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     border: Border(
@@ -170,7 +171,10 @@ class DashboardLayout extends StatelessWidget {
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 gradient: LinearGradient(
-                                  colors: [Color(0xFFFF6B35), Color(0xFFFF8A65)],
+                                  colors: [
+                                    Color(0xFFFF6B35),
+                                    Color(0xFFFF8A65)
+                                  ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),

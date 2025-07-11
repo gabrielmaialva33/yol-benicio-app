@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+
 import '../dashboard/pages/dashboard_page.dart';
-import '../navigation/bottom_navigation.dart';
-import '../search/search_page.dart';
-import '../reports/reports_page.dart';
 import '../history/history_page.dart';
+import '../navigation/bottom_navigation.dart';
 import '../profile/profile_page.dart';
+import '../reports/reports_page.dart';
+import '../search/search_page.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({Key? key}) : super(key: key);
@@ -55,7 +56,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isDesktop = constraints.maxWidth > 900;
-        
+
         if (isDesktop) {
           // Layout desktop sem bottom navigation
           return Scaffold(
@@ -95,7 +96,10 @@ class _MainNavigatorState extends State<MainNavigator> {
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 gradient: LinearGradient(
-                                  colors: [Color(0xFFFF6B35), Color(0xFFFF8A65)],
+                                  colors: [
+                                    Color(0xFFFF6B35),
+                                    Color(0xFFFF8A65)
+                                  ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
                                 ),
@@ -150,9 +154,12 @@ class _MainNavigatorState extends State<MainNavigator> {
                           itemBuilder: (context, index) {
                             bool isActive = _currentIndex == index;
                             return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 2),
                               decoration: BoxDecoration(
-                                color: isActive ? const Color(0xFF582FFF).withOpacity(0.1) : null,
+                                color: isActive
+                                    ? const Color(0xFF582FFF).withOpacity(0.1)
+                                    : null,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: ListTile(
@@ -161,8 +168,12 @@ class _MainNavigatorState extends State<MainNavigator> {
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: 14,
-                                    fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
-                                    color: isActive ? const Color(0xFF582FFF) : const Color(0xFF64748B),
+                                    fontWeight: isActive
+                                        ? FontWeight.w600
+                                        : FontWeight.w500,
+                                    color: isActive
+                                        ? const Color(0xFF582FFF)
+                                        : const Color(0xFF64748B),
                                   ),
                                 ),
                                 onTap: () => _onNavigationTap(index),
