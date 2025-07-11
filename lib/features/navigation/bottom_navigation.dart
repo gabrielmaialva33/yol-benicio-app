@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class YolBottomNavigation extends StatelessWidget {
@@ -14,6 +15,7 @@ class YolBottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 80,
       decoration: BoxDecoration(
         color: const Color(0xFFF5F6F7),
         borderRadius: const BorderRadius.only(
@@ -29,58 +31,40 @@ class YolBottomNavigation extends StatelessWidget {
         ],
       ),
       child: SafeArea(
-        child: Container(
-          height: 83,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _buildNavItem(
-                    index: 0,
-                    icon: FontAwesomeIcons.house,
-                    label: 'Home',
-                    isActive: currentIndex == 0,
-                  ),
-                  _buildNavItem(
-                    index: 1,
-                    icon: FontAwesomeIcons.magnifyingGlass,
-                    label: 'Buscar',
-                    isActive: currentIndex == 1,
-                  ),
-                  _buildNavItem(
-                    index: 2,
-                    icon: FontAwesomeIcons.chartPie,
-                    label: 'Relatórios',
-                    isActive: currentIndex == 2,
-                  ),
-                  _buildNavItem(
-                    index: 3,
-                    icon: FontAwesomeIcons.clockRotateLeft,
-                    label: 'Histórico',
-                    isActive: currentIndex == 3,
-                  ),
-                  _buildNavItem(
-                    index: 4,
-                    icon: FontAwesomeIcons.user,
-                    label: 'Perfil',
-                    isActive: currentIndex == 4,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              // Linha indicadora inferior
-              Container(
-                width: 135,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFB9C0C9),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(
+              index: 0,
+              icon: FontAwesomeIcons.house,
+              label: 'Home',
+              isActive: currentIndex == 0,
+            ),
+            _buildNavItem(
+              index: 1,
+              icon: FontAwesomeIcons.magnifyingGlass,
+              label: 'Buscar',
+              isActive: currentIndex == 1,
+            ),
+            _buildNavItem(
+              index: 2,
+              icon: FontAwesomeIcons.chartPie,
+              label: 'Relatórios',
+              isActive: currentIndex == 2,
+            ),
+            _buildNavItem(
+              index: 3,
+              icon: FontAwesomeIcons.clockRotateLeft,
+              label: 'Histórico',
+              isActive: currentIndex == 3,
+            ),
+            _buildNavItem(
+              index: 4,
+              icon: FontAwesomeIcons.user,
+              label: 'Perfil',
+              isActive: currentIndex == 4,
+            ),
+          ],
         ),
       ),
     );
@@ -93,57 +77,52 @@ class YolBottomNavigation extends StatelessWidget {
     required bool isActive,
   }) {
     return GestureDetector(
-      onTap: () => onTap(index),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: isActive
-                  ? const Color(0xFF582FFF).withOpacity(0.12)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(100),
+      onTap: () {
+        onTap(index);
+        HapticFeedback.lightImpact();
+      },
+      behavior: HitTestBehavior.translucent,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isActive
+              ? const Color(0xFF582FFF).withOpacity(0.12)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FaIcon(
+              icon,
+              size: 20,
+              color:
+                  isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FaIcon(
-                  icon,
-                  size: 20,
-                  color: isActive
-                      ? const Color(0xFF582FFF)
-                      : const Color(0xFF484C52),
-                ),
-                if (isActive) ...[
-                  const SizedBox(width: 6),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF582FFF),
+            AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: Row(
+                children: [
+                  if (isActive) ...[
+                    const SizedBox(width: 8),
+                    Text(
+                      label,
+                      style: const TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF582FFF),
+                      ),
                     ),
-                  ),
+                  ],
                 ],
-              ],
-            ),
-          ),
-          if (!isActive) ...[
-            const SizedBox(height: 2),
-            Text(
-              label,
-              style: const TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF484C52),
               ),
             ),
           ],
-        ],
+        ),
       ),
     );
   }
