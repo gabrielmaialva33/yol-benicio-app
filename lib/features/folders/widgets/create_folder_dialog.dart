@@ -18,14 +18,14 @@ class CreateFolderDialog extends StatefulWidget {
 class _CreateFolderDialogState extends State<CreateFolderDialog> {
   final _formKey = GlobalKey<FormState>();
   final _mockService = MockDataService();
-  
+
   // Controllers
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _contractValueController = TextEditingController();
   final _processNumberController = TextEditingController();
   final _courtNumberController = TextEditingController();
-  
+
   // Form data
   Client? _selectedClient;
   User? _selectedLawyer;
@@ -33,22 +33,24 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
   FolderArea _selectedArea = FolderArea.civilLitigation;
   FolderPriority _selectedPriority = FolderPriority.medium;
   DateTime? _dueDate;
-  
+  List<String> _tags = [];
+  String _currentTag = '';
+
   // Lists
   late List<Client> _clients;
   late List<User> _lawyers;
-  
+
   @override
   void initState() {
     super.initState();
     _loadData();
   }
-  
+
   void _loadData() {
     _clients = _mockService.getClients();
     _lawyers = _mockService.getUsers();
   }
-  
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -58,7 +60,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
     _courtNumberController.dispose();
     super.dispose();
   }
-  
+
   void _createFolder() {
     if (_formKey.currentState!.validate() && _selectedClient != null && _selectedLawyer != null) {
       final newFolder = _mockService.createFolder({
@@ -76,9 +78,9 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
         'processNumber': _processNumberController.text.isNotEmpty ? _processNumberController.text : null,
         'courtNumber': _courtNumberController.text.isNotEmpty ? _courtNumberController.text : null,
       });
-      
+
       Navigator.pop(context, newFolder);
-      
+
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -88,11 +90,11 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
       );
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
@@ -135,7 +137,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                 ],
               ),
               const SizedBox(height: 24),
-              
+
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -279,7 +281,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      
+
                       // Title field
                       TextFormField(
                         controller: _titleController,
@@ -296,7 +298,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Area and Priority
                       Row(
                         children: [
@@ -349,7 +351,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Responsible lawyer
                       DropdownButtonFormField<User>(
                         value: _selectedLawyer,
@@ -403,7 +405,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Assistant lawyers (multi-select)
                       Container(
                         padding: const EdgeInsets.all(12),
@@ -447,19 +449,20 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Description
                       TextFormField(
                         controller: _descriptionController,
                         decoration: const InputDecoration(
-                          labelText: 'Descrição (opcional)',
-                          hintText: 'Adicione detalhes sobre o processo...',
+                          labelText: 'Descrição do Processo',
+                          hintText: 'Detalhes sobre o processo, objetivo, contexto...',
                           prefixIcon: Icon(Icons.description_outlined),
+                          helperText: 'Esta descrição ajudará a identificar rapidamente o processo',
                         ),
                         maxLines: 3,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Process and Court numbers
                       Row(
                         children: [
@@ -487,7 +490,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Contract value and Due date
                       Row(
                         children: [
@@ -539,13 +542,116 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 24),
+
+                      // Tags section
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.grey.withOpacity(0.2)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.label_outline, size: 20),
+                                const SizedBox(width: 8),
+                                const Text(
+                                  'Tags (palavras-chave)',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'Adicione tags para facilitar a busca e organização',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF6B7280),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextField(
+                                    decoration: const InputDecoration(
+                                      hintText: 'Digite uma tag e pressione Enter',
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                    ),
+                                    onChanged: (value) => _currentTag = value,
+                                    onSubmitted: (value) {
+                                      if (value.isNotEmpty && !_tags.contains(value)) {
+                                        setState(() {
+                                          _tags.add(value);
+                                          _currentTag = '';
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                IconButton(
+                                  onPressed: () {
+                                    if (_currentTag.isNotEmpty && !_tags.contains(_currentTag)) {
+                                      setState(() {
+                                        _tags.add(_currentTag);
+                                        _currentTag = '';
+                                      });
+                                    }
+                                  },
+                                  icon: const Icon(Icons.add_circle),
+                                  color: themeProvider.primaryColor,
+                                ),
+                              ],
+                            ),
+                            if (_tags.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: _tags.map((tag) {
+                                  return Chip(
+                                    label: Text(tag),
+                                    onDeleted: () {
+                                      setState(() {
+                                        _tags.remove(tag);
+                                      });
+                                    },
+                                    deleteIconColor: Colors.red,
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Notes section
+                      TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: 'Observações Internas',
+                          hintText: 'Notas importantes sobre o processo...',
+                          prefixIcon: Icon(Icons.note_add_outlined),
+                          alignLabelWithHint: true,
+                        ),
+                        maxLines: 3,
+                      ),
                     ],
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 24),
-              
+
               // Action buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -557,8 +663,11 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                   const SizedBox(width: 16),
                   ElevatedButton.icon(
                     onPressed: _createFolder,
-                    icon: const Icon(Icons.add),
-                    label: const Text('Criar Pasta'),
+                    icon: const Icon(Icons.create_new_folder),
+                    label: const Text('Criar Processo'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    ),
                   ),
                 ],
               ),
@@ -568,7 +677,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
       ),
     );
   }
-  
+
   Color _getPriorityColor(FolderPriority priority) {
     switch (priority) {
       case FolderPriority.low:
@@ -581,7 +690,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
         return Colors.red;
     }
   }
-  
+
   String _getPriorityLabel(FolderPriority priority) {
     switch (priority) {
       case FolderPriority.low:

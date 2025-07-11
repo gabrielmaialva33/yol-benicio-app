@@ -59,13 +59,15 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
         preferredContact: _preferredContact,
       );
       
-      // In a real app, this would save to the backend
-      Navigator.pop(context, newClient);
+      // Save to mock service
+      final savedClient = _mockService.createClient(newClient);
+      
+      Navigator.pop(context, savedClient);
       
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Cliente "${newClient.name}" criado com sucesso!'),
+          content: Text('Cliente "${savedClient.name}" criado com sucesso!'),
           backgroundColor: Colors.green,
         ),
       );

@@ -437,6 +437,12 @@ class MockDataService {
     _folderHistory.remove(id);
     _updateDashboardMetrics();
   }
+  
+  Client createClient(Client newClient) {
+    _initializeData();
+    _clients.add(newClient);
+    return newClient;
+  }
 
   Task createTask(Map<String, dynamic> data) {
     _initializeData();

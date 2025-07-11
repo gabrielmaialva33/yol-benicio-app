@@ -38,11 +38,13 @@ class MockService {
   Folder updateFolder(int id, Map<String, dynamic> updates) => _dataService.updateFolder(id, updates);
 
   void deleteFolder(int id) => _dataService.deleteFolder(id);
-
+  
+  Client createClient(Client client) => _dataService.createClient(client);
+  
   Task createTask(Map<String, dynamic> data) => _dataService.createTask(data);
-
+  
   void updateTask(int id, Map<String, dynamic> updates) => _dataService.updateTask(id, updates);
-
+  
   // Search
   List<dynamic> search(String query) => _dataService.search(query);
 
