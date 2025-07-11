@@ -41,7 +41,7 @@ class _FolderConsultationPageState extends State<FolderConsultationPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HistoryPage(),
+                  builder: (context) => HistoryPage(folder: folder),
                 ),
               );
             },

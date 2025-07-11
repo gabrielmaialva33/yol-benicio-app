@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../core/theme/theme_provider.dart';
 import '../shared/widgets/quick_theme_toggle.dart';
 import '../dashboard/pages/dashboard_page.dart';
-import '../history/history_page.dart';
 import '../navigation/bottom_navigation.dart';
 import '../profile/profile_page.dart';
 import '../reports/reports_page.dart';
@@ -28,7 +27,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     const FolderConsultationPage(),
     const SearchPage(),
     const ReportsPage(),
-    const HistoryPage(),
     const ProfilePage(),
   ];
 
@@ -37,7 +35,6 @@ class _MainNavigatorState extends State<MainNavigator> {
     'Pastas',
     'Buscar',
     'Relatórios',
-    'Histórico',
     'Perfil',
   ];
 
@@ -73,19 +70,19 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout desktop sem bottom navigation
               return Scaffold(
                 backgroundColor:
-                themeProvider.themeData.scaffoldBackgroundColor,
+                    themeProvider.themeData.scaffoldBackgroundColor,
                 appBar: AppBar(
                   backgroundColor:
-                  themeProvider.themeData.appBarTheme.backgroundColor,
+                      themeProvider.themeData.appBarTheme.backgroundColor,
                   foregroundColor:
-                  themeProvider.themeData.appBarTheme.foregroundColor,
+                      themeProvider.themeData.appBarTheme.foregroundColor,
                   elevation: 0,
                   title: Text(
                     _pageTitles[_currentIndex],
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color:
-                      themeProvider.themeData.textTheme.titleLarge?.color,
+                          themeProvider.themeData.textTheme.titleLarge?.color,
                     ),
                   ),
                   actions: [
@@ -117,7 +114,7 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout mobile com bottom navigation
               return Scaffold(
                 backgroundColor:
-                themeProvider.themeData.scaffoldBackgroundColor,
+                    themeProvider.themeData.scaffoldBackgroundColor,
                 body: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {
