@@ -16,4 +16,22 @@ class Task {
     required this.color,
     required this.dueDate,
   });
+
+  Task copyWith({
+    String? id,
+    String? title,
+    String? category,
+    bool? completed,
+    Color? color,
+    DateTime? dueDate,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      category: category ?? this.category,
+      completed: completed ?? this.completed,
+      color: color ?? this.color,
+      dueDate: dueDate ?? this.dueDate,
+    );
+  }
 }

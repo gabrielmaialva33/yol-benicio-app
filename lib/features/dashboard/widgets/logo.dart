@@ -8,44 +8,31 @@ class Logo extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.orange, width: 2),
-          ),
-          child: Center(
-            child: Container(
-              width: 32,
-              height: 32,
+        // Logo YOL
+        Image.asset(
+          'assets/images/logo-yol.svg',
+          width: 193,
+          height: 42,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              width: 193,
+              height: 42,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.orange, width: 1.5),
+                borderRadius: BorderRadius.circular(5),
+                color: const Color(0xFF1F2A37),
               ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'BENÍCIO',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.2,
-                fontSize: 16,
+              child: const Center(
+                child: Text(
+                  'YOL',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
               ),
-            ),
-            Text(
-              'AD V O G A D O S',
-              style: TextStyle(
-                letterSpacing: 1.1,
-                fontSize: 8,
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ],
     );
