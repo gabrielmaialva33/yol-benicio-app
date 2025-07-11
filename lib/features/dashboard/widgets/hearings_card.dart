@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import '../../shared/services/mock_data_service.dart';
 import '../models/hearing.dart';
 
@@ -89,37 +89,39 @@ class _HearingsCardState extends State<HearingsCard> {
             ],
           ),
           const SizedBox(height: 20),
-          
-          // Statistics
-          Row(
-            children: [
-              Expanded(
-                child: _buildStatCard(
-                  'Hoje',
-                  _hearingStats['today'].toString(),
-                  const Color(0xFF3B82F6),
-                  Icons.today,
+
+          // Statistics - Using IntrinsicHeight to ensure proper layout
+          IntrinsicHeight(
+            child: Row(
+              children: [
+                Expanded(
+                  child: _buildStatCard(
+                    'Hoje',
+                    _hearingStats['today'].toString(),
+                    const Color(0xFF3B82F6),
+                    Icons.today,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildStatCard(
-                  'Esta Semana',
-                  _hearingStats['thisWeek'].toString(),
-                  const Color(0xFFF59E0B),
-                  Icons.date_range,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildStatCard(
+                    'Esta Semana',
+                    _hearingStats['thisWeek'].toString(),
+                    const Color(0xFFF59E0B),
+                    Icons.date_range,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildStatCard(
-                  'Taxa Conclusão',
-                  '${_hearingStats['completionRate'].toStringAsFixed(0)}%',
-                  const Color(0xFF10B981),
-                  Icons.check_circle_outline,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildStatCard(
+                    'Taxa Conclusão',
+                    '${_hearingStats['completionRate'].toStringAsFixed(0)}%',
+                    const Color(0xFF10B981),
+                    Icons.check_circle_outline,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           
           const SizedBox(height: 24),
@@ -268,7 +270,7 @@ class _HearingsCardState extends State<HearingsCard> {
                       color: const Color(0xFF6B7280),
                     ),
                     const SizedBox(width: 4),
-                    Expanded(
+                    Flexible(
                       child: Text(
                         hearing.location,
                         style: const TextStyle(

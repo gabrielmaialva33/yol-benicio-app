@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../shared/services/mock_data_service.dart';
-import '../widgets/dashboard_layout.dart';
-import '../widgets/metric_card.dart';
-import 'package:fl_chart/fl_chart.dart';
 
-import '../models/billing_data.dart';
-import '../widgets/tasks_card.dart';
-import '../widgets/hearings_card.dart';
-import '../widgets/billing_card.dart';
 import '../../folders/widgets/create_folder_dialog.dart';
+import '../../shared/services/mock_data_service.dart';
 import '../../shared/widgets/create_client_dialog.dart';
+import '../models/billing_data.dart';
+import '../widgets/billing_card.dart';
+import '../widgets/dashboard_layout.dart';
+import '../widgets/hearings_card.dart';
+import '../widgets/metric_card.dart';
+import '../widgets/tasks_card.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -48,13 +47,18 @@ class _DashboardPageState extends State<DashboardPage> {
               children: [
                 _buildHeader(isDesktop, isTablet),
                 SizedBox(height: isDesktop ? 32 : 24),
-                if (isDesktop)
-                  _buildDesktopLayout()
-                else
-                  if (isTablet)
-                    _buildTabletLayout()
-                  else
-                    _buildMobileLayout(),
+                // Wrap content in a flexible container to prevent overflow
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (isDesktop) {
+                      return _buildDesktopLayout();
+                    } else if (isTablet) {
+                      return _buildTabletLayout();
+                    } else {
+                      return _buildMobileLayout();
+                    }
+                  },
+                ),
               ],
             ),
           );

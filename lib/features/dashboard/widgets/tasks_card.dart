@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import '../../shared/services/mock_data_service.dart';
 import '../models/task.dart';
 import 'task_item.dart';
@@ -80,7 +80,9 @@ class _TasksCardState extends State<TasksCard> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Row(
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
                       children: [
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -97,7 +99,6 @@ class _TasksCardState extends State<TasksCard> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 8),
                         if (_taskStats['overdue']! > 0)
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
