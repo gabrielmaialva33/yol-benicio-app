@@ -64,12 +64,6 @@ class BenicioBottomNavigation extends StatelessWidget {
               label: 'Perfil',
               isActive: currentIndex == 4,
             ),
-            _buildNavItem(
-              index: 5,
-              icon: FontAwesomeIcons.signOutAlt,
-              label: 'Sair',
-              isActive: currentIndex == 5,
-            ),
           ],
         ),
       ),

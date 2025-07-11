@@ -58,17 +58,23 @@ class MetricCard extends StatelessWidget {
             // Header com título e ícone de visualização
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: titleColor ?? const Color(0xFF1E293B),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: titleColor ?? const Color(0xFF1E293B),
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                if (hasViewIcon)
+                if (hasViewIcon) ...[
+                  const SizedBox(width: 8),
                   Container(
                     width: 32,
                     height: 32,
@@ -82,6 +88,7 @@ class MetricCard extends StatelessWidget {
                       color: Color(0xFF64748B),
                     ),
                   ),
+                ],
               ],
             ),
 

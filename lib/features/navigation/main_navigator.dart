@@ -10,6 +10,7 @@ import '../search/search_page.dart';
 import '../folders/pages/folder_consultation_page.dart';
 import '../history/pages/general_history_page.dart';
 import 'widgets/desktop_sidebar.dart';
+import '../auth/services/auth_service.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({Key? key}) : super(key: key);
@@ -53,6 +54,33 @@ class _MainNavigatorState extends State<MainNavigator> {
         curve: Curves.easeInOut,
       );
     }
+  }
+
+  void _handleLogout() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirmar Logout'),
+        content: const Text('Tem certeza que deseja sair da sua conta?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              final authService = context.read<AuthService>();
+              await authService.logout();
+              if (mounted) {
+                Navigator.pushReplacementNamed(context, '/login');
+              }
+            },
+            child: const Text('Sair', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -217,7 +245,34 @@ class _MainNavigatorState extends State<MainNavigator> {
                           const SizedBox(width: 8),
                         ],
                       )
-                    : null,
+                    : AppBar(
+                        backgroundColor:
+                            themeProvider.themeData.appBarTheme.backgroundColor,
+                        foregroundColor:
+                            themeProvider.themeData.appBarTheme.foregroundColor,
+                        elevation: 0,
+                        title: Text(
+                          _pageTitles[_currentIndex],
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: themeProvider
+                                .themeData.textTheme.titleLarge?.color,
+                          ),
+                        ),
+                        actions: [
+                          if (_currentIndex == 4) // Profile page
+                            IconButton(
+                              icon: const Icon(Icons.logout),
+                              onPressed: _handleLogout,
+                            ),
+                          IconButton(
+                            icon: const Icon(Icons.notifications_outlined),
+                            onPressed: () {},
+                          ),
+                          const QuickThemeToggle(),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
                 body: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {
