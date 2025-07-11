@@ -25,8 +25,8 @@ class YolBottomNavigation extends StatelessWidget {
       ),
       child: SafeArea(
         child: Container(
-          height: 70,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

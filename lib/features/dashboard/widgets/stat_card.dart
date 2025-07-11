@@ -58,7 +58,7 @@ class StatCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            
+
             // Valor principal
             Text(
               value,
@@ -70,7 +70,7 @@ class StatCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            
+
             // Subtítulo
             Text(
               subtitle,
@@ -80,12 +80,13 @@ class StatCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Link
             GestureDetector(
-              onTap: onTap ?? () {
-                print('StatCard for "$title" tapped.');
-              },
+              onTap: onTap ??
+                  () {
+                    print('StatCard for "$title" tapped.');
+                  },
               child: Text(
                 linkText,
                 style: const TextStyle(

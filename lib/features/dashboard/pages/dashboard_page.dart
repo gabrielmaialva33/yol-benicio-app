@@ -5,7 +5,7 @@ import '../widgets/dashboard_layout.dart';
 import '../widgets/stat_card.dart';
 import '../widgets/metric_card.dart';
 import '../widgets/task_item.dart';
-import '../../common/widgets/yol_logo.dart';
+import '../../shared/widgets/yol_logo.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -93,7 +93,7 @@ class _DashboardPageState extends State<DashboardPage> {
               LayoutBuilder(
                 builder: (context, constraints) {
                   final isWide = constraints.maxWidth > 1024;
-                  
+
                   if (isWide) {
                     return Column(
                       children: [
@@ -104,7 +104,8 @@ class _DashboardPageState extends State<DashboardPage> {
                               child: StatCard(
                                 title: 'Pastas ativas',
                                 value: _folderStats.active.toString(),
-                                subtitle: '${_folderStats.newThisMonth} novos neste mês',
+                                subtitle:
+                                    '${_folderStats.newThisMonth} novos neste mês',
                                 linkText: 'Visualizar pastas',
                               ),
                             ),
@@ -129,7 +130,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ],
                         ),
                         const SizedBox(height: 24),
-                        
+
                         // Segunda linha - 2 cards grandes
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +171,8 @@ class _DashboardPageState extends State<DashboardPage> {
                         StatCard(
                           title: 'Pastas ativas',
                           value: _folderStats.active.toString(),
-                          subtitle: '${_folderStats.newThisMonth} novos neste mês',
+                          subtitle:
+                              '${_folderStats.newThisMonth} novos neste mês',
                           linkText: 'Visualizar pastas',
                         ),
                         const SizedBox(height: 16),
@@ -181,7 +183,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           linkText: 'Ver clientes',
                         ),
                         const SizedBox(height: 24),
-                        
+
                         // Card de tarefas
                         _buildTasksCard(),
                       ],
@@ -226,7 +228,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF3F4F6),
                   borderRadius: BorderRadius.circular(20),

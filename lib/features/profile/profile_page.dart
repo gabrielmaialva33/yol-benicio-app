@@ -76,7 +76,8 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFF2FAC68).withOpacity(0.12),
                       borderRadius: BorderRadius.circular(20),
@@ -144,7 +145,8 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileOption(String title, IconData icon, VoidCallback onTap, {bool isDestructive = false}) {
+  Widget _buildProfileOption(String title, IconData icon, VoidCallback onTap,
+      {bool isDestructive = false}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(

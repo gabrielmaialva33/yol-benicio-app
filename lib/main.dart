@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Yol App',
             theme: ThemeData(
-              primaryColor: const Color(0xFF1F2A37),
+              primaryColor: const Color(0xFF582FFF),
               colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color(0xFF1F2A37),
+                seedColor: const Color(0xFF582FFF),
                 brightness: Brightness.light,
               ),
               brightness: Brightness.light,
               textTheme: GoogleFonts.interTextTheme(textTheme),
-              scaffoldBackgroundColor: const Color(0xFFF1F1F2),
+              scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
                 foregroundColor: Color(0xFF1F2A37),
@@ -37,9 +37,14 @@ class MyApp extends StatelessWidget {
               ),
               elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF1F2A37),
+                  backgroundColor: const Color(0xFF582FFF),
                   foregroundColor: Colors.white,
                   elevation: 0,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
             ),

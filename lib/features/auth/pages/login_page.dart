@@ -44,10 +44,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F1F2),
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(24.0),
           child: Container(
             constraints: const BoxConstraints(maxWidth: 400),
             decoration: BoxDecoration(
@@ -129,13 +129,15 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(color: Color(0xFF1F2A37), width: 2),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF1F2A37), width: 2),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(color: Colors.red),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 16),
                       filled: true,
                       fillColor: Colors.white,
                     ),
@@ -149,7 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                       if (value == null || value.isEmpty) {
                         return 'E-mail é obrigatório';
                       }
-                      if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value)) {
+                      if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
+                          .hasMatch(value)) {
                         return 'E-mail inválido';
                       }
                       return null;
@@ -177,13 +180,15 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: const BorderSide(color: Color(0xFF1F2A37), width: 2),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF1F2A37), width: 2),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: const BorderSide(color: Colors.red),
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 16),
                       filled: true,
                       fillColor: Colors.white,
                     ),
@@ -256,7 +261,8 @@ class _LoginPageState extends State<LoginPage> {
                               height: 20,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(Colors.white),
                               ),
                             )
                           : const Text(
