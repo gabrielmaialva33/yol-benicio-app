@@ -29,7 +29,7 @@ class MobileHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   const Text(
-                    'YOL',
+                    'BENICIO',
                     style: TextStyle(
                       fontFamily: 'Roboto Mono',
                       fontSize: 24,
