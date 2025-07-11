@@ -43,63 +43,65 @@ class QuickThemeToggle extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: themeProvider.themeData.cardColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
+      builder: (context) =>
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: themeProvider.themeData.cardColor,
+              borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20)),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Escolha um tema',
-              style: AppTextStyles.body1(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: themeProvider.themeData.textTheme.titleLarge?.color,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: _buildThemeOption(
-                    context: context,
-                    themeProvider: themeProvider,
-                    theme: AppThemeMode.light,
-                    title: 'Claro',
-                    icon: Icons.light_mode_rounded,
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: _buildThemeOption(
-                    context: context,
-                    themeProvider: themeProvider,
-                    theme: AppThemeMode.dark,
-                    title: 'Escuro',
-                    icon: Icons.dark_mode_rounded,
+                const SizedBox(height: 20),
+                Text(
+                  'Escolha um tema',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: themeProvider.themeData.textTheme.titleLarge?.color,
                   ),
                 ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildThemeOption(
+                        context: context,
+                        themeProvider: themeProvider,
+                        theme: AppThemeMode.light,
+                        title: 'Claro',
+                        icon: Icons.light_mode_rounded,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildThemeOption(
+                        context: context,
+                        themeProvider: themeProvider,
+                        theme: AppThemeMode.dark,
+                        title: 'Escuro',
+                        icon: Icons.dark_mode_rounded,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
               ],
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
@@ -111,7 +113,7 @@ class QuickThemeToggle extends StatelessWidget {
     required IconData icon,
   }) {
     final isSelected = themeProvider.currentTheme == theme;
-    
+
     return GestureDetector(
       onTap: () {
         themeProvider.setTheme(theme);
@@ -128,9 +130,9 @@ class QuickThemeToggle extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected 
-              ? themeProvider.primaryColor
-              : themeProvider.primaryColor.withOpacity(0.2),
+            color: isSelected
+                ? themeProvider.primaryColor
+                : themeProvider.primaryColor.withOpacity(0.2),
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -144,7 +146,7 @@ class QuickThemeToggle extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               title,
-              style: AppTextStyles.body1(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.themeData.textTheme.bodyMedium?.color,

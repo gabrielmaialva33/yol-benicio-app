@@ -73,19 +73,19 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout desktop sem bottom navigation
               return Scaffold(
                 backgroundColor:
-                    themeProvider.themeData.scaffoldBackgroundColor,
+                themeProvider.themeData.scaffoldBackgroundColor,
                 appBar: AppBar(
                   backgroundColor:
-                      themeProvider.themeData.appBarTheme.backgroundColor,
+                  themeProvider.themeData.appBarTheme.backgroundColor,
                   foregroundColor:
-                      themeProvider.themeData.appBarTheme.foregroundColor,
+                  themeProvider.themeData.appBarTheme.foregroundColor,
                   elevation: 0,
                   title: Text(
                     _pageTitles[_currentIndex],
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color:
-                          themeProvider.themeData.textTheme.titleLarge?.color,
+                      themeProvider.themeData.textTheme.titleLarge?.color,
                     ),
                   ),
                   actions: [
@@ -117,7 +117,7 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout mobile com bottom navigation
               return Scaffold(
                 backgroundColor:
-                    themeProvider.themeData.scaffoldBackgroundColor,
+                themeProvider.themeData.scaffoldBackgroundColor,
                 body: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {

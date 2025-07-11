@@ -13,7 +13,7 @@ class HistoryPage extends StatelessWidget {
         elevation: 0,
         title: Text(
           'Histórico',
-          style: AppTextStyles.body1(
+          style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF1E293B),
@@ -28,7 +28,7 @@ class HistoryPage extends StatelessWidget {
           children: [
             Text(
               'Atividades Recentes',
-              style: AppTextStyles.body1(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: const Color(0xFF161C24),
@@ -142,7 +142,7 @@ class HistoryPage extends StatelessWidget {
             children: [
               Text(
                 time,
-                style: AppTextStyles.body1(
+                style: TextStyle(
                   fontSize: 12,
                   color: const Color(0xFFA1A5B7),
                 ),

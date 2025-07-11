@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage>
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         final theme = themeProvider.themeData;
-        
+
         return Scaffold(
           backgroundColor: theme.scaffoldBackgroundColor,
           body: FadeTransition(
@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage>
         titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
         title: Text(
           'Perfil',
-          style: AppTextStyles.headline2(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
         background: Container(
           decoration: BoxDecoration(
@@ -122,9 +122,9 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         IconButton(
           icon: Icon(
-            themeProvider.isDarkMode 
-              ? Icons.light_mode_outlined 
-              : Icons.dark_mode_outlined,
+            themeProvider.isDarkMode
+                ? Icons.light_mode_outlined
+                : Icons.dark_mode_outlined,
             color: Colors.white,
           ),
           onPressed: () => themeProvider.toggleTheme(),
@@ -142,9 +142,9 @@ class _ProfilePageState extends State<ProfilePage>
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: themeProvider.isDarkMode 
-              ? Colors.black.withOpacity(0.3)
-              : Colors.black.withOpacity(0.1),
+            color: themeProvider.isDarkMode
+                ? Colors.black.withOpacity(0.3)
+                : Colors.black.withOpacity(0.1),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -177,25 +177,21 @@ class _ProfilePageState extends State<ProfilePage>
           const SizedBox(height: 20),
           Text(
             'Dr. João Silva',
-            style: AppTextStyles.body1(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+            style: TextStyle(
               color: themeProvider.themeData.textTheme.titleLarge?.color,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'Advogado Sênior • OAB/SP 123.456',
-            style: AppTextStyles.body1(
-              fontSize: 16,
+            style: TextStyle(
               color: themeProvider.themeData.textTheme.bodyMedium?.color,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             'joao.silva@yol.com.br',
-            style: AppTextStyles.body1(
-              fontSize: 14,
+            style: TextStyle(
               color: themeProvider.themeData.textTheme.bodySmall?.color,
             ),
           ),
@@ -211,7 +207,7 @@ class _ProfilePageState extends State<ProfilePage>
             ),
             child: Text(
               '🏆 Membro Premium',
-              style: AppTextStyles.body1(
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.successColor,
@@ -290,9 +286,9 @@ class _ProfilePageState extends State<ProfilePage>
           ),
           boxShadow: [
             BoxShadow(
-              color: themeProvider.isDarkMode 
-                ? Colors.black.withOpacity(0.2)
-                : Colors.black.withOpacity(0.05),
+              color: themeProvider.isDarkMode
+                  ? Colors.black.withOpacity(0.2)
+                  : Colors.black.withOpacity(0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -315,7 +311,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(height: 8),
             Text(
               title,
-              style: AppTextStyles.body1(
+              style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.themeData.textTheme.bodyMedium?.color,
@@ -375,14 +371,15 @@ class _ProfilePageState extends State<ProfilePage>
           padding: const EdgeInsets.only(left: 4, bottom: 16),
           child: Text(
             'Configurações',
-            style: AppTextStyles.body1(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: themeProvider.themeData.textTheme.titleMedium?.color,
             ),
           ),
         ),
-        ...menuItems.map((item) => _buildMenuItem(
+        ...menuItems.map((item) =>
+            _buildMenuItem(
               icon: item['icon'] as IconData,
               title: item['title'] as String,
               subtitle: item['subtitle'] as String,
@@ -408,15 +405,15 @@ class _ProfilePageState extends State<ProfilePage>
         color: themeProvider.themeData.cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: themeProvider.isDarkMode 
-            ? Colors.white.withOpacity(0.1)
-            : Colors.black.withOpacity(0.05),
+          color: themeProvider.isDarkMode
+              ? Colors.white.withOpacity(0.1)
+              : Colors.black.withOpacity(0.05),
         ),
         boxShadow: [
           BoxShadow(
-            color: themeProvider.isDarkMode 
-              ? Colors.black.withOpacity(0.2)
-              : Colors.black.withOpacity(0.03),
+            color: themeProvider.isDarkMode
+                ? Colors.black.withOpacity(0.2)
+                : Colors.black.withOpacity(0.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -438,7 +435,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         title: Text(
           title,
-          style: AppTextStyles.body1(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: themeProvider.themeData.textTheme.titleMedium?.color,
@@ -446,7 +443,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         subtitle: Text(
           subtitle,
-          style: AppTextStyles.body1(
+          style: TextStyle(
             fontSize: 14,
             color: themeProvider.themeData.textTheme.bodySmall?.color,
           ),
@@ -486,7 +483,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         title: Text(
           'Sair da Conta',
-          style: AppTextStyles.body1(
+          style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: themeProvider.errorColor,
@@ -494,7 +491,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         subtitle: Text(
           'Fazer logout do aplicativo',
-          style: AppTextStyles.body1(
+          style: TextStyle(
             fontSize: 14,
             color: themeProvider.themeData.textTheme.bodySmall?.color,
           ),
@@ -548,60 +545,62 @@ class _ProfilePageState extends State<ProfilePage>
 
   void _showThemeSelector(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    
+
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: themeProvider.themeData.cardColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
-              ),
+      builder: (context) =>
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: themeProvider.themeData.cardColor,
+              borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20)),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Escolha o tema',
-              style: AppTextStyles.body1(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: themeProvider.themeData.textTheme.titleLarge?.color,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: _buildThemeOption(
-                    context: context,
-                    themeProvider: themeProvider,
-                    isLight: true,
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _buildThemeOption(
-                    context: context,
-                    themeProvider: themeProvider,
-                    isLight: false,
+                const SizedBox(height: 20),
+                Text(
+                  'Escolha o tema',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: themeProvider.themeData.textTheme.titleLarge?.color,
                   ),
                 ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildThemeOption(
+                        context: context,
+                        themeProvider: themeProvider,
+                        isLight: true,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildThemeOption(
+                        context: context,
+                        themeProvider: themeProvider,
+                        isLight: false,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
               ],
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
@@ -610,24 +609,26 @@ class _ProfilePageState extends State<ProfilePage>
     required ThemeProvider themeProvider,
     required bool isLight,
   }) {
-    final isSelected = isLight ? !themeProvider.isDarkMode : themeProvider.isDarkMode;
-    
+    final isSelected = isLight ? !themeProvider.isDarkMode : themeProvider
+        .isDarkMode;
+
     return GestureDetector(
       onTap: () {
-        themeProvider.setTheme(isLight ? AppThemeMode.light : AppThemeMode.dark);
+        themeProvider.setTheme(
+            isLight ? AppThemeMode.light : AppThemeMode.dark);
         Navigator.pop(context);
       },
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: isSelected 
-            ? themeProvider.primaryColor.withOpacity(0.1)
-            : themeProvider.themeData.cardColor,
+          color: isSelected
+              ? themeProvider.primaryColor.withOpacity(0.1)
+              : themeProvider.themeData.cardColor,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected 
-              ? themeProvider.primaryColor
-              : themeProvider.isDarkMode
+            color: isSelected
+                ? themeProvider.primaryColor
+                : themeProvider.isDarkMode
                 ? Colors.white.withOpacity(0.1)
                 : Colors.black.withOpacity(0.1),
             width: isSelected ? 2 : 1,
@@ -637,20 +638,20 @@ class _ProfilePageState extends State<ProfilePage>
           children: [
             Icon(
               isLight ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-              color: isSelected 
-                ? themeProvider.primaryColor 
-                : themeProvider.themeData.textTheme.bodyMedium?.color,
+              color: isSelected
+                  ? themeProvider.primaryColor
+                  : themeProvider.themeData.textTheme.bodyMedium?.color,
               size: 32,
             ),
             const SizedBox(height: 12),
             Text(
               isLight ? 'Claro' : 'Escuro',
-              style: AppTextStyles.body1(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                color: isSelected 
-                  ? themeProvider.primaryColor 
-                  : themeProvider.themeData.textTheme.bodyMedium?.color,
+                color: isSelected
+                    ? themeProvider.primaryColor
+                    : themeProvider.themeData.textTheme.bodyMedium?.color,
               ),
             ),
             if (isSelected) ...[
@@ -718,27 +719,28 @@ class _ProfilePageState extends State<ProfilePage>
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Confirmar Logout'),
-        content: const Text('Tem certeza que deseja sair da sua conta?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+      builder: (context) =>
+          AlertDialog(
+            title: const Text('Confirmar Logout'),
+            content: const Text('Tem certeza que deseja sair da sua conta?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  final authService = AuthService();
+                  await authService.logout();
+                  if (context.mounted) {
+                    Navigator.pushReplacementNamed(context, '/login');
+                  }
+                },
+                child: const Text('Sair', style: TextStyle(color: Colors.red)),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              final authService = AuthService();
-              await authService.logout();
-              if (context.mounted) {
-                Navigator.pushReplacementNamed(context, '/login');
-              }
-            },
-            child: const Text('Sair', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
   }
 }

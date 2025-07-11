@@ -14,7 +14,8 @@ Obrigado por considerar contribuir para o Benicio! 🎉
 
 ## 📜 Código de Conduta
 
-Este projeto adota um código de conduta para garantir um ambiente acolhedor para todos. Por favor, leia e siga nosso [Código de Conduta](CODE_OF_CONDUCT.md).
+Este projeto adota um código de conduta para garantir um ambiente acolhedor para todos. Por favor, leia e siga
+nosso [Código de Conduta](CODE_OF_CONDUCT.md).
 
 ## 🤝 Como Contribuir
 
@@ -30,9 +31,9 @@ Este projeto adota um código de conduta para garantir um ambiente acolhedor par
    ```
 
 3. **Faça suas alterações**
-   - Escreva código limpo e bem documentado
-   - Adicione testes quando necessário
-   - Atualize a documentação
+    - Escreva código limpo e bem documentado
+    - Adicione testes quando necessário
+    - Atualize a documentação
 
 4. **Teste suas alterações**
    ```bash
@@ -55,6 +56,7 @@ Este projeto adota um código de conduta para garantir um ambiente acolhedor par
 ## 🐛 Reportando Bugs
 
 Antes de reportar um bug, certifique-se de:
+
 - Verificar se o bug já não foi reportado
 - Tentar reproduzir o bug na versão mais recente
 
@@ -62,11 +64,11 @@ Antes de reportar um bug, certifique-se de:
 
 1. Use o template de issue para bugs
 2. Inclua:
-   - Descrição clara do problema
-   - Passos para reproduzir
-   - Comportamento esperado vs atual
-   - Screenshots (se aplicável)
-   - Ambiente (OS, versão do Flutter, etc.)
+    - Descrição clara do problema
+    - Passos para reproduzir
+    - Comportamento esperado vs atual
+    - Screenshots (se aplicável)
+    - Ambiente (OS, versão do Flutter, etc.)
 
 ## 💡 Sugerindo Melhorias
 
@@ -75,9 +77,9 @@ Adoramos receber sugestões! Para sugerir uma melhoria:
 1. Verifique se já não existe uma issue similar
 2. Use o template de feature request
 3. Seja claro sobre:
-   - O problema que a feature resolve
-   - Como você imagina a implementação
-   - Possíveis alternativas
+    - O problema que a feature resolve
+    - Como você imagina a implementação
+    - Possíveis alternativas
 
 ## 🔄 Pull Requests
 
@@ -105,13 +107,13 @@ Adoramos receber sugestões! Para sugerir uma melhoria:
 class UserProfile extends StatelessWidget {
   final String userName;
   final String? avatarUrl;
-  
+
   const UserProfile({
     Key? key,
     required this.userName,
     this.avatarUrl,
   }) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -124,7 +126,7 @@ class UserProfile extends StatelessWidget {
 class userprofile extends StatelessWidget {
   String username;
   String avatar_url;
-  // ...
+// ...
 }
 ```
 
@@ -149,6 +151,7 @@ Seguimos o padrão [Conventional Commits](https://www.conventionalcommits.org/):
 ```
 
 ### Tipos:
+
 - `feat`: Nova funcionalidade
 - `fix`: Correção de bug
 - `docs`: Apenas documentação
@@ -205,7 +208,7 @@ void main() {
           home: UserProfile(userName: 'John Doe'),
         ),
       );
-      
+
       expect(find.text('John Doe'), findsOneWidget);
     });
   });
@@ -213,6 +216,7 @@ void main() {
 ```
 
 ### Cobertura mínima:
+
 - Widgets críticos: 80%
 - Services/Logic: 90%
 - Utils: 95%
@@ -220,6 +224,7 @@ void main() {
 ## ❓ Dúvidas?
 
 Se tiver dúvidas:
+
 1. Verifique a [documentação](https://github.com/gabrielmaialva33/yol-benicio-app/wiki)
 2. Procure em issues existentes
 3. Abra uma nova issue com a tag `question`

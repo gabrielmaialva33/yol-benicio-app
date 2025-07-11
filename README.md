@@ -134,9 +134,11 @@ lib/
 ### Pré-requisitos
 
 Certifique-se de ter instalado:
+
 - [Flutter](https://flutter.dev/docs/get-started/install) (3.5.4 ou superior)
 - [Dart](https://dart.dev/get-dart) (3.0 ou superior)
-- Um editor de código ([VS Code](https://code.visualstudio.com/) ou [Android Studio](https://developer.android.com/studio))
+- Um editor de código ([VS Code](https://code.visualstudio.com/)
+  ou [Android Studio](https://developer.android.com/studio))
 
 ### 📥 Instalação
 
@@ -183,20 +185,21 @@ O app utiliza um sistema de cores personalizável:
 
 ```dart
 // Cor primária
-const primaryColor = Color(0xFF582FFF);  // Roxo vibrante
+const primaryColor = Color(0xFF582FFF); // Roxo vibrante
 
 // Cor secundária  
 const secondaryColor = Color(0xFF1F2A37); // Azul escuro
 
 // Cores de status
-const successColor = Color(0xFF22C55E);   // Verde
-const warningColor = Color(0xFFF59E0B);   // Amarelo
-const errorColor = Color(0xFFEF4444);     // Vermelho
+const successColor = Color(0xFF22C55E); // Verde
+const warningColor = Color(0xFFF59E0B); // Amarelo
+const errorColor = Color(0xFFEF4444); // Vermelho
 ```
 
 ### Fontes
 
 Utilizamos Google Fonts para tipografia consistente:
+
 - **Inter** - Interface principal
 - **Work Sans** - Elementos específicos
 - **Montserrat** - Títulos e destaques
@@ -237,10 +240,10 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 📞 Contato
 
 <div align="center">
-  
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gabrielmaialva33)
-  [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gabrielmaialva33)
-  [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:gabriel.maia@benicio.com.br)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gabrielmaialva33)
+[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gabrielmaialva33)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:gabriel.maia@benicio.com.br)
 
 </div>
 
