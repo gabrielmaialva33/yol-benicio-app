@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../features/shared/models/client.dart';
-import '../../../features/shared/models/user.dart';
+import '../../../features/shared/services/mock_service.dart';
 import '../models/folder.dart';
 
 class FolderConsultationPage extends StatefulWidget {
@@ -12,12 +11,13 @@ class FolderConsultationPage extends StatefulWidget {
 }
 
 class _FolderConsultationPageState extends State<FolderConsultationPage> {
+  final MockService _mockService = MockService();
   late List<Folder> _folders;
 
   @override
   void initState() {
     super.initState();
-    _folders = _getMockFolders();
+    _folders = _mockService.getFolders(10);
   }
 
   @override
@@ -40,36 +40,5 @@ class _FolderConsultationPageState extends State<FolderConsultationPage> {
         },
       ),
     );
-  }
-
-  List<Folder> _getMockFolders() {
-    return [
-      Folder(
-        id: 1,
-        code: 'P001',
-        title: 'Processo de Indenização',
-        status: FolderStatus.active,
-        area: FolderArea.civilLitigation,
-        client: Client(id: 1, name: 'João Silva', document: '123.456.789-00'),
-        responsibleLawyer:
-            User(id: 1, fullName: 'Dr. Carlos', email: 'carlos@benicio.com'),
-        createdAt: DateTime.now(),
-        documentsCount: 10,
-        isFavorite: true,
-      ),
-      Folder(
-        id: 2,
-        code: 'P002',
-        title: 'Reclamação Trabalhista',
-        status: FolderStatus.pending,
-        area: FolderArea.labor,
-        client: Client(id: 2, name: 'Maria Santos', document: '987.654.321-00'),
-        responsibleLawyer:
-            User(id: 2, fullName: 'Dra. Ana', email: 'ana@benicio.com'),
-        createdAt: DateTime.now(),
-        documentsCount: 5,
-        isFavorite: false,
-      ),
-    ];
   }
 }
