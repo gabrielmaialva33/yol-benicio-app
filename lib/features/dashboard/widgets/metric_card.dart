@@ -1,139 +1,140 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MetricCard extends StatelessWidget {
   final String title;
-  final String subtitle;
-  final List<MetricItem> metrics;
-  final Widget? icon;
+  final String value;
+  final String? subtitle;
   final String? linkText;
-  final VoidCallback? onLinkTap;
+  final Color? backgroundColor;
+  final Color? titleColor;
+  final Color? valueColor;
+  final Color? subtitleColor;
+  final Color? linkColor;
+  final double? height;
+  final bool hasViewIcon;
+  final Widget? customContent;
 
   const MetricCard({
-    super.key,
+    Key? key,
     required this.title,
-    required this.subtitle,
-    required this.metrics,
-    this.icon,
+    required this.value,
+    this.subtitle,
     this.linkText,
-    this.onLinkTap,
-  });
+    this.backgroundColor,
+    this.titleColor,
+    this.valueColor,
+    this.subtitleColor,
+    this.linkColor,
+    this.height,
+    this.hasViewIcon = false,
+    this.customContent,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: backgroundColor ?? Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
+        border: Border.all(
+          color: const Color(0xFFE2E8F0),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.02),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF111827),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF5E6278),
-                        ),
-                      ),
-                    ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header com título e ícone de visualização
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: titleColor ?? const Color(0xFF1E293B),
+                ),
+              ),
+              if (hasViewIcon)
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF8F9FA),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: const Icon(
+                    Icons.visibility_outlined,
+                    size: 18,
+                    color: Color(0xFF64748B),
                   ),
                 ),
-                if (icon != null) icon!,
-              ],
-            ),
-            const SizedBox(height: 24),
-            // Métricas em linha
-            Row(
-              children: [
-                for (int i = 0; i < metrics.length; i++) ...[
-                  Expanded(
-                    child: _buildMetricItem(metrics[i]),
-                  ),
-                  if (i < metrics.length - 1) const SizedBox(width: 32),
-                ],
-              ],
-            ),
-            if (linkText != null) ...[
+            ],
+          ),
+          
+          if (customContent != null) ...[
+            customContent!,
+          ] else ...[
+            if (value.isNotEmpty) ...[
               const SizedBox(height: 16),
-              GestureDetector(
-                onTap: onLinkTap,
-                child: Text(
-                  linkText!,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF06B6D4),
-                    decoration: TextDecoration.underline,
-                  ),
+              Text(
+                value,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 36,
+                  fontWeight: FontWeight.w700,
+                  color: valueColor ?? const Color(0xFF1E293B),
                 ),
               ),
             ],
           ],
-        ),
+          
+          if (subtitle != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              subtitle!,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: subtitleColor ?? const Color(0xFF64748B),
+              ),
+            ),
+          ],
+          
+          if (linkText != null) ...[
+            const SizedBox(height: 12),
+            GestureDetector(
+              onTap: () {
+                // Handle link tap
+              },
+              child: Text(
+                linkText!,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: linkColor ?? const Color(0xFF3B82F6),
+                  decoration: TextDecoration.underline,
+                  decorationColor: linkColor ?? const Color(0xFF3B82F6),
+                ),
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }
-
-  Widget _buildMetricItem(MetricItem metric) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          metric.value,
-          style: TextStyle(
-            fontSize: 48,
-            fontWeight: FontWeight.bold,
-            color: metric.valueColor ?? const Color(0xFF1F2A37),
-            height: 1.0,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          metric.label,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Color(0xFF5E6278),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class MetricItem {
-  final String label;
-  final String value;
-  final Color? valueColor;
-
-  MetricItem({
-    required this.label,
-    required this.value,
-    this.valueColor,
-  });
 }

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yolapp/features/dashboard/models/folder_data.dart';
-import 'package:yolapp/features/dashboard/models/task.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/dashboard_layout.dart';
-import '../widgets/stat_card.dart';
 import '../widgets/metric_card.dart';
-import '../widgets/task_item.dart';
-import '../../shared/widgets/yol_logo.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -15,245 +11,375 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  // Mock data baseado no projeto yol-project
-  final FolderStats _folderStats = FolderStats(active: 45, newThisMonth: 8);
-  final List<Task> _tasks = [
-    Task(
-      id: '1',
-      title: 'Create FireStone Logo',
-      category: 'Design',
-      completed: false,
-      color: const Color(0xFF10B981),
-      dueDate: DateTime.now().add(const Duration(days: 2)),
-    ),
-    Task(
-      id: '2',
-      title: 'Stakeholder Meeting',
-      category: 'Meeting',
-      completed: false,
-      color: const Color(0xFF3B82F6),
-      dueDate: DateTime.now().add(const Duration(days: 3)),
-    ),
-    Task(
-      id: '3',
-      title: 'Scoping & Estimations',
-      category: 'Planning',
-      completed: false,
-      color: const Color(0xFFF59E0B),
-      dueDate: DateTime.now().add(const Duration(days: 5)),
-    ),
-    Task(
-      id: '4',
-      title: 'KPI App Showcase',
-      category: 'Demo',
-      completed: true,
-      color: const Color(0xFF10B981),
-      dueDate: DateTime.now().subtract(const Duration(days: 1)),
-    ),
-  ];
-
-  void _toggleTask(Task task) {
-    setState(() {
-      final index = _tasks.indexWhere((t) => t.id == task.id);
-      if (index != -1) {
-        _tasks[index] = _tasks[index].copyWith(completed: !task.completed);
-      }
-    });
-  }
+  // Mock data based on Figma design
+  final MockData _mockData = MockData();
 
   @override
   Widget build(BuildContext context) {
     return DashboardLayout(
       child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              const Text(
-                'Visão Geral',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF111827),
-                ),
+        padding: const EdgeInsets.all(27),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Section title
+            const Text(
+              'Suas pastas',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 30,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF161C24),
               ),
-              const SizedBox(height: 4),
-              const Text(
-                'Suas tarefas principais estão nessa sessão.',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF6B7280),
-                ),
+            ),
+            const SizedBox(height: 8),
+            
+            const Text(
+              'Encontre aqui todas as suas pastas',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFFA1A5B7),
               ),
-              const SizedBox(height: 32),
-
-              // Grid principal com cards
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  final isWide = constraints.maxWidth > 1024;
-
-                  if (isWide) {
-                    return Column(
-                      children: [
-                        // Primeira linha - 3 cards
-                        Row(
-                          children: [
-                            Expanded(
-                              child: StatCard(
-                                title: 'Pastas ativas',
-                                value: _folderStats.active.toString(),
-                                subtitle:
-                                    '${_folderStats.newThisMonth} novos neste mês',
-                                linkText: 'Visualizar pastas',
-                              ),
-                            ),
-                            const SizedBox(width: 24),
-                            Expanded(
-                              child: StatCard(
-                                title: 'Clientes totais',
-                                value: '98',
-                                subtitle: 'Diversos segmentos',
-                                linkText: 'Ver clientes',
-                              ),
-                            ),
-                            const SizedBox(width: 24),
-                            Expanded(
-                              child: StatCard(
-                                title: 'Atividade recente',
-                                value: '520',
-                                subtitle: 'Ações nos últimos 30 dias',
-                                linkText: 'Ver atividades',
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-
-                        // Segunda linha - 2 cards grandes
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: _buildTasksCard(),
-                            ),
-                            const SizedBox(width: 24),
-                            Expanded(
-                              child: MetricCard(
-                                title: 'Prazos de Pastas',
-                                subtitle: 'Status de entrega',
-                                metrics: [
-                                  MetricItem(
-                                    label: 'No prazo',
-                                    value: '140',
-                                    valueColor: const Color(0xFF10B981),
-                                  ),
-                                  MetricItem(
-                                    label: 'Atrasadas',
-                                    value: '47',
-                                    valueColor: const Color(0xFFEF4444),
-                                  ),
-                                ],
-                                linkText: 'Ver relatório completo',
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  } else {
-                    // Layout para telas menores
-                    return Column(
-                      children: [
-                        // Cards de métricas
-                        StatCard(
-                          title: 'Pastas ativas',
-                          value: _folderStats.active.toString(),
-                          subtitle:
-                              '${_folderStats.newThisMonth} novos neste mês',
-                          linkText: 'Visualizar pastas',
-                        ),
-                        const SizedBox(height: 16),
-                        StatCard(
-                          title: 'Clientes totais',
-                          value: '98',
-                          subtitle: 'Diversos segmentos',
-                          linkText: 'Ver clientes',
-                        ),
-                        const SizedBox(height: 24),
-
-                        // Card de tarefas
-                        _buildTasksCard(),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 32),
+            
+            // Main grid with statistics cards
+            LayoutBuilder(
+              builder: (context, constraints) {
+                // Determines if it's desktop or mobile layout
+                bool isDesktop = constraints.maxWidth > 900;
+                
+                if (isDesktop) {
+                  return _buildDesktopLayout();
+                } else {
+                  return _buildMobileLayout();
+                }
+              },
+            ),
+          ],
         ),
       ),
     );
   }
-
-  Widget _buildTasksCard() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE5E7EB)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Suas tarefas',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF111827),
-                ),
+  
+  Widget _buildDesktopLayout() {
+    return Column(
+      children: [
+        // First row - Active and Closed
+        Row(
+          children: [
+            Expanded(
+              child: MetricCard(
+                title: 'Ativas',
+                value: _mockData.activeFolders.toString(),
+                subtitle: '${_mockData.newThisMonth} novos neste mês',
+                linkText: 'Visualizar pastas',
+                titleColor: const Color(0xFF64748B),
+                valueColor: const Color(0xFF1E293B),
+                subtitleColor: const Color(0xFF3B82F6),
+                backgroundColor: Colors.white,
+                hasViewIcon: true,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF3F4F6),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  '${_tasks.length} tarefas',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF6B7280),
+            ),
+            const SizedBox(width: 24),
+            Expanded(
+              child: MetricCard(
+                title: 'Encerradas',
+                value: _mockData.closedFolders.toString(),
+                subtitle: '${_mockData.newThisMonth} novos neste mês',
+                linkText: 'Visualizar pastas',
+                titleColor: const Color(0xFF64748B),
+                valueColor: const Color(0xFF1E293B),
+                subtitleColor: const Color(0xFF3B82F6),
+                backgroundColor: Colors.white,
+                hasViewIcon: true,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 24),
+        
+        // Second row - Folder Deadlines
+        MetricCard(
+          title: 'Prazos de Pastas',
+          subtitle: 'Entregues dentro do prazo x Não entregues',
+          value: '',
+          backgroundColor: Colors.white,
+          hasViewIcon: true,
+          customContent: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Total',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF64748B),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          _mockData.totalFolders.toString(),
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF22C55E),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Entregues',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF64748B),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${_mockData.deliveredFolders}',
+                                style: const TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFFF59E0B),
+                                ),
+                              ),
+                              TextSpan(
+                                text: '/${_mockData.totalFolders}',
+                                style: const TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF64748B),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Atrasadas',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF64748B),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: '${_mockData.delayedFolders}',
+                                style: const TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFFEF4444),
+                                ),
+                              ),
+                              TextSpan(
+                                text: '/${_mockData.totalFolders}',
+                                style: const TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF64748B),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          ..._tasks.map(
-            (task) => TaskItem(
-              task: task,
-              onToggle: _toggleTask,
-            ),
+        ),
+        const SizedBox(height: 24),
+        
+        // Third row - Folder Activity
+        MetricCard(
+          title: 'Atividade Pastas',
+          subtitle: 'de 20/12/24 à 03/01/25',
+          value: '',
+          backgroundColor: Colors.white,
+          hasViewIcon: true,
+          customContent: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Total de pastas',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF64748B),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          _mockData.totalFolders.toString(),
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Novas pastas',
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF64748B),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          _mockData.deliveredFolders.toString(),
+                          style: const TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: 32,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 24),
+        
+        // Fourth row - Revenue (highlighted with blue border)
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: const Color(0xFF3B82F6),
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: MetricCard(
+            title: 'Entradas',
+            value: _mockData.totalRevenue,
+            subtitle: 'de 20/12/24 à 03/01/25',
+            backgroundColor: Colors.white,
+            titleColor: const Color(0xFF64748B),
+            valueColor: const Color(0xFF1E293B),
+            subtitleColor: const Color(0xFF64748B),
+            hasViewIcon: true,
+          ),
+        ),
+      ],
     );
   }
+  
+  Widget _buildMobileLayout() {
+    return Column(
+      children: [
+        // Statistics cards in mobile grid (2 columns)
+        GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 1.1,
+          children: [
+            MetricCard(
+              title: 'Ativas',
+              value: _mockData.activeFolders.toString(),
+              subtitle: '${_mockData.newThisMonth} novos neste mês',
+              backgroundColor: Colors.white,
+            ),
+            MetricCard(
+              title: 'Fechadas',
+              value: _mockData.closedFolders.toString(),
+              subtitle: '${_mockData.newThisMonth} novos neste mês',
+              backgroundColor: Colors.white,
+            ),
+          ],
+        ),
+        const SizedBox(height: 24),
+        
+        // Revenue cards in single column
+        MetricCard(
+          title: 'Entradas',
+          value: _mockData.totalRevenue,
+          subtitle: 'de 20/12/24 à 03/01/25',
+          backgroundColor: Colors.white,
+        ),
+        const SizedBox(height: 16),
+        
+        MetricCard(
+          title: 'Atrasos',
+          value: _mockData.delayedRevenue,
+          subtitle: 'de 20/12/24 à 03/01/25',
+          backgroundColor: Colors.white,
+        ),
+      ],
+    );
+  }
+}
+
+class MockData {
+  final int activeFolders = 2420;
+  final int closedFolders = 2420;
+  final int newThisMonth = 98;
+  final int totalFolders = 520;
+  final int deliveredFolders = 140;
+  final int delayedFolders = 47;
+  final String totalRevenue = 'R\$1.084.000,00';
+  final String delayedRevenue = 'R\$584.000,00';
 }
