@@ -68,71 +68,71 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
             height: 80,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             alignment:
-                widget.isCollapsed ? Alignment.center : Alignment.centerLeft,
+            widget.isCollapsed ? Alignment.center : Alignment.centerLeft,
             child: widget.isCollapsed
                 ? IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: widget.onToggle,
-                  )
+              icon: const Icon(Icons.menu),
+              onPressed: widget.onToggle,
+            )
                 : Row(
-                    children: [
-                      Container(
-                        width: 28,
-                        height: 28,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [Color(0xFFFF6B35), Color(0xFFFF8A65)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            'B',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'BENÍCIO',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: Color(0xFF1E293B),
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                          Text(
-                            'ADVOGADOS',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFF64748B),
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        icon: const Icon(Icons.chevron_left),
-                        onPressed: widget.onToggle,
-                      ),
-                    ],
+              children: [
+                Container(
+                  width: 28,
+                  height: 28,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      colors: [Color(0xFFFF6B35), Color(0xFFFF8A65)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                   ),
+                  child: const Center(
+                    child: Text(
+                      'B',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'BENÍCIO',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF1E293B),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    Text(
+                      'ADVOGADOS',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF64748B),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.chevron_left),
+                  onPressed: widget.onToggle,
+                ),
+              ],
+            ),
           ),
           if (!widget.isCollapsed)
             Padding(
@@ -164,7 +164,7 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
                 bool isActive = widget.currentIndex == originalIndex;
                 return Container(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                   decoration: BoxDecoration(
                     color: isActive
                         ? const Color(0xFF582FFF).withOpacity(0.1)
@@ -183,18 +183,18 @@ class _DesktopSidebarState extends State<DesktopSidebar> {
                       title: widget.isCollapsed
                           ? null
                           : Text(
-                              title,
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: 14,
-                                fontWeight: isActive
-                                    ? FontWeight.w600
-                                    : FontWeight.w500,
-                                color: isActive
-                                    ? const Color(0xFF582FFF)
-                                    : const Color(0xFF64748B),
-                              ),
-                            ),
+                        title,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          fontWeight: isActive
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                          color: isActive
+                              ? const Color(0xFF582FFF)
+                              : const Color(0xFF64748B),
+                        ),
+                      ),
                       onTap: () => widget.onNavigationTap(originalIndex),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

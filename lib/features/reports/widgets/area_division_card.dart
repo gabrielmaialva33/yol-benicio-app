@@ -132,7 +132,10 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
   }
 
   List<PieChartSectionData> _getAnimatedSections() {
-    return widget.areaDivisionData.asMap().entries.map((entry) {
+    return widget.areaDivisionData
+        .asMap()
+        .entries
+        .map((entry) {
       final index = entry.key;
       final data = entry.value;
       final isTouched = index == touchedIndex;
@@ -166,7 +169,10 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
     return Wrap(
       spacing: 16,
       runSpacing: 12,
-      children: widget.areaDivisionData.asMap().entries.map((entry) {
+      children: widget.areaDivisionData
+          .asMap()
+          .entries
+          .map((entry) {
         final index = entry.key;
         final data = entry.value;
         final isSelected = index == touchedIndex;
@@ -182,7 +188,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
               color:
-                  isSelected ? data.color.withOpacity(0.1) : Colors.transparent,
+              isSelected ? data.color.withOpacity(0.1) : Colors.transparent,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                 color: isSelected ? data.color : Colors.transparent,
@@ -201,12 +207,12 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
                     borderRadius: BorderRadius.circular(isSelected ? 8 : 2),
                     boxShadow: isSelected
                         ? [
-                            BoxShadow(
-                              color: data.color.withOpacity(0.3),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ]
+                      BoxShadow(
+                        color: data.color.withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ]
                         : null,
                   ),
                 ),

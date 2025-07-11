@@ -109,12 +109,16 @@ class MockService {
 
   List<AreaDivisionData> getAreaDivisionData() {
     return [
-      AreaDivisionData(name: 'Trabalhista', value: 28.5, color: AppTheme.trabalhista),
-      AreaDivisionData(name: 'Tributário', value: 22.3, color: AppTheme.tributario),
+      AreaDivisionData(
+          name: 'Trabalhista', value: 28.5, color: AppTheme.trabalhista),
+      AreaDivisionData(
+          name: 'Tributário', value: 22.3, color: AppTheme.tributario),
       AreaDivisionData(name: 'Civil', value: 18.7, color: AppTheme.civil),
       AreaDivisionData(name: 'Penal', value: 15.2, color: AppTheme.penal),
-      AreaDivisionData(name: 'Empresarial', value: 10.8, color: AppTheme.empresarial),
-      AreaDivisionData(name: 'Contencioso', value: 4.5, color: AppTheme.contencioso),
+      AreaDivisionData(
+          name: 'Empresarial', value: 10.8, color: AppTheme.empresarial),
+      AreaDivisionData(
+          name: 'Contencioso', value: 4.5, color: AppTheme.contencioso),
     ];
   }
 
@@ -207,8 +211,11 @@ class MockService {
         address: _generateAddress(),
         activeCases: _random.nextInt(15) + 1,
         totalBilled: (_random.nextDouble() * 500000) + 50000,
-        clientSince: DateTime.now().subtract(Duration(days: _random.nextInt(1825))),
-        status: _random.nextBool() ? 'active' : (_random.nextBool() ? 'vip' : 'inactive'),
+        clientSince: DateTime.now().subtract(
+            Duration(days: _random.nextInt(1825))),
+        status: _random.nextBool() ? 'active' : (_random.nextBool()
+            ? 'vip'
+            : 'inactive'),
       );
     }).toList();
   }
@@ -304,25 +311,43 @@ class MockService {
   String _generateDocument() {
     final isCPF = _random.nextBool();
     if (isCPF) {
-      return '${_random.nextInt(900) + 100}.${_random.nextInt(900) + 100}.${_random.nextInt(900) + 100}-${_random.nextInt(90) + 10}';
+      return '${_random.nextInt(900) + 100}.${_random.nextInt(900) +
+          100}.${_random.nextInt(900) + 100}-${_random.nextInt(90) + 10}';
     } else {
-      return '${_random.nextInt(90) + 10}.${_random.nextInt(900) + 100}.${_random.nextInt(900) + 100}/0001-${_random.nextInt(90) + 10}';
+      return '${_random.nextInt(90) + 10}.${_random.nextInt(900) +
+          100}.${_random.nextInt(900) + 100}/0001-${_random.nextInt(90) + 10}';
     }
   }
 
   String _generateEmail(String name) {
-    final cleanName = name.toLowerCase().replaceAll(RegExp(r'[^a-z\s]'), '').replaceAll(' ', '');
-    final domains = ['gmail.com', 'outlook.com', 'empresa.com.br', 'comercio.com.br'];
+    final cleanName = name
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z\s]'), '')
+        .replaceAll(' ', '');
+    final domains = [
+      'gmail.com',
+      'outlook.com',
+      'empresa.com.br',
+      'comercio.com.br'
+    ];
     return '$cleanName@${domains[_random.nextInt(domains.length)]}';
   }
 
   String _generatePhone() {
-    return '(11) 9${_random.nextInt(9000) + 1000}-${_random.nextInt(9000) + 1000}';
+    return '(11) 9${_random.nextInt(9000) + 1000}-${_random.nextInt(9000) +
+        1000}';
   }
 
   String _generateAddress() {
-    final streets = ['Rua das Flores', 'Av. Paulista', 'Rua Augusta', 'Rua Oscar Freire', 'Av. Faria Lima'];
+    final streets = [
+      'Rua das Flores',
+      'Av. Paulista',
+      'Rua Augusta',
+      'Rua Oscar Freire',
+      'Av. Faria Lima'
+    ];
     final number = _random.nextInt(9000) + 100;
-    return '${streets[_random.nextInt(streets.length)]}, $number - São Paulo/SP';
+    return '${streets[_random.nextInt(
+        streets.length)]}, $number - São Paulo/SP';
   }
 }

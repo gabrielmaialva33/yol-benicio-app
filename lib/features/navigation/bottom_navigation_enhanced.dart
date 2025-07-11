@@ -12,7 +12,8 @@ class BenicioBottomNavigation extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<BenicioBottomNavigation> createState() => _BenicioBottomNavigationState();
+  State<BenicioBottomNavigation> createState() =>
+      _BenicioBottomNavigationState();
 }
 
 class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
@@ -25,10 +26,11 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
     super.initState();
     _animationControllers = List.generate(
       5,
-      (index) => AnimationController(
-        duration: AppTheme.animationMedium,
-        vsync: this,
-      ),
+          (index) =>
+          AnimationController(
+            duration: AppTheme.animationMedium,
+            vsync: this,
+          ),
     );
 
     _scaleAnimations = _animationControllers.map((controller) {
@@ -148,7 +150,7 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
           widget.onTap(index);
           // Feedback visual
           if (isActive) return;
-          
+
           // Trigger animation
           _animationControllers[index].forward().then((_) {
             _animationControllers[index].reverse();
@@ -177,7 +179,7 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
             final scale = index < _scaleAnimations.length
                 ? _scaleAnimations[index].value
                 : 1.0;
-            
+
             return Transform.scale(
               scale: scale,
               child: AnimatedContainer(
@@ -190,20 +192,20 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
                 decoration: BoxDecoration(
                   gradient: isActive
                       ? LinearGradient(
-                          colors: [
-                            AppTheme.primaryColor.withOpacity(0.15),
-                            AppTheme.primaryColor.withOpacity(0.05),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )
+                    colors: [
+                      AppTheme.primaryColor.withOpacity(0.15),
+                      AppTheme.primaryColor.withOpacity(0.05),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
                       : null,
                   borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
                   border: isActive
                       ? Border.all(
-                          color: AppTheme.primaryColor.withOpacity(0.2),
-                          width: 1,
-                        )
+                    color: AppTheme.primaryColor.withOpacity(0.2),
+                    width: 1,
+                  )
                       : null,
                 ),
                 child: Column(
@@ -244,7 +246,8 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: isActive ? 11 : 10,
-                        fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                        fontWeight: isActive ? FontWeight.w600 : FontWeight
+                            .w500,
                         color: isActive
                             ? AppTheme.primaryColor
                             : AppTheme.textSecondary,

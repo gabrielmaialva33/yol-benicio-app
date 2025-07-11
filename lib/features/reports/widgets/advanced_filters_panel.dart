@@ -262,7 +262,7 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: isSelected
                       ? const Color(0xFF582FFF)
@@ -353,7 +353,7 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
                   labelText: 'Mín',
                   border: OutlineInputBorder(),
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
@@ -369,7 +369,7 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
                   labelText: 'Máx',
                   border: OutlineInputBorder(),
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {

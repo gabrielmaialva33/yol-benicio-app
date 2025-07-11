@@ -14,7 +14,7 @@ class BillingCard extends StatelessWidget {
         ? const Color(0xFF22C55E)
         : const Color(0xFFEF4444);
     final percentageIcon =
-        billingData.percentage > 0 ? Icons.arrow_upward : Icons.arrow_downward;
+    billingData.percentage > 0 ? Icons.arrow_upward : Icons.arrow_downward;
 
     return Container(
       padding: const EdgeInsets.all(24),
