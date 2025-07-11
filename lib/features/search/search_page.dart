@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../shared/utils/fonts.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 0,
         title: Text(
           'Buscar',
-          style: GoogleFonts.inter(
+          style: AppFonts.inter(
             fontSize: 24,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF1E293B),
@@ -51,7 +51,7 @@ class _SearchPageState extends State<SearchPage> {
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Buscar clientes, pastas...',
-                  hintStyle: GoogleFonts.inter(
+                  hintStyle: AppFonts.inter(
                     color: const Color(0xFFA1A5B7),
                     fontSize: 16,
                   ),
@@ -65,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                     vertical: 16,
                   ),
                 ),
-                style: GoogleFonts.inter(
+                style: AppFonts.inter(
                   fontSize: 16,
                   color: const Color(0xFF1E293B),
                 ),
@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
             const SizedBox(height: 30),
             Text(
               'Buscar por categoria',
-              style: GoogleFonts.inter(
+              style: AppFonts.inter(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: const Color(0xFF161C24),
@@ -157,7 +157,7 @@ class _SearchPageState extends State<SearchPage> {
           const Spacer(),
           Text(
             title,
-            style: GoogleFonts.inter(
+            style: AppFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: const Color(0xFF1E293B),
@@ -166,7 +166,7 @@ class _SearchPageState extends State<SearchPage> {
           const SizedBox(height: 4),
           Text(
             subtitle,
-            style: GoogleFonts.inter(
+            style: AppFonts.inter(
               fontSize: 14,
               color: const Color(0xFFA1A5B7),
             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../shared/utils/fonts.dart';
 
 class ReportsPage extends StatelessWidget {
   const ReportsPage({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class ReportsPage extends StatelessWidget {
         elevation: 0,
         title: Text(
           'Relatórios',
-          style: GoogleFonts.inter(
+          style: AppFonts.inter(
             fontSize: 24,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF1E293B),
@@ -52,7 +52,7 @@ class ReportsPage extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               'Analytics Detalhados',
-              style: GoogleFonts.inter(
+              style: AppFonts.inter(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
                 color: const Color(0xFF161C24),
@@ -81,7 +81,7 @@ class ReportsPage extends StatelessWidget {
                   children: [
                     Text(
                       'Gráfico de Performance',
-                      style: GoogleFonts.inter(
+                      style: AppFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: const Color(0xFF1F2A37),
@@ -106,7 +106,7 @@ class ReportsPage extends StatelessWidget {
                             const SizedBox(height: 12),
                             Text(
                               'Gráfico em desenvolvimento',
-                              style: GoogleFonts.inter(
+                              style: AppFonts.inter(
                                 fontSize: 14,
                                 color: const Color(0xFFA1A5B7),
                               ),
@@ -166,7 +166,7 @@ class ReportsPage extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             value,
-            style: GoogleFonts.workSans(
+            style: AppFonts.workSans(
               fontSize: 28,
               fontWeight: FontWeight.w600,
               color: const Color(0xFF1E293B),
@@ -175,7 +175,7 @@ class ReportsPage extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             title,
-            style: GoogleFonts.inter(
+            style: AppFonts.inter(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: const Color(0xFF1E293B),
@@ -184,7 +184,7 @@ class ReportsPage extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             subtitle,
-            style: GoogleFonts.workSans(
+            style: AppFonts.workSans(
               fontSize: 14,
               fontWeight: FontWeight.w500,
               color: const Color(0xFFC4CDD5),

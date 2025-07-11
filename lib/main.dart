@@ -30,7 +30,9 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.light,
               ),
               brightness: Brightness.light,
-              textTheme: GoogleFonts.interTextTheme(textTheme),
+              textTheme: textTheme.apply(
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+              ),
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.white,
@@ -57,8 +59,11 @@ class MyApp extends StatelessWidget {
                 brightness: Brightness.dark,
               ),
               brightness: Brightness.dark,
-              textTheme: GoogleFonts.interTextTheme(textTheme.apply(
-                  bodyColor: Colors.white, displayColor: Colors.white)),
+              textTheme: textTheme.apply(
+                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                bodyColor: Colors.white, 
+                displayColor: Colors.white,
+              ),
               scaffoldBackgroundColor: const Color(0xFF1F2A37),
             ),
             themeMode: ThemeMode.light,
