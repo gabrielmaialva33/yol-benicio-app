@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class YolBottomNavigation extends StatelessWidget {
+class BenicioBottomNavigation extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  const YolBottomNavigation({
+  const BenicioBottomNavigation({
     Key? key,
     required this.currentIndex,
     required this.onTap,
