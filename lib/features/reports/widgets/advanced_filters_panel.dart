@@ -261,11 +261,12 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: isSelected 
-                    ? const Color(0xFF582FFF)
-                    : const Color(0xFF582FFF).withOpacity(0.1),
+                  color: isSelected
+                      ? const Color(0xFF582FFF)
+                      : const Color(0xFF582FFF).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: const Color(0xFF582FFF),
@@ -277,9 +278,7 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: isSelected 
-                      ? Colors.white
-                      : const Color(0xFF582FFF),
+                    color: isSelected ? Colors.white : const Color(0xFF582FFF),
                   ),
                 ),
               ),
@@ -353,7 +352,8 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
                 decoration: const InputDecoration(
                   labelText: 'Mín',
                   border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
@@ -368,7 +368,8 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
                 decoration: const InputDecoration(
                   labelText: 'Máx',
                   border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {

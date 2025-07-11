@@ -74,7 +74,8 @@ class _TimelineChartState extends State<TimelineChart>
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFF582FFF).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
@@ -129,7 +130,14 @@ class _TimelineChartState extends State<TimelineChart>
                           showTitles: true,
                           reservedSize: 30,
                           getTitlesWidget: (value, meta) {
-                            final months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+                            final months = [
+                              'Jan',
+                              'Fev',
+                              'Mar',
+                              'Abr',
+                              'Mai',
+                              'Jun'
+                            ];
                             if (value.toInt() < months.length) {
                               return Text(
                                 months[value.toInt()],

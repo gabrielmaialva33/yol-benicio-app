@@ -193,7 +193,8 @@ class _PerformanceMetricsState extends State<PerformanceMetrics>
                 AnimatedBuilder(
                   animation: _animations[index],
                   builder: (context, child) {
-                    final animatedValue = metric.value * _animations[index].value;
+                    final animatedValue =
+                        metric.value * _animations[index].value;
                     return Text(
                       animatedValue.toStringAsFixed(1),
                       style: TextStyle(
@@ -248,9 +249,8 @@ class _PerformanceMetricsState extends State<PerformanceMetrics>
   }
 
   Widget _buildPerformanceSummary() {
-    final avgPerformance = metrics
-        .map((m) => m.value)
-        .reduce((a, b) => a + b) / metrics.length;
+    final avgPerformance =
+        metrics.map((m) => m.value).reduce((a, b) => a + b) / metrics.length;
 
     return Container(
       padding: const EdgeInsets.all(16),

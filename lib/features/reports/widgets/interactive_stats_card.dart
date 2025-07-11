@@ -84,16 +84,16 @@ class _InteractiveStatsCardState extends State<InteractiveStatsCard>
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: _isPressed 
-                    ? widget.color.withOpacity(0.3)
-                    : Colors.transparent,
+                  color: _isPressed
+                      ? widget.color.withOpacity(0.3)
+                      : Colors.transparent,
                   width: 2,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: _isPressed 
-                      ? widget.color.withOpacity(0.2)
-                      : Colors.black.withOpacity(0.05),
+                    color: _isPressed
+                        ? widget.color.withOpacity(0.2)
+                        : Colors.black.withOpacity(0.05),
                     blurRadius: _isPressed ? 15 : 10,
                     offset: const Offset(0, 4),
                   ),
@@ -148,9 +148,9 @@ class _InteractiveStatsCardState extends State<InteractiveStatsCard>
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: widget.subtitle.contains('+') 
-                        ? const Color(0xFF22C55E)
-                        : const Color(0xFFEF4444),
+                      color: widget.subtitle.contains('+')
+                          ? const Color(0xFF22C55E)
+                          : const Color(0xFFEF4444),
                     ),
                   ),
                 ],

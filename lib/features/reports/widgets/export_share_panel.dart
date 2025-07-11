@@ -20,7 +20,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    
+
     _scaleAnimation = Tween<double>(
       begin: 0.8,
       end: 1.0,
@@ -28,7 +28,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
       parent: _animationController,
       curve: Curves.elasticOut,
     ));
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -36,7 +36,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
-    
+
     _animationController.forward();
   }
 
@@ -180,7 +180,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
     );
   }
 
-  Widget _buildExportButton(String label, IconData icon, Color color, VoidCallback onTap) {
+  Widget _buildExportButton(
+      String label, IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -261,7 +262,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
     );
   }
 
-  Widget _buildShareButton(String label, IconData icon, Color color, VoidCallback onTap) {
+  Widget _buildShareButton(
+      String label, IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -321,7 +323,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                icon: const Icon(Icons.assessment, color: Colors.white, size: 18),
+                icon:
+                    const Icon(Icons.assessment, color: Colors.white, size: 18),
                 label: const Text(
                   'Relatório Completo',
                   style: TextStyle(
@@ -342,7 +345,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                icon: const Icon(Icons.schedule, color: Color(0xFF582FFF), size: 18),
+                icon: const Icon(Icons.schedule,
+                    color: Color(0xFF582FFF), size: 18),
                 label: const Text(
                   'Agendar Envio',
                   style: TextStyle(
@@ -392,7 +396,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Agendar Relatório'),
-        content: const Text('Escolha a frequência para envio automático de relatórios.'),
+        content: const Text(
+            'Escolha a frequência para envio automático de relatórios.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

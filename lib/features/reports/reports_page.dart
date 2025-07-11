@@ -19,20 +19,20 @@ class ReportsPage extends StatefulWidget {
 class _ReportsPageState extends State<ReportsPage>
     with TickerProviderStateMixin {
   final MockService mockService = MockService();
-  
+
   late AnimationController _fadeController;
   late AnimationController _slideController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  
+
   String selectedPeriod = 'Este mês';
   String selectedChart = 'pie';
   bool showDetails = false;
   int touchedIndex = -1;
-  
+
   final List<String> periods = [
     'Esta semana',
-    'Este mês', 
+    'Este mês',
     'Últimos 3 meses',
     'Este ano'
   ];
@@ -48,7 +48,7 @@ class _ReportsPageState extends State<ReportsPage>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -56,7 +56,7 @@ class _ReportsPageState extends State<ReportsPage>
       parent: _fadeController,
       curve: Curves.easeInOut,
     ));
-    
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.5),
       end: Offset.zero,
@@ -64,7 +64,7 @@ class _ReportsPageState extends State<ReportsPage>
       parent: _slideController,
       curve: Curves.elasticOut,
     ));
-    
+
     _fadeController.forward();
     _slideController.forward();
   }
@@ -190,9 +190,8 @@ class _ReportsPageState extends State<ReportsPage>
                 duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
-                  color: isSelected 
-                    ? const Color(0xFF582FFF) 
-                    : Colors.transparent,
+                  color:
+                      isSelected ? const Color(0xFF582FFF) : Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -201,9 +200,7 @@ class _ReportsPageState extends State<ReportsPage>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: isSelected 
-                      ? Colors.white 
-                      : const Color(0xFF64748B),
+                    color: isSelected ? Colors.white : const Color(0xFF64748B),
                   ),
                 ),
               ),
@@ -298,11 +295,11 @@ class _ReportsPageState extends State<ReportsPage>
           const SizedBox(height: 24),
           SizedBox(
             height: 300,
-            child: selectedChart == 'pie' 
-              ? _buildInteractivePieChart()
-              : selectedChart == 'bar'
-                ? _buildInteractiveBarChart()
-                : _buildInteractiveLineChart(),
+            child: selectedChart == 'pie'
+                ? _buildInteractivePieChart()
+                : selectedChart == 'bar'
+                    ? _buildInteractiveBarChart()
+                    : _buildInteractiveLineChart(),
           ),
           if (showDetails) ...[
             const SizedBox(height: 16),
@@ -325,22 +322,18 @@ class _ReportsPageState extends State<ReportsPage>
         duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSelected 
-            ? const Color(0xFF582FFF).withOpacity(0.1)
-            : Colors.grey.withOpacity(0.1),
+          color: isSelected
+              ? const Color(0xFF582FFF).withOpacity(0.1)
+              : Colors.grey.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected 
-              ? const Color(0xFF582FFF)
-              : Colors.transparent,
+            color: isSelected ? const Color(0xFF582FFF) : Colors.transparent,
           ),
         ),
         child: Icon(
           icon,
           size: 20,
-          color: isSelected 
-            ? const Color(0xFF582FFF)
-            : const Color(0xFF64748B),
+          color: isSelected ? const Color(0xFF582FFF) : const Color(0xFF64748B),
         ),
       ),
     );
@@ -359,7 +352,8 @@ class _ReportsPageState extends State<ReportsPage>
                 touchedIndex = -1;
                 return;
               }
-              touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+              touchedIndex =
+                  pieTouchResponse.touchedSection!.touchedSectionIndex;
             });
           },
         ),
@@ -368,11 +362,13 @@ class _ReportsPageState extends State<ReportsPage>
           final data = entry.value;
           final isTouched = index == touchedIndex;
           final radius = isTouched ? 110.0 : 100.0;
-          
+
           return PieChartSectionData(
             color: data.color,
             value: data.value,
-            title: isTouched ? '${data.name}\n${data.value.toInt()}%' : '${data.value.toInt()}%',
+            title: isTouched
+                ? '${data.name}\n${data.value.toInt()}%'
+                : '${data.value.toInt()}%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: isTouched ? 16 : 14,
@@ -511,7 +507,13 @@ class _ReportsPageState extends State<ReportsPage>
           touchTooltipData: LineTouchTooltipData(
             getTooltipItems: (touchedSpots) {
               return touchedSpots.map((spot) {
-                final areas = ['Trabalhista', 'Penal', 'Cível', 'Contencioso', 'Tributário'];
+                final areas = [
+                  'Trabalhista',
+                  'Penal',
+                  'Cível',
+                  'Contencioso',
+                  'Tributário'
+                ];
                 return LineTooltipItem(
                   '${areas[spot.x.toInt()]}\n${spot.y.toInt()}%',
                   const TextStyle(
@@ -610,7 +612,8 @@ class _ReportsPageState extends State<ReportsPage>
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF582FFF),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),

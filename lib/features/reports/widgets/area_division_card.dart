@@ -106,7 +106,8 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
                             touchedIndex = -1;
                             return;
                           }
-                          touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                          touchedIndex = pieTouchResponse
+                              .touchedSection!.touchedSectionIndex;
                         });
                       },
                     ),
@@ -137,13 +138,13 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
       final isTouched = index == touchedIndex;
       final radius = isTouched ? 120.0 : 100.0;
       final animatedValue = data.value * _animation.value;
-      
+
       return PieChartSectionData(
         color: data.color,
         value: animatedValue,
-        title: isTouched 
-          ? '${data.name}\n${animatedValue.toInt()}%'
-          : '${animatedValue.toInt()}%',
+        title: isTouched
+            ? '${data.name}\n${animatedValue.toInt()}%'
+            : '${animatedValue.toInt()}%',
         radius: radius,
         titleStyle: TextStyle(
           fontSize: isTouched ? 16 : 14,
@@ -169,7 +170,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
         final index = entry.key;
         final data = entry.value;
         final isSelected = index == touchedIndex;
-        
+
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -180,14 +181,11 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
             duration: const Duration(milliseconds: 300),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: isSelected 
-                ? data.color.withOpacity(0.1)
-                : Colors.transparent,
+              color:
+                  isSelected ? data.color.withOpacity(0.1) : Colors.transparent,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: isSelected 
-                  ? data.color
-                  : Colors.transparent,
+                color: isSelected ? data.color : Colors.transparent,
                 width: 1,
               ),
             ),
@@ -201,13 +199,15 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
                   decoration: BoxDecoration(
                     color: data.color,
                     borderRadius: BorderRadius.circular(isSelected ? 8 : 2),
-                    boxShadow: isSelected ? [
-                      BoxShadow(
-                        color: data.color.withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ] : null,
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: data.color.withOpacity(0.3),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ]
+                        : null,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -216,9 +216,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
                   style: TextStyle(
                     fontSize: isSelected ? 14 : 12,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected 
-                      ? data.color
-                      : const Color(0xFF64748B),
+                    color: isSelected ? data.color : const Color(0xFF64748B),
                   ),
                 ),
                 if (isSelected) ...[
@@ -244,9 +242,9 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
     if (touchedIndex < 0 || touchedIndex >= widget.areaDivisionData.length) {
       return const SizedBox.shrink();
     }
-    
+
     final selectedData = widget.areaDivisionData[touchedIndex];
-    
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 400),
       padding: const EdgeInsets.all(16),
@@ -290,9 +288,12 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
           ),
           const SizedBox(height: 12),
           _buildDetailRow('Participação', '${selectedData.value.toInt()}%'),
-          _buildDetailRow('Casos ativos', '${(selectedData.value * 24.2).toInt()}'),
-          _buildDetailRow('Taxa de sucesso', '${(85 + (selectedData.value * 0.3)).toStringAsFixed(1)}%'),
-          _buildDetailRow('Faturamento', 'R\$ ${(selectedData.value * 85000).toStringAsFixed(0)}'),
+          _buildDetailRow(
+              'Casos ativos', '${(selectedData.value * 24.2).toInt()}'),
+          _buildDetailRow('Taxa de sucesso',
+              '${(85 + (selectedData.value * 0.3)).toStringAsFixed(1)}%'),
+          _buildDetailRow('Faturamento',
+              'R\$ ${(selectedData.value * 85000).toStringAsFixed(0)}'),
         ],
       ),
     );
