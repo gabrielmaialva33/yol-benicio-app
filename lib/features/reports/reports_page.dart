@@ -125,8 +125,8 @@ class ReportsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMetricCard(
-      String title, String value, String subtitle, Color color, IconData icon) {
+  Widget _buildMetricCard(String title, String value, String subtitle,
+      Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(

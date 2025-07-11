@@ -97,7 +97,7 @@ class YolBottomNavigation extends StatelessWidget {
               icon,
               size: 20,
               color:
-                  isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
+              isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
             ),
             const SizedBox(height: 2),
             Text(

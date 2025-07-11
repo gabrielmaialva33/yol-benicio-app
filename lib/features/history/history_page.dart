@@ -83,8 +83,8 @@ class HistoryPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHistoryItem(
-      String title, String subtitle, Color color, String time) {
+  Widget _buildHistoryItem(String title, String subtitle, Color color,
+      String time) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),

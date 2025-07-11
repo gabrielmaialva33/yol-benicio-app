@@ -84,7 +84,7 @@ class StatCard extends StatelessWidget {
             // Link
             GestureDetector(
               onTap: onTap ??
-                  () {
+                      () {
                     print('StatCard for "$title" tapped.');
                   },
               child: Text(

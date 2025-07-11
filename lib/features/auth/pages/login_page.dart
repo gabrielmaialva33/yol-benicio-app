@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(24.0),
                   child:
-                      isDesktop ? _buildDesktopLayout() : _buildMobileLayout(),
+                  isDesktop ? _buildDesktopLayout() : _buildMobileLayout(),
                 ),
               ),
             ],
@@ -106,9 +106,9 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         const Expanded(
           child: Center(
-              // This space can be used for a larger branding image on desktop
-              // For now, we keep it empty as the logo is inside the form card.
-              ),
+            // This space can be used for a larger branding image on desktop
+            // For now, we keep it empty as the logo is inside the form card.
+          ),
         ),
         const SizedBox(width: 60),
         Expanded(
@@ -234,22 +234,22 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 child: _isLoading
                     ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        ),
-                      )
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor:
+                    AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                )
                     : const Text(
-                        'Entrar',
-                        style: TextStyle(
-                          fontFamily: 'Work Sans',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                  'Entrar',
+                  style: TextStyle(
+                    fontFamily: 'Work Sans',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 35),

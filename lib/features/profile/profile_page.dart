@@ -78,7 +78,7 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFF2FAC68).withOpacity(0.12),
                       borderRadius: BorderRadius.circular(20),
@@ -102,33 +102,33 @@ class ProfilePage extends StatelessWidget {
                   _buildProfileOption(
                     'Configurações',
                     Icons.settings_outlined,
-                    () {},
+                        () {},
                   ),
                   _buildProfileOption(
                     'Notificações',
                     Icons.notifications_outlined,
-                    () {},
+                        () {},
                   ),
                   _buildProfileOption(
                     'Privacidade',
                     Icons.privacy_tip_outlined,
-                    () {},
+                        () {},
                   ),
                   _buildProfileOption(
                     'Suporte',
                     Icons.help_outline,
-                    () {},
+                        () {},
                   ),
                   _buildProfileOption(
                     'Sobre',
                     Icons.info_outline,
-                    () {},
+                        () {},
                   ),
                   const SizedBox(height: 24),
                   _buildProfileOption(
                     'Sair',
                     Icons.logout,
-                    () async {
+                        () async {
                       final authService = AuthService();
                       await authService.logout();
                       if (context.mounted) {

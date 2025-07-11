@@ -42,10 +42,10 @@ class TaskItem extends StatelessWidget {
               ),
               child: task.completed
                   ? const Icon(
-                      Icons.check,
-                      size: 14,
-                      color: Colors.white,
-                    )
+                Icons.check,
+                size: 14,
+                color: Colors.white,
+              )
                   : null,
             ),
           ),
@@ -65,7 +65,7 @@ class TaskItem extends StatelessWidget {
                         ? const Color(0xFF9CA3AF)
                         : const Color(0xFF111827),
                     decoration:
-                        task.completed ? TextDecoration.lineThrough : null,
+                    task.completed ? TextDecoration.lineThrough : null,
                   ),
                 ),
                 if (task.category.isNotEmpty) ...[
@@ -97,7 +97,9 @@ class TaskItem extends StatelessWidget {
 
   String _formatDueDate(DateTime date) {
     final now = DateTime.now();
-    final difference = date.difference(now).inDays;
+    final difference = date
+        .difference(now)
+        .inDays;
 
     if (difference < 0) {
       return 'Atrasado';

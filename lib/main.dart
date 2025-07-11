@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
       create: (_) => AuthService(),
       child: Consumer<AuthService>(
         builder: (context, authService, child) {
-          final textTheme = Theme.of(context).textTheme;
+          final textTheme = Theme
+              .of(context)
+              .textTheme;
           return MaterialApp(
             title: 'Yol App',
             theme: ThemeData(
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
                   foregroundColor: Colors.white,
                   elevation: 0,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
