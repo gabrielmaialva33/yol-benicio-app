@@ -21,7 +21,7 @@ class Logo extends StatelessWidget {
         ),
         const SizedBox(width: 12),
         Text(
-          'YOL',
+          'BENICIO',
           style: TextStyle(
             fontFamily: 'Inter',
             fontSize: 24,
