@@ -1,4 +1,5 @@
 import 'package:benicio/features/folders/widgets/folder_card.dart';
+import 'package:benicio/features/folders/widgets/create_folder_dialog.dart';
 import 'package:benicio/features/history/history_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -150,45 +151,20 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
     );
   }
 
-  void _showCreateProcessDialog(BuildContext context) {
-    showDialog(
+  void _showCreateProcessDialog(BuildContext context) async {
+    final result = await showDialog<Folder>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Criar Nova Pasta'),
-        content: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Título do Processo',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Cliente',
-                border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.search),
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // TODO: Implementar criação de pasta
-            },
-            child: const Text('Criar'),
-          ),
-        ],
-      ),
+      barrierDismissible: false,
+      builder: (context) => const CreateFolderDialog(),
     );
+    
+    if (result != null) {
+      // Refresh the folder list
+      setState(() {
+        _allFolders = _mockService.getFolders(50);
+        _filterFolders();
+      });
+    }
   }
 
   Widget _buildFiltersSection(
