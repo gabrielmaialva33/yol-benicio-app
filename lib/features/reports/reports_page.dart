@@ -277,8 +277,8 @@ class _ReportsPageState extends State<ReportsPage>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
                 'Distribuição por Áreas',
@@ -288,6 +288,7 @@ class _ReportsPageState extends State<ReportsPage>
                   color: Color(0xFF111827),
                 ),
               ),
+              const SizedBox(height: 16),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
