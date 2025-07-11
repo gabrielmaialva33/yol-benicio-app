@@ -81,7 +81,6 @@ class DashboardLayout extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      // Botões de ação no header
                       Container(
                         width: 40,
                         height: 40,
