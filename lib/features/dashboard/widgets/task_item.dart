@@ -68,10 +68,19 @@ class TaskItem extends StatelessWidget {
                     task.completed ? TextDecoration.lineThrough : null,
                   ),
                 ),
-                if (task.category.isNotEmpty) ...[
+                if (task.category != null && task.category!.isNotEmpty) ...[
                   const SizedBox(height: 4),
                   Text(
-                    task.category,
+                    task.category!,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF6B7280),
+                    ),
+                  ),
+                ] else if (task.folder != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    '${task.folder!.code} - ${task.folder!.client.name}',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Color(0xFF6B7280),

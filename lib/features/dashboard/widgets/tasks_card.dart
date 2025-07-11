@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import '../../shared/services/mock_data_service.dart';
 import '../models/task.dart';
 import 'task_item.dart';
 
@@ -12,20 +12,35 @@ class TasksCard extends StatefulWidget {
 }
 
 class _TasksCardState extends State<TasksCard> {
+  final _mockService = MockDataService();
   late List<Task> _tasks;
+  late Map<String, int> _taskStats;
 
   @override
   void initState() {
     super.initState();
-    _tasks = _getMockTasks();
+    _loadTasks();
+  }
+  
+  void _loadTasks() {
+    _tasks = _mockService.getTasks(status: null);
+    
+    // Calculate statistics
+    _taskStats = {
+      'total': _tasks.length,
+      'pending': _tasks.where((t) => t.status == TaskStatus.pending).length,
+      'inProgress': _tasks.where((t) => t.status == TaskStatus.inProgress).length,
+      'completed': _tasks.where((t) => t.status == TaskStatus.completed).length,
+      'overdue': _tasks.where((t) => t.isOverdue).length,
+    };
   }
 
   void _toggleTask(Task task) {
+    _mockService.updateTask(task.id, {
+      'status': task.isCompleted ? TaskStatus.pending : TaskStatus.completed,
+    });
     setState(() {
-      final index = _tasks.indexWhere((t) => t.id == task.id);
-      if (index != -1) {
-        _tasks[index] = task.copyWith(completed: !task.completed);
-      }
+      _loadTasks();
     });
   }
 
@@ -52,23 +67,63 @@ class _TasksCardState extends State<TasksCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Suas tarefas',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Suas tarefas',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF111827),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF10B981).withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '${_taskStats['completed']} concluídas',
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF10B981),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        if (_taskStats['overdue']! > 0)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFEF4444).withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              '${_taskStats['overdue']} atrasadas',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFFEF4444),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              // Placeholder for DateRangePicker
-              TextButton.icon(
+              TextButton(
                 onPressed: () {
-                  // TODO: Implement DateRangePicker
+                  // TODO: View all tasks
                 },
-                icon: const Icon(Icons.calendar_today, size: 16),
-                label: Text(
-                  DateFormat('d MMM', 'pt_BR').format(DateTime.now()),
-                ),
+                child: const Text('Ver todas'),
                 style: TextButton.styleFrom(
                   foregroundColor: const Color(0xFF6B7280),
                 ),
@@ -76,12 +131,12 @@ class _TasksCardState extends State<TasksCard> {
             ],
           ),
           const SizedBox(height: 20),
-          if (_tasks.isEmpty)
+          if (_tasks.where((t) => !t.isCompleted).isEmpty)
             const Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 40),
                 child: Text(
-                  'Nenhuma tarefa para hoje!',
+                  'Nenhuma tarefa pendente!',
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xFF6B7280),
@@ -93,9 +148,10 @@ class _TasksCardState extends State<TasksCard> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _tasks.length,
+              itemCount: _tasks.where((t) => !t.isCompleted).take(5).length,
               itemBuilder: (context, index) {
-                final task = _tasks[index];
+                final pendingTasks = _tasks.where((t) => !t.isCompleted).take(5).toList();
+                final task = pendingTasks[index];
                 return TaskItem(
                   task: task,
                   onToggle: _toggleTask,
@@ -107,40 +163,4 @@ class _TasksCardState extends State<TasksCard> {
     );
   }
 
-  List<Task> _getMockTasks() {
-    return [
-      Task(
-        id: '1',
-        title: 'Reunião com o cliente sobre o caso XPTO',
-        category: 'Processo 12345-67.2023',
-        completed: false,
-        color: const Color(0xFF3B82F6),
-        dueDate: DateTime.now(),
-      ),
-      Task(
-        id: '2',
-        title: 'Elaborar petição inicial',
-        category: 'Processo 98765-43.2023',
-        completed: false,
-        color: const Color(0xFFF59E0B),
-        dueDate: DateTime.now().add(const Duration(days: 1)),
-      ),
-      Task(
-        id: '3',
-        title: 'Protocolar recurso de apelação',
-        category: 'Processo 55555-55.2022',
-        completed: true,
-        color: const Color(0xFF10B981),
-        dueDate: DateTime.now().subtract(const Duration(days: 2)),
-      ),
-      Task(
-        id: '4',
-        title: 'Analisar documentos do novo cliente',
-        category: 'Cliente Joana Silva',
-        completed: false,
-        color: const Color(0xFFEF4444),
-        dueDate: DateTime.now().add(const Duration(days: 3)),
-      ),
-    ];
-  }
 }

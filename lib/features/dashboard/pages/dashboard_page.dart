@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../shared/services/mock_data_service.dart';
 import '../widgets/dashboard_layout.dart';
 import '../widgets/metric_card.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -17,7 +17,18 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final MockData _mockData = MockData();
+  final _mockService = MockDataService();
+  late Map<String, dynamic> _metrics;
+  
+  @override
+  void initState() {
+    super.initState();
+    _loadDashboardData();
+  }
+  
+  void _loadDashboardData() {
+    _metrics = _mockService.getDashboardMetrics();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -517,8 +528,8 @@ class _DashboardPageState extends State<DashboardPage> {
       children: [
         MetricCard(
           title: 'Processos Ativos',
-          value: _mockData.activeFolders.toString(),
-          subtitle: '${_mockData.newThisMonth} novos este mês',
+          value: (_metrics['activeFolders'] ?? 0).toString(),
+          subtitle: '${_metrics['newThisMonth'] ?? 0} novos este mês',
           titleColor: const Color(0xFF64748B),
           valueColor: const Color(0xFF3B82F6),
           subtitleColor: const Color(0xFF10B981),
@@ -527,7 +538,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         MetricCard(
           title: 'Processos Concluídos',
-          value: _mockData.closedFolders.toString(),
+          value: (_metrics['completedFolders'] ?? 0).toString(),
           subtitle: 'Finalizados',
           titleColor: const Color(0xFF64748B),
           valueColor: const Color(0xFF10B981),
@@ -547,7 +558,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         MetricCard(
           title: 'Receita Total',
-          value: _mockData.totalRevenue,
+          value: _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
           subtitle: 'Este mês',
           titleColor: const Color(0xFF64748B),
           valueColor: const Color(0xFF059669),

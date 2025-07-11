@@ -2,7 +2,14 @@
 export 'mock_data_service.dart';
 
 // This file maintains backward compatibility
+import 'package:flutter/material.dart';
 import 'mock_data_service.dart';
+import '../../folders/models/folder.dart';
+import '../models/client.dart';
+import '../models/user.dart';
+import '../../dashboard/models/task.dart';
+import '../../dashboard/models/hearing.dart';
+import '../../reports/models/area_division_data.dart';
 
 class MockService {
   final _dataService = MockDataService();
@@ -38,4 +45,16 @@ class MockService {
   
   // Search
   List<dynamic> search(String query) => _dataService.search(query);
+  
+  // Reports data
+  List<AreaDivisionData> getAreaDivisionData() {
+    // Generate mock area division data
+    return [
+      AreaDivisionData(area: 'Cível', percentage: 35, count: 420, color: const Color(0xFF3B82F6)),
+      AreaDivisionData(area: 'Trabalhista', percentage: 25, count: 300, color: const Color(0xFF10B981)),
+      AreaDivisionData(area: 'Tributário', percentage: 20, count: 240, color: const Color(0xFFF59E0B)),
+      AreaDivisionData(area: 'Criminal', percentage: 10, count: 120, color: const Color(0xFFEF4444)),
+      AreaDivisionData(area: 'Outros', percentage: 10, count: 120, color: const Color(0xFF6B7280)),
+    ];
+  }
 }

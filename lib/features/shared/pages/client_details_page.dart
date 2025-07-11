@@ -45,7 +45,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
 
     // Simular carregamento das pastas do cliente
     Future.delayed(const Duration(milliseconds: 500), () {
-      final allFolders = _mockService.getFolders(50);
+      final List<Folder> allFolders = _mockService.getFolders(50);
       setState(() {
         // Filtrar pastas que pertencem a este cliente
         _clientFolders = allFolders

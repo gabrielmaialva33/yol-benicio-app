@@ -31,6 +31,16 @@ class User {
     }
     return name.substring(0, 2).toUpperCase();
   }
+  
+  String get fullName => name;
+  
+  String get shortName {
+    final parts = name.split(' ');
+    if (parts.length >= 2) {
+      return '${parts.first} ${parts.last[0]}.';
+    }
+    return name;
+  }
 
   bool get isSenior => role.contains('Sócio') || role.contains('Sênior');
   
