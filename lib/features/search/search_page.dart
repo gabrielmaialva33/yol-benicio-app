@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../shared/utils/fonts.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  const SearchPage({super.key});
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -121,8 +121,8 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Widget _buildCategoryCard(String title, String subtitle, IconData icon,
-      Color color) {
+  Widget _buildCategoryCard(
+      String title, String subtitle, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(

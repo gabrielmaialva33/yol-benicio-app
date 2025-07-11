@@ -60,14 +60,14 @@ class BenicioBottomNavigation extends StatelessWidget {
             ),
             _buildNavItem(
               index: 4,
-              icon: FontAwesomeIcons.clockRotateLeft,
-              label: 'Histórico',
+              icon: FontAwesomeIcons.user,
+              label: 'Perfil',
               isActive: currentIndex == 4,
             ),
             _buildNavItem(
               index: 5,
-              icon: FontAwesomeIcons.user,
-              label: 'Perfil',
+              icon: FontAwesomeIcons.signOutAlt,
+              label: 'Sair',
               isActive: currentIndex == 5,
             ),
           ],
@@ -105,7 +105,7 @@ class BenicioBottomNavigation extends StatelessWidget {
               icon,
               size: 20,
               color:
-              isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
+                  isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
             ),
             AnimatedSize(
               duration: const Duration(milliseconds: 300),

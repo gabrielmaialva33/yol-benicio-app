@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExportSharePanel extends StatefulWidget {
-  const ExportSharePanel({Key? key}) : super(key: key);
+  const ExportSharePanel({super.key});
 
   @override
   State<ExportSharePanel> createState() => _ExportSharePanelState();
@@ -153,7 +153,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                 'PDF',
                 Icons.picture_as_pdf,
                 const Color(0xFFEF4444),
-                    () => _exportToPDF(),
+                () => _exportToPDF(),
               ),
             ),
             const SizedBox(width: 12),
@@ -162,7 +162,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                 'Excel',
                 Icons.table_chart,
                 const Color(0xFF22C55E),
-                    () => _exportToExcel(),
+                () => _exportToExcel(),
               ),
             ),
             const SizedBox(width: 12),
@@ -171,7 +171,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                 'PNG',
                 Icons.image,
                 const Color(0xFF3B82F6),
-                    () => _exportToPNG(),
+                () => _exportToPNG(),
               ),
             ),
           ],
@@ -180,8 +180,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
     );
   }
 
-  Widget _buildExportButton(String label, IconData icon, Color color,
-      VoidCallback onTap) {
+  Widget _buildExportButton(
+      String label, IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -235,7 +235,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                 'E-mail',
                 Icons.email,
                 const Color(0xFF582FFF),
-                    () => _shareByEmail(),
+                () => _shareByEmail(),
               ),
             ),
             const SizedBox(width: 12),
@@ -244,7 +244,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                 'WhatsApp',
                 Icons.message,
                 const Color(0xFF22C55E),
-                    () => _shareByWhatsApp(),
+                () => _shareByWhatsApp(),
               ),
             ),
             const SizedBox(width: 12),
@@ -253,7 +253,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                 'Link',
                 Icons.link,
                 const Color(0xFFF59E0B),
-                    () => _generateShareLink(),
+                () => _generateShareLink(),
               ),
             ),
           ],
@@ -262,8 +262,8 @@ class _ExportSharePanelState extends State<ExportSharePanel>
     );
   }
 
-  Widget _buildShareButton(String label, IconData icon, Color color,
-      VoidCallback onTap) {
+  Widget _buildShareButton(
+      String label, IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -324,7 +324,7 @@ class _ExportSharePanelState extends State<ExportSharePanel>
                   ),
                 ),
                 icon:
-                const Icon(Icons.assessment, color: Colors.white, size: 18),
+                    const Icon(Icons.assessment, color: Colors.white, size: 18),
                 label: const Text(
                   'Relatório Completo',
                   style: TextStyle(
@@ -394,25 +394,24 @@ class _ExportSharePanelState extends State<ExportSharePanel>
   void _scheduleReport() {
     showDialog(
       context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: const Text('Agendar Relatório'),
-            content: const Text(
-                'Escolha a frequência para envio automático de relatórios.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancelar'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  _showSuccessMessage('Relatório agendado com sucesso!');
-                },
-                child: const Text('Agendar'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Agendar Relatório'),
+        content: const Text(
+            'Escolha a frequência para envio automático de relatórios.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _showSuccessMessage('Relatório agendado com sucesso!');
+            },
+            child: const Text('Agendar'),
+          ),
+        ],
+      ),
     );
   }
 

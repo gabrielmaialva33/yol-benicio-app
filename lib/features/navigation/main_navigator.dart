@@ -8,6 +8,7 @@ import '../profile/profile_page.dart';
 import '../reports/reports_page.dart';
 import '../search/search_page.dart';
 import '../folders/pages/folder_consultation_page.dart';
+import '../history/pages/general_history_page.dart';
 import 'widgets/desktop_sidebar.dart';
 
 class MainNavigator extends StatefulWidget {
@@ -27,6 +28,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     const FolderConsultationPage(),
     const SearchPage(),
     const ReportsPage(),
+    const GeneralHistoryPage(),
     const ProfilePage(),
   ];
 
@@ -35,6 +37,7 @@ class _MainNavigatorState extends State<MainNavigator> {
     'Pastas',
     'Buscar',
     'Relatórios',
+    'Histórico',
     'Perfil',
   ];
 
@@ -72,12 +75,12 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout desktop com sidebar
               return Scaffold(
                 backgroundColor:
-                themeProvider.themeData.scaffoldBackgroundColor,
+                    themeProvider.themeData.scaffoldBackgroundColor,
                 appBar: AppBar(
                   backgroundColor:
-                  themeProvider.themeData.appBarTheme.backgroundColor,
+                      themeProvider.themeData.appBarTheme.backgroundColor,
                   foregroundColor:
-                  themeProvider.themeData.appBarTheme.foregroundColor,
+                      themeProvider.themeData.appBarTheme.foregroundColor,
                   elevation: 0,
                   title: Row(
                     children: [
@@ -167,53 +170,53 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout mobile/tablet com bottom navigation
               return Scaffold(
                 backgroundColor:
-                themeProvider.themeData.scaffoldBackgroundColor,
+                    themeProvider.themeData.scaffoldBackgroundColor,
                 appBar: isTablet
                     ? AppBar(
-                  backgroundColor:
-                  themeProvider.themeData.appBarTheme.backgroundColor,
-                  foregroundColor:
-                  themeProvider.themeData.appBarTheme.foregroundColor,
-                  elevation: 0,
-                  title: Row(
-                    children: [
-                      Text(
-                        _pageTitles[_currentIndex],
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: themeProvider
-                              .themeData.textTheme.titleLarge?.color,
+                        backgroundColor:
+                            themeProvider.themeData.appBarTheme.backgroundColor,
+                        foregroundColor:
+                            themeProvider.themeData.appBarTheme.foregroundColor,
+                        elevation: 0,
+                        title: Row(
+                          children: [
+                            Text(
+                              _pageTitles[_currentIndex],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: themeProvider
+                                    .themeData.textTheme.titleLarge?.color,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color:
+                                    themeProvider.primaryColor.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'Tablet',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: themeProvider.primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color:
-                          themeProvider.primaryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          'Tablet',
-                          style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                            color: themeProvider.primaryColor,
+                        actions: [
+                          IconButton(
+                            icon: const Icon(Icons.notifications_outlined),
+                            onPressed: () {},
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.notifications_outlined),
-                      onPressed: () {},
-                    ),
-                    const QuickThemeToggle(),
-                    const SizedBox(width: 8),
-                  ],
-                )
+                          const QuickThemeToggle(),
+                          const SizedBox(width: 8),
+                        ],
+                      )
                     : null,
                 body: PageView(
                   controller: _pageController,
