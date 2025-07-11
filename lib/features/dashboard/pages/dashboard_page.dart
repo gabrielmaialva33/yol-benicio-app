@@ -11,7 +11,6 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  // Mock data based on Figma design
   final MockData _mockData = MockData();
 
   @override
@@ -22,7 +21,6 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Section title
             const Text(
               'Suas pastas',
               style: TextStyle(
@@ -33,7 +31,7 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             const SizedBox(height: 8),
-            
+
             const Text(
               'Encontre aqui todas as suas pastas',
               style: TextStyle(
@@ -44,13 +42,11 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             const SizedBox(height: 32),
-            
-            // Main grid with statistics cards
+
             LayoutBuilder(
               builder: (context, constraints) {
-                // Determines if it's desktop or mobile layout
                 bool isDesktop = constraints.maxWidth > 900;
-                
+
                 if (isDesktop) {
                   return _buildDesktopLayout();
                 } else {
@@ -63,11 +59,10 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     );
   }
-  
+
   Widget _buildDesktopLayout() {
     return Column(
       children: [
-        // First row - Active and Closed
         Row(
           children: [
             Expanded(
@@ -100,8 +95,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         const SizedBox(height: 24),
-        
-        // Second row - Folder Deadlines
+
         MetricCard(
           title: 'Prazos de Pastas',
           subtitle: 'Entregues dentro do prazo x Não entregues',
@@ -228,7 +222,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
         const SizedBox(height: 24),
-        
+
         // Third row - Folder Activity
         MetricCard(
           title: 'Atividade Pastas',
@@ -300,7 +294,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
         const SizedBox(height: 24),
-        
+
         // Fourth row - Revenue (highlighted with blue border)
         Container(
           decoration: BoxDecoration(
@@ -324,7 +318,7 @@ class _DashboardPageState extends State<DashboardPage> {
       ],
     );
   }
-  
+
   Widget _buildMobileLayout() {
     return Column(
       children: [
@@ -352,7 +346,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         const SizedBox(height: 24),
-        
+
         // Revenue cards in single column
         MetricCard(
           title: 'Entradas',
@@ -361,7 +355,7 @@ class _DashboardPageState extends State<DashboardPage> {
           backgroundColor: Colors.white,
         ),
         const SizedBox(height: 16),
-        
+
         MetricCard(
           title: 'Atrasos',
           value: _mockData.delayedRevenue,
