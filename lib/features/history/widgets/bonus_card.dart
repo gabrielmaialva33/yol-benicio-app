@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:benicio/core/theme/theme_provider.dart';
 
 class BonusCard extends StatelessWidget {
-  const BonusCard({Key? key}) : super(key: key);
+  const BonusCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class BonusCard extends StatelessWidget {
                 Chip(
                   label: Text('Execução Definitiva'),
                   backgroundColor:
-                  themeProvider.themeData.scaffoldBackgroundColor,
+                      themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 Chip(
                   label: Text('Interno'),
                   backgroundColor:
-                  themeProvider.themeData.scaffoldBackgroundColor,
+                      themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(

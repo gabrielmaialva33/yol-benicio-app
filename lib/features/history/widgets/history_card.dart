@@ -10,13 +10,13 @@ class HistoryCard extends StatelessWidget {
   final Widget? content;
 
   const HistoryCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.date,
     required this.user,
     this.content,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

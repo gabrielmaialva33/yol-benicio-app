@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:benicio/core/theme/theme_provider.dart';
 
 class NewFilesCard extends StatelessWidget {
-  const NewFilesCard({Key? key}) : super(key: key);
+  const NewFilesCard({super.key});
 
   @override
   Widget build(BuildContext context) {

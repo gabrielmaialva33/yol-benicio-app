@@ -90,7 +90,7 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
 
   List<String> _getUniqueClients() {
     final clients =
-    _allFolders.map((folder) => folder.client.name).toSet().toList();
+        _allFolders.map((folder) => folder.client.name).toSet().toList();
     clients.sort();
     return ['Todos', ...clients];
   }
@@ -153,47 +153,46 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
   void _showCreateProcessDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: const Text('Criar Nova Pasta'),
-            content: const Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Título do Processo',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 16),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Cliente',
-                    border: OutlineInputBorder(),
-                    suffixIcon: Icon(Icons.search),
-                  ),
-                ),
-              ],
+      builder: (context) => AlertDialog(
+        title: const Text('Criar Nova Pasta'),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Título do Processo',
+                border: OutlineInputBorder(),
+              ),
             ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Cancelar'),
+            SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Cliente',
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.search),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  // TODO: Implementar criação de pasta
-                },
-                child: const Text('Criar'),
-              ),
-            ],
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancelar'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // TODO: Implementar criação de pasta
+            },
+            child: const Text('Criar'),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildFiltersSection(ThemeProvider themeProvider, bool isDesktop,
-      bool isTablet) {
+  Widget _buildFiltersSection(
+      ThemeProvider themeProvider, bool isDesktop, bool isTablet) {
     return Container(
       padding: EdgeInsets.all(isDesktop ? 24 : (isTablet ? 20 : 16)),
       margin: const EdgeInsets.only(bottom: 8),
@@ -252,12 +251,12 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
               prefixIcon: const Icon(Icons.search),
               suffixIcon: _searchController.text.isNotEmpty
                   ? IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  _searchController.clear();
-                  _filterFolders();
-                },
-              )
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        _searchController.clear();
+                        _filterFolders();
+                      },
+                    )
                   : null,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -275,11 +274,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
           // Filtros
           if (isDesktop)
             _buildDesktopFilters(themeProvider)
+          else if (isTablet)
+            _buildTabletFilters(themeProvider)
           else
-            if (isTablet)
-              _buildTabletFilters(themeProvider)
-            else
-              _buildMobileFilters(themeProvider),
+            _buildMobileFilters(themeProvider),
         ],
       ),
     );
@@ -297,9 +295,7 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
         if (isDesktop) ...[
           const SizedBox(width: 12),
           _buildStatChip(
-              '${_filteredFolders
-                  .where((f) => f.status == FolderStatus.active)
-                  .length} ativos',
+              '${_filteredFolders.where((f) => f.status == FolderStatus.active).length} ativos',
               themeProvider.warningColor),
         ],
       ],
@@ -335,11 +331,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
                 'Status',
                 _selectedFilter,
                 _filterOptions,
-                    (value) =>
-                    setState(() {
-                      _selectedFilter = value!;
-                      _filterFolders();
-                    }),
+                (value) => setState(() {
+                  _selectedFilter = value!;
+                  _filterFolders();
+                }),
                 themeProvider,
               ),
             ),
@@ -349,11 +344,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
                 'Cliente',
                 _selectedClient,
                 _getUniqueClients(),
-                    (value) =>
-                    setState(() {
-                      _selectedClient = value!;
-                      _filterFolders();
-                    }),
+                (value) => setState(() {
+                  _selectedClient = value!;
+                  _filterFolders();
+                }),
                 themeProvider,
               ),
             ),
@@ -363,16 +357,24 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Switch(
-                  value: _groupByClient,
-                  onChanged: (value) => setState(() => _groupByClient = value),
-                  activeColor: themeProvider.primaryColor,
-                ),
-                const SizedBox(width: 8),
-                const Text('Agrupar por cliente'),
-              ],
+            Flexible(
+              child: Row(
+                children: [
+                  Switch(
+                    value: _groupByClient,
+                    onChanged: (value) =>
+                        setState(() => _groupByClient = value),
+                    activeColor: themeProvider.primaryColor,
+                  ),
+                  const SizedBox(width: 8),
+                  const Flexible(
+                    child: Text(
+                      'Agrupar por cliente',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
             _buildQuickStats(themeProvider, false),
           ],
@@ -392,11 +394,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
             'Status',
             _selectedFilter,
             _filterOptions,
-                (value) =>
-                setState(() {
-                  _selectedFilter = value!;
-                  _filterFolders();
-                }),
+            (value) => setState(() {
+              _selectedFilter = value!;
+              _filterFolders();
+            }),
             themeProvider,
           ),
         ),
@@ -408,11 +409,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
             'Cliente',
             _selectedClient,
             _getUniqueClients(),
-                (value) =>
-                setState(() {
-                  _selectedClient = value!;
-                  _filterFolders();
-                }),
+            (value) => setState(() {
+              _selectedClient = value!;
+              _filterFolders();
+            }),
             themeProvider,
           ),
         ),
@@ -469,11 +469,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
                 'Status',
                 _selectedFilter,
                 _filterOptions,
-                    (value) =>
-                    setState(() {
-                      _selectedFilter = value!;
-                      _filterFolders();
-                    }),
+                (value) => setState(() {
+                  _selectedFilter = value!;
+                  _filterFolders();
+                }),
                 themeProvider,
               ),
             ),
@@ -483,11 +482,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
                 'Cliente',
                 _selectedClient,
                 _getUniqueClients(),
-                    (value) =>
-                    setState(() {
-                      _selectedClient = value!;
-                      _filterFolders();
-                    }),
+                (value) => setState(() {
+                  _selectedClient = value!;
+                  _filterFolders();
+                }),
                 themeProvider,
               ),
             ),
@@ -497,22 +495,29 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Switch(
-                  value: _groupByClient,
-                  onChanged: (value) => setState(() => _groupByClient = value),
-                  activeColor: themeProvider.primaryColor,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  'Agrupar por cliente',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: themeProvider.themeData.textTheme.bodyMedium?.color,
+            Flexible(
+              child: Row(
+                children: [
+                  Switch(
+                    value: _groupByClient,
+                    onChanged: (value) =>
+                        setState(() => _groupByClient = value),
+                    activeColor: themeProvider.primaryColor,
                   ),
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      'Agrupar por cliente',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color:
+                            themeProvider.themeData.textTheme.bodyMedium?.color,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -535,11 +540,13 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
     );
   }
 
-  Widget _buildFilterDropdown(String label,
-      String value,
-      List<String> options,
-      ValueChanged<String?> onChanged,
-      ThemeProvider themeProvider,) {
+  Widget _buildFilterDropdown(
+    String label,
+    String value,
+    List<String> options,
+    ValueChanged<String?> onChanged,
+    ThemeProvider themeProvider,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -555,11 +562,10 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
         DropdownButtonFormField<String>(
           value: value,
           items: options
-              .map((option) =>
-              DropdownMenuItem(
-                value: option,
-                child: Text(option),
-              ))
+              .map((option) => DropdownMenuItem(
+                    value: option,
+                    child: Text(option),
+                  ))
               .toList(),
           onChanged: onChanged,
           decoration: InputDecoration(
@@ -572,7 +578,7 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
                 ? Colors.white.withOpacity(0.05)
                 : Colors.black.withOpacity(0.03),
             contentPadding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           ),
         ),
       ],
@@ -668,7 +674,7 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
                   ),
                   Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: themeProvider.primaryColor,
                       borderRadius: BorderRadius.circular(12),
@@ -687,8 +693,7 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
             ),
 
             // Lista de pastas do cliente
-            ...clientFolders.map((folder) =>
-                Padding(
+            ...clientFolders.map((folder) => Padding(
                   padding: const EdgeInsets.only(bottom: 12),
                   child: FolderCard(
                     folder: folder,

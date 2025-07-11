@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:benicio/core/theme/theme_provider.dart';
 
 class BilledCard extends StatelessWidget {
-  const BilledCard({Key? key}) : super(key: key);
+  const BilledCard({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:benicio/core/theme/theme_provider.dart';
 
 class JudgmentCard extends StatelessWidget {
-  const JudgmentCard({Key? key}) : super(key: key);
+  const JudgmentCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,13 @@ class JudgmentCard extends StatelessWidget {
                 Chip(
                   label: Text('Recursal'),
                   backgroundColor:
-                  themeProvider.themeData.scaffoldBackgroundColor,
+                      themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 Chip(
                   label: Text('Interno'),
                   backgroundColor:
-                  themeProvider.themeData.scaffoldBackgroundColor,
+                      themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
