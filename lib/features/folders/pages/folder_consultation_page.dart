@@ -1,3 +1,4 @@
+import 'package:benicio/features/folders/widgets/folder_card.dart';
 import 'package:benicio/features/history/history_page.dart';
 import 'package:flutter/material.dart';
 
@@ -31,12 +32,8 @@ class _FolderConsultationPageState extends State<FolderConsultationPage> {
         itemCount: _folders.length,
         itemBuilder: (context, index) {
           final folder = _folders[index];
-          return ListTile(
-            title: Text(folder.title),
-            subtitle: Text(folder.client.name),
-            trailing: Icon(
-              folder.isFavorite ? Icons.star : Icons.star_border,
-            ),
+          return FolderCard(
+            folder: folder,
             onTap: () {
               Navigator.push(
                 context,
