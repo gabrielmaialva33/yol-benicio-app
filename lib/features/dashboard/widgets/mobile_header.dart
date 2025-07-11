@@ -10,11 +10,9 @@ class MobileHeader extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          // Status bar space e header principal
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Logo e nome YOL
               Row(
                 children: [
                   Container(
@@ -40,11 +38,9 @@ class MobileHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              
-              // Status bar info (wifi, battery, etc.)
+
               Row(
                 children: [
-                  // WiFi icon
                   Container(
                     width: 26.36,
                     height: 18.35,
@@ -88,13 +84,12 @@ class MobileHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  
-                  // Signal strength
+
                   Container(
                     width: 27.91,
                     height: 18.6,
                     child: SvgPicture.asset(
-                      'assets/icons/user_icon.svg', // Placeholder for signal
+                      'assets/icons/user_icon.svg',
                       colorFilter: const ColorFilter.mode(
                         Color(0xFF1E293B),
                         BlendMode.srcIn,
@@ -102,8 +97,7 @@ class MobileHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  
-                  // Battery
+
                   Container(
                     width: 37.05,
                     height: 18.15,
@@ -116,7 +110,6 @@ class MobileHeader extends StatelessWidget {
                     ),
                     child: Stack(
                       children: [
-                        // Battery fill
                         Positioned(
                           left: 5,
                           top: 4,
@@ -129,7 +122,6 @@ class MobileHeader extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // Battery tip
                         Positioned(
                           right: 0,
                           top: 6,
@@ -150,11 +142,9 @@ class MobileHeader extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          
-          // Seção com botões
+
           Row(
             children: [
-              // Logo VIVO FIBRA
               Container(
                 width: 193,
                 height: 42,
@@ -175,8 +165,7 @@ class MobileHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              
-              // Botão Menu
+
               Container(
                 width: 56,
                 height: 56,
@@ -197,8 +186,7 @@ class MobileHeader extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              
-              // Botão Search
+
               Container(
                 width: 56,
                 height: 56,
