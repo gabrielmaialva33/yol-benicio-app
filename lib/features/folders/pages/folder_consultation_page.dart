@@ -561,10 +561,15 @@ class _FolderConsultationPageState extends State<FolderConsultationPage>
         const SizedBox(height: 4),
         DropdownButtonFormField<String>(
           value: value,
+          isExpanded: true,
           items: options
               .map((option) => DropdownMenuItem(
                     value: option,
-                    child: Text(option),
+                    child: Text(
+                      option,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 14),
+                    ),
                   ))
               .toList(),
           onChanged: onChanged,
