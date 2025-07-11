@@ -5,6 +5,7 @@ import '../../../core/theme/theme_provider.dart';
 import '../../shared/services/mock_data_service.dart';
 import '../../shared/models/client.dart';
 import '../../shared/models/user.dart';
+import '../../shared/widgets/create_client_dialog.dart';
 import '../models/folder.dart';
 
 class CreateFolderDialog extends StatefulWidget {
@@ -177,45 +178,119 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                 hintText: 'Para qual cliente é este processo?',
                                 prefixIcon: Icon(Icons.search),
                               ),
-                        items: _clients.map((client) {
-                          return DropdownMenuItem(
-                            value: client,
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                  decoration: BoxDecoration(
-                                    color: client.type == ClientType.corporate
-                                        ? Colors.blue.withOpacity(0.1)
-                                        : Colors.green.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(4),
+                              items: _clients.map((client) {
+                                return DropdownMenuItem(
+                                  value: client,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: client.type == ClientType.corporate
+                                              ? Colors.blue.withOpacity(0.1)
+                                              : Colors.green.withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: Text(
+                                          client.type == ClientType.corporate ? 'PJ' : 'PF',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                            color: client.type == ClientType.corporate
+                                                ? Colors.blue
+                                                : Colors.green,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              client.name,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(fontWeight: FontWeight.w500),
+                                            ),
+                                            if (client.activeFolders > 0)
+                                              Text(
+                                                '${client.activeFolders} processo(s) ativo(s)',
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF6B7280),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                      if (client.status == ClientStatus.vip)
+                                        Container(
+                                          margin: const EdgeInsets.only(left: 8),
+                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber.withOpacity(0.1),
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          child: const Row(
+                                            children: [
+                                              Icon(Icons.star, size: 12, color: Colors.amber),
+                                              SizedBox(width: 2),
+                                              Text(
+                                                'VIP',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.amber,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                    ],
                                   ),
-                                  child: Text(
-                                    client.type == ClientType.corporate ? 'PJ' : 'PF',
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w600,
-                                      color: client.type == ClientType.corporate
-                                          ? Colors.blue
-                                          : Colors.green,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    client.name,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+                                );
+                              }).toList(),
+                              onChanged: (value) => setState(() => _selectedClient = value),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Selecione um cliente';
+                                }
+                                return null;
+                              },
                             ),
-                          );
-                        }).toList(),
-                        onChanged: (value) => setState(() => _selectedClient = value),
+                            const SizedBox(height: 8),
+                            TextButton.icon(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                // Navigate to create client
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => const CreateClientDialog(),
+                                );
+                              },
+                              icon: const Icon(Icons.person_add, size: 16),
+                              label: const Text('Cliente não está na lista? Criar novo'),
+                              style: TextButton.styleFrom(
+                                foregroundColor: themeProvider.primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      
+                      // Title field
+                      TextFormField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                          labelText: 'Título do Processo *',
+                          hintText: 'Ex: Ação de Cobrança, Reclamação Trabalhista, etc.',
+                          prefixIcon: Icon(Icons.folder_outlined),
+                        ),
                         validator: (value) {
-                          if (value == null) {
-                            return 'Selecione um cliente';
+                          if (value == null || value.isEmpty) {
+                            return 'O título é obrigatório';
                           }
                           return null;
                         },
