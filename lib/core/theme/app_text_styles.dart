@@ -6,8 +6,7 @@ class AppTextStyles {
   static const String _fontFamilyFallback = 'Segoe UI'; // Windows
 
   // Título grande
-  static TextStyle headline1({Color? color}) =>
-      TextStyle(
+  static TextStyle headline1({Color? color}) => TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w700,
         color: color,
@@ -16,8 +15,7 @@ class AppTextStyles {
       );
 
   // Título médio
-  static TextStyle headline2({Color? color}) =>
-      TextStyle(
+  static TextStyle headline2({Color? color}) => TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.w700,
         color: color,
@@ -26,8 +24,7 @@ class AppTextStyles {
       );
 
   // Título pequeno
-  static TextStyle headline3({Color? color}) =>
-      TextStyle(
+  static TextStyle headline3({Color? color}) => TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: color,
@@ -36,8 +33,7 @@ class AppTextStyles {
       );
 
   // Subtítulo
-  static TextStyle subtitle1({Color? color}) =>
-      TextStyle(
+  static TextStyle subtitle1({Color? color}) => TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: color,
@@ -46,8 +42,7 @@ class AppTextStyles {
       );
 
   // Subtítulo pequeno
-  static TextStyle subtitle2({Color? color}) =>
-      TextStyle(
+  static TextStyle subtitle2({Color? color}) => TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,
         color: color,
@@ -56,8 +51,7 @@ class AppTextStyles {
       );
 
   // Corpo do texto
-  static TextStyle body1({Color? color}) =>
-      TextStyle(
+  static TextStyle body1({Color? color}) => TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         color: color,
@@ -66,8 +60,7 @@ class AppTextStyles {
       );
 
   // Corpo do texto pequeno
-  static TextStyle body2({Color? color}) =>
-      TextStyle(
+  static TextStyle body2({Color? color}) => TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         color: color,
@@ -76,8 +69,7 @@ class AppTextStyles {
       );
 
   // Caption
-  static TextStyle caption({Color? color}) =>
-      TextStyle(
+  static TextStyle caption({Color? color}) => TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         color: color,
@@ -86,8 +78,7 @@ class AppTextStyles {
       );
 
   // Button
-  static TextStyle button({Color? color}) =>
-      TextStyle(
+  static TextStyle button({Color? color}) => TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         color: color,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/theme_provider.dart';
-import '../../core/theme/app_text_styles.dart';
 import '../shared/services/auth_service.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -107,7 +107,11 @@ class _ProfilePageState extends State<ProfilePage>
         titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
         title: Text(
           'Perfil',
-          style: TextStyle(color: Colors.white),
+          style: GoogleFonts.inter(
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
         ),
         background: Container(
           decoration: BoxDecoration(
@@ -177,21 +181,25 @@ class _ProfilePageState extends State<ProfilePage>
           const SizedBox(height: 20),
           Text(
             'Dr. João Silva',
-            style: TextStyle(
+            style: GoogleFonts.inter(
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
               color: themeProvider.themeData.textTheme.titleLarge?.color,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'Advogado Sênior • OAB/SP 123.456',
-            style: TextStyle(
+            style: GoogleFonts.inter(
+              fontSize: 16,
               color: themeProvider.themeData.textTheme.bodyMedium?.color,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             'joao.silva@yol.com.br',
-            style: TextStyle(
+            style: GoogleFonts.inter(
+              fontSize: 14,
               color: themeProvider.themeData.textTheme.bodySmall?.color,
             ),
           ),
@@ -207,7 +215,7 @@ class _ProfilePageState extends State<ProfilePage>
             ),
             child: Text(
               '🏆 Membro Premium',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.successColor,
@@ -311,7 +319,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(height: 8),
             Text(
               title,
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.themeData.textTheme.bodyMedium?.color,
@@ -371,7 +379,7 @@ class _ProfilePageState extends State<ProfilePage>
           padding: const EdgeInsets.only(left: 4, bottom: 16),
           child: Text(
             'Configurações',
-            style: TextStyle(
+            style: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: themeProvider.themeData.textTheme.titleMedium?.color,
@@ -434,7 +442,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         title: Text(
           title,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: themeProvider.themeData.textTheme.titleMedium?.color,
@@ -442,7 +450,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         subtitle: Text(
           subtitle,
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
             color: themeProvider.themeData.textTheme.bodySmall?.color,
           ),
@@ -482,7 +490,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         title: Text(
           'Sair da Conta',
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             color: themeProvider.errorColor,
@@ -490,7 +498,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         subtitle: Text(
           'Fazer logout do aplicativo',
-          style: TextStyle(
+          style: GoogleFonts.inter(
             fontSize: 14,
             color: themeProvider.themeData.textTheme.bodySmall?.color,
           ),
@@ -568,7 +576,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(height: 20),
             Text(
               'Escolha o tema',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: themeProvider.themeData.textTheme.titleLarge?.color,
@@ -643,7 +651,7 @@ class _ProfilePageState extends State<ProfilePage>
             const SizedBox(height: 12),
             Text(
               isLight ? 'Claro' : 'Escuro',
-              style: TextStyle(
+              style: GoogleFonts.inter(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
                 color: isSelected

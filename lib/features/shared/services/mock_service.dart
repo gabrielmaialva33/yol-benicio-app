@@ -212,7 +212,7 @@ class MockService {
         activeCases: _random.nextInt(15) + 1,
         totalBilled: (_random.nextDouble() * 500000) + 50000,
         clientSince:
-        DateTime.now().subtract(Duration(days: _random.nextInt(1825))),
+            DateTime.now().subtract(Duration(days: _random.nextInt(1825))),
         status: _random.nextBool()
             ? 'active'
             : (_random.nextBool() ? 'vip' : 'inactive'),
@@ -311,71 +311,82 @@ class MockService {
   List<Map<String, dynamic>> searchItems(String query, String category) {
     final List<Map<String, dynamic>> allItems = [
       // Clientes
-      ...List.generate(20, (index) =>
-      {
-        'type': 'client',
-        'title': 'João Silva ${index + 1}',
-        'subtitle': 'Cliente desde ${2020 + (index % 5)}',
-        'category': 'Clientes',
-      }),
+      ...List.generate(
+          20,
+          (index) => {
+                'type': 'client',
+                'title': 'João Silva ${index + 1}',
+                'subtitle': 'Cliente desde ${2020 + (index % 5)}',
+                'category': 'Clientes',
+              }),
       // Processos
-      ...List.generate(15, (index) =>
-      {
-        'type': 'process',
-        'title': 'Processo ${100000 + index}',
-        'subtitle': 'Direito Civil • Em andamento',
-        'category': 'Processos',
-      }),
+      ...List.generate(
+          15,
+          (index) => {
+                'type': 'process',
+                'title': 'Processo ${100000 + index}',
+                'subtitle': 'Direito Civil • Em andamento',
+                'category': 'Processos',
+              }),
       // Documentos
-      ...List.generate(25, (index) =>
-      {
-        'type': 'document',
-        'title': 'Contrato ${index + 1}',
-        'subtitle': 'Documento criado em ${DateTime
-            .now()
-            .subtract(Duration(days: index * 5))
-            .day}/${DateTime
-            .now()
-            .month}',
-        'category': 'Documentos',
-      }),
+      ...List.generate(
+          25,
+          (index) => {
+                'type': 'document',
+                'title': 'Contrato ${index + 1}',
+                'subtitle':
+                    'Documento criado em ${DateTime.now().subtract(Duration(days: index * 5)).day}/${DateTime.now().month}',
+                'category': 'Documentos',
+              }),
       // Pastas
-      ...List.generate(10, (index) =>
-      {
-        'type': 'folder',
-        'title': 'Pasta ${index + 1}',
-        'subtitle': 'Processo familiar • Ativa',
-        'category': 'Pastas Ativas',
-      }),
+      ...List.generate(
+          10,
+          (index) => {
+                'type': 'folder',
+                'title': 'Pasta ${index + 1}',
+                'subtitle': 'Processo familiar • Ativa',
+                'category': 'Pastas Ativas',
+              }),
     ];
 
     // Filtrar por categoria
     List<Map<String, dynamic>> filteredByCategory = category == 'Todos'
         ? allItems
-        : allItems.where((item) =>
-    item['category'].toString().toLowerCase().contains(
-        category.toLowerCase()) ||
-        item['type'].toString().toLowerCase().contains(category.toLowerCase())
-    ).toList();
+        : allItems
+            .where((item) =>
+                item['category']
+                    .toString()
+                    .toLowerCase()
+                    .contains(category.toLowerCase()) ||
+                item['type']
+                    .toString()
+                    .toLowerCase()
+                    .contains(category.toLowerCase()))
+            .toList();
 
     // Filtrar por query
     if (query.isEmpty) return filteredByCategory;
 
-    return filteredByCategory.where((item) =>
-    item['title'].toString().toLowerCase().contains(query.toLowerCase()) ||
-        item['subtitle'].toString().toLowerCase().contains(query.toLowerCase())
-    ).toList();
+    return filteredByCategory
+        .where((item) =>
+            item['title']
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            item['subtitle']
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+        .toList();
   }
 
   // Métodos auxiliares para gerar dados realistas
   String _generateDocument() {
     final isCPF = _random.nextBool();
     if (isCPF) {
-      return '${_random.nextInt(900) + 100}.${_random.nextInt(900) +
-          100}.${_random.nextInt(900) + 100}-${_random.nextInt(90) + 10}';
+      return '${_random.nextInt(900) + 100}.${_random.nextInt(900) + 100}.${_random.nextInt(900) + 100}-${_random.nextInt(90) + 10}';
     } else {
-      return '${_random.nextInt(90) + 10}.${_random.nextInt(900) +
-          100}.${_random.nextInt(900) + 100}/0001-${_random.nextInt(90) + 10}';
+      return '${_random.nextInt(90) + 10}.${_random.nextInt(900) + 100}.${_random.nextInt(900) + 100}/0001-${_random.nextInt(90) + 10}';
     }
   }
 
@@ -394,8 +405,7 @@ class MockService {
   }
 
   String _generatePhone() {
-    return '(11) 9${_random.nextInt(9000) + 1000}-${_random.nextInt(9000) +
-        1000}';
+    return '(11) 9${_random.nextInt(9000) + 1000}-${_random.nextInt(9000) + 1000}';
   }
 
   String _generateAddress() {
@@ -407,7 +417,6 @@ class MockService {
       'Av. Faria Lima'
     ];
     final number = _random.nextInt(9000) + 100;
-    return '${streets[_random.nextInt(
-        streets.length)]}, $number - São Paulo/SP';
+    return '${streets[_random.nextInt(streets.length)]}, $number - São Paulo/SP';
   }
 }

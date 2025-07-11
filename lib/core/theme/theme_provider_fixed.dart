@@ -7,7 +7,6 @@ class ThemeProvider extends ChangeNotifier {
   static const String _themeKey = 'app_theme_mode';
 
   AppThemeMode _currentTheme = AppThemeMode.light;
-
   AppThemeMode get currentTheme => _currentTheme;
 
   bool get isDarkMode => _currentTheme == AppThemeMode.dark;
@@ -33,13 +32,9 @@ class ThemeProvider extends ChangeNotifier {
   static const Color textSecondaryDark = Color(0xFF919eab);
 
   Color get primaryColor => isDarkMode ? primaryDark : primaryLight;
-
   Color get accentColor => accent;
-
   Color get warningColor => warning;
-
   Color get errorColor => error;
-
   Color get successColor => success;
 
   LinearGradient get primaryGradient => LinearGradient(
