@@ -288,14 +288,17 @@ class _ReportsPageState extends State<ReportsPage>
                   color: Color(0xFF111827),
                 ),
               ),
-              Row(
-                children: [
-                  _buildChartTypeButton('pie', Icons.pie_chart),
-                  const SizedBox(width: 8),
-                  _buildChartTypeButton('bar', Icons.bar_chart),
-                  const SizedBox(width: 8),
-                  _buildChartTypeButton('line', Icons.show_chart),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _buildChartTypeButton('pie', Icons.pie_chart),
+                    const SizedBox(width: 8),
+                    _buildChartTypeButton('bar', Icons.bar_chart),
+                    const SizedBox(width: 8),
+                    _buildChartTypeButton('line', Icons.show_chart),
+                  ],
+                ),
               ),
             ],
           ),

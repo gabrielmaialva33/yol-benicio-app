@@ -57,11 +57,10 @@ class _PerformanceMetricsState extends State<PerformanceMetrics>
     super.initState();
     _controllers = List.generate(
       metrics.length,
-          (index) =>
-          AnimationController(
-            duration: Duration(milliseconds: 800 + (index * 200)),
-            vsync: this,
-          ),
+      (index) => AnimationController(
+        duration: Duration(milliseconds: 800 + (index * 200)),
+        vsync: this,
+      ),
     );
 
     _animations = _controllers.map((controller) {
@@ -128,7 +127,7 @@ class _PerformanceMetricsState extends State<PerformanceMetrics>
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 1.5,
+              childAspectRatio: 1.2,
               crossAxisSpacing: 16,
               mainAxisSpacing: 16,
             ),
