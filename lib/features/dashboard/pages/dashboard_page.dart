@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../folders/widgets/create_folder_dialog.dart';
 import '../../shared/services/mock_data_service.dart';
 import '../../shared/widgets/create_client_dialog.dart';
+import '../../shared/widgets/simple_test_dialog.dart';
 import '../models/billing_data.dart';
 import '../widgets/billing_card.dart';
 import '../widgets/dashboard_layout.dart';
@@ -103,12 +104,16 @@ class _DashboardPageState extends State<DashboardPage> {
             if (isDesktop || isTablet) ...[
               const SizedBox(width: 16),
               _buildQuickActions(),
+              const SizedBox(width: 16),
+              _buildTestButton(),
             ],
           ],
         ),
         if (!isDesktop && !isTablet) ...[
           const SizedBox(height: 16),
           _buildQuickActions(),
+          const SizedBox(height: 8),
+          _buildTestButton(),
         ],
       ],
     );
@@ -123,6 +128,7 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Nova Pasta',
           color: const Color(0xFF3B82F6),
           onTap: () {
+            print('DEBUG: Nova Pasta button pressed');
             _showCreateFolderDialog();
           },
         ),
@@ -132,6 +138,7 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Novo Cliente',
           color: const Color(0xFF10B981),
           onTap: () {
+            print('DEBUG: Novo Cliente button pressed');
             _showCreateClientDialog();
           },
         ),
@@ -145,30 +152,36 @@ class _DashboardPageState extends State<DashboardPage> {
     required Color color,
     required VoidCallback onTap,
   }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: color.withOpacity(0.3)),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 16, color: color),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: color,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          print('DEBUG: Action button "$label" tapped');
+          onTap();
+        },
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 16, color: color),
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: color,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -513,6 +526,50 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+  Widget _buildTestButton() {
+    return ElevatedButton.icon(
+      onPressed: () async {
+        print('DEBUG: Test button pressed');
+        try {
+          final result = await showDialog<String>(
+            context: context,
+            builder: (context) => const SimpleTestDialog(
+              title: 'Teste de Diálogo',
+              content: 'Este é um teste para verificar se os diálogos estão funcionando.',
+            ),
+          );
+          print('DEBUG: Test dialog result: $result');
+          
+          if (mounted && result != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Diálogo de teste funcionou!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        } catch (e) {
+          print('DEBUG: Error in test dialog: $e');
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Erro no teste: $e'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
+      },
+      icon: const Icon(Icons.bug_report, size: 16),
+      label: const Text('Teste'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.purple,
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      ),
+    );
+  }
+
   String _formatCurrency(double value) {
     if (value >= 1000000) {
       return 'R\$ ${(value / 1000000).toStringAsFixed(1)}M';
@@ -766,32 +823,86 @@ class _DashboardPageState extends State<DashboardPage> {
   }
   
   void _showCreateFolderDialog() async {
-    final result = await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const CreateFolderDialog(),
-    );
-    
-    if (result != null) {
-      // Refresh dashboard data
-      setState(() {
-        _loadDashboardData();
-      });
+    print('DEBUG: _showCreateFolderDialog called');
+    try {
+      final result = await showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext dialogContext) {
+          print('DEBUG: Building SimpleCreateFolderDialog');
+          return const SimpleCreateFolderDialog();
+        },
+      );
+      
+      print('DEBUG: Dialog result: $result');
+      if (result != null) {
+        // Refresh dashboard data
+        setState(() {
+          _loadDashboardData();
+        });
+        
+        // Show success message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Pasta "${result['title']}" criada com sucesso!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print('DEBUG: Error showing folder dialog: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao abrir diálogo: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
   
   void _showCreateClientDialog() async {
-    final result = await showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const CreateClientDialog(),
-    );
-    
-    if (result != null) {
-      // Refresh dashboard data
-      setState(() {
-        _loadDashboardData();
-      });
+    print('DEBUG: _showCreateClientDialog called');
+    try {
+      final result = await showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext dialogContext) {
+          print('DEBUG: Building SimpleCreateClientDialog');
+          return const SimpleCreateClientDialog();
+        },
+      );
+      
+      print('DEBUG: Dialog result: $result');
+      if (result != null) {
+        // Refresh dashboard data
+        setState(() {
+          _loadDashboardData();
+        });
+        
+        // Show success message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Cliente "${result['name']}" criado com sucesso!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print('DEBUG: Error showing client dialog: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao abrir diálogo: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 }
