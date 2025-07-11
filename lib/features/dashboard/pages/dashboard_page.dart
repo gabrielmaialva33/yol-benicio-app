@@ -19,13 +19,13 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   final _mockService = MockDataService();
   late Map<String, dynamic> _metrics;
-  
+
   @override
   void initState() {
     super.initState();
     _loadDashboardData();
   }
-  
+
   void _loadDashboardData() {
     _metrics = _mockService.getDashboardMetrics();
   }
@@ -194,7 +194,7 @@ class _DashboardPageState extends State<DashboardPage> {
               flex: 1,
               child: Column(
                 children: [
-                  BillingCard(billingData: _mockData.billingData),
+                  BillingCard(billingData: _getBillingData()),
                   const SizedBox(height: 24),
                   _buildRecentClientsCard(),
                 ],
@@ -239,7 +239,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: BillingCard(billingData: _mockData.billingData),
+              child: BillingCard(billingData: _getBillingData()),
             ),
           ],
         ),
@@ -273,14 +273,14 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             MetricCard(
               title: 'Processos Ativos',
-              value: _mockData.activeFolders.toString(),
-              subtitle: '+${_mockData.newThisMonth}',
+              value: (_metrics['activeFolders'] ?? 0).toString(),
+              subtitle: '+${_metrics['newThisMonth'] ?? 0}',
               backgroundColor: Colors.white,
               valueColor: const Color(0xFF3B82F6),
             ),
             MetricCard(
               title: 'Concluídos',
-              value: _mockData.closedFolders.toString(),
+              value: (_metrics['completedFolders'] ?? 0).toString(),
               subtitle: 'Finalizados',
               backgroundColor: Colors.white,
               valueColor: const Color(0xFF10B981),
@@ -294,7 +294,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             MetricCard(
               title: 'Receita',
-              value: _formatCurrency(_mockData.totalRevenue),
+              value: _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
               subtitle: 'Este mês',
               backgroundColor: Colors.white,
               valueColor: const Color(0xFF059669),
@@ -405,7 +405,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 children: [
                   Expanded(
                     child: _buildMobileDeadlineItem(
-                      '${_mockData.delayedFolders}',
+                      '${_metrics['delayedFolders'] ?? 0}',
                       'Atrasados',
                       const Color(0xFFEF4444),
                     ),
@@ -436,7 +436,7 @@ class _DashboardPageState extends State<DashboardPage> {
         const SizedBox(height: 20),
 
         // Billing Card
-        BillingCard(billingData: _mockData.billingData),
+        BillingCard(billingData: _getBillingData()),
       ],
     );
   }
@@ -505,16 +505,13 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  String _formatCurrency(String value) {
-    // Remove "R$" e espaços para pegar apenas o número
-    final cleanValue = value.replaceAll(RegExp(r'[^\d,.]'), '');
-    if (cleanValue.contains(',')) {
-      final parts = cleanValue.split(',');
-      if (parts[0].length > 6) {
-        return 'R\$ ${parts[0].substring(0, parts[0].length - 3)}K';
-      }
+  String _formatCurrency(double value) {
+    if (value >= 1000000) {
+      return 'R\$ ${(value / 1000000).toStringAsFixed(1)}M';
+    } else if (value >= 1000) {
+      return 'R\$ ${(value / 1000).toStringAsFixed(0)}K';
     }
-    return value;
+    return 'R\$ ${value.toStringAsFixed(0)}';
   }
 
   Widget _buildMetricsGrid({required bool isDesktop}) {
@@ -652,7 +649,7 @@ class _DashboardPageState extends State<DashboardPage> {
             children: [
               Expanded(
                 child: _buildDeadlineItem(
-                  '${_mockData.delayedFolders}',
+                  '${_metrics['delayedFolders'] ?? 0}',
                   'Atrasados',
                   const Color(0xFFEF4444),
                 ),
@@ -711,19 +708,18 @@ class _DashboardPageState extends State<DashboardPage> {
       customContent: Column(
         children: [
           const SizedBox(height: 16),
-          _buildStatRow('Total de Processos', _mockData.totalFolders.toString(),
+          _buildStatRow('Total de Processos', (_metrics['totalFolders'] ?? 0).toString(),
               const Color(0xFF1E293B)),
           const SizedBox(height: 12),
-          _buildStatRow('Entregues no Prazo', '${_mockData.deliveredFolders}',
+          _buildStatRow('Entregues no Prazo', '${_metrics['deliveredFolders'] ?? 0}',
               const Color(0xFF10B981)),
           const SizedBox(height: 12),
-          _buildStatRow('Com Atraso', '${_mockData.delayedFolders}',
+          _buildStatRow('Com Atraso', '${_metrics['delayedFolders'] ?? 0}',
               const Color(0xFFEF4444)),
           const SizedBox(height: 12),
           _buildStatRow(
               'Taxa de Sucesso',
-              '${(((_mockData.deliveredFolders / _mockData.totalFolders) * 100)
-                  .round())}%',
+              '${((_metrics['totalFolders'] ?? 0) > 0 ? (((_metrics['deliveredFolders'] ?? 0) / (_metrics['totalFolders'] ?? 1)) * 100).round() : 0)}%',
               const Color(0xFF3B82F6)),
         ],
       ),
@@ -752,29 +748,12 @@ class _DashboardPageState extends State<DashboardPage> {
       ],
     );
   }
-}
 
-class MockData {
-  final int activeFolders = 2420;
-  final int closedFolders = 2420;
-  final int newThisMonth = 98;
-  final int totalFolders = 520;
-  final int deliveredFolders = 140;
-  final int delayedFolders = 47;
-  final String totalRevenue = 'R\$1.084.000,00';
-  final String delayedRevenue = 'R\$584.000,00';
-
-  final BillingData billingData = BillingData(
-    value: 'R\$ 2.5M',
-    percentage: 15.3,
-    chartData: [
-      const FlSpot(0, 1),
-      const FlSpot(1, 1.5),
-      const FlSpot(2, 1.4),
-      const FlSpot(3, 3.4),
-      const FlSpot(4, 2),
-      const FlSpot(5, 2.2),
-      const FlSpot(6, 1.8),
-    ],
-  );
+  BillingData _getBillingData() {
+    return BillingData(
+      value: _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
+      percentage: 15.3,
+      chartData: _mockService.generateChartData(7),
+    );
+  }
 }

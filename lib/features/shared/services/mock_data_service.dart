@@ -266,8 +266,18 @@ class MockDataService {
 
   // Generate dashboard metrics
   void _generateDashboardMetrics() {
-    _dashboardMetrics['activeFolders'] = _folders.where((f) => f.status == FolderStatus.active).length;
-    _dashboardMetrics['completedFolders'] = _folders.where((f) => f.status == FolderStatus.completed).length;
+    final activeFolders = _folders.where((f) => f.status == FolderStatus.active).length;
+    final completedFolders = _folders.where((f) => f.status == FolderStatus.completed).length;
+    final totalFolders = _folders.length;
+    final deliveredFolders = _folders.where((f) => 
+      f.status == FolderStatus.completed && !f.isOverdue).length;
+    final delayedFolders = _folders.where((f) => f.isOverdue).length;
+    
+    _dashboardMetrics['activeFolders'] = activeFolders;
+    _dashboardMetrics['completedFolders'] = completedFolders;
+    _dashboardMetrics['totalFolders'] = totalFolders;
+    _dashboardMetrics['deliveredFolders'] = deliveredFolders;
+    _dashboardMetrics['delayedFolders'] = delayedFolders;
     _dashboardMetrics['newThisMonth'] = _folders.where((f) => 
       f.createdAt.isAfter(DateTime.now().subtract(Duration(days: 30)))).length;
     _dashboardMetrics['totalRevenue'] = _folders
