@@ -11,14 +11,12 @@ class DashboardLayout extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isDesktop = constraints.maxWidth > 900;
-        
+
         if (isDesktop) {
-          // Layout desktop com header personalizado
           return Container(
             color: const Color(0xFFFAFAFA),
             child: Column(
               children: [
-                // Header personalizado do Benício Advogados
                 Container(
                   height: 80,
                   padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -33,10 +31,8 @@ class DashboardLayout extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      // Logo Benício Advogados
                       Row(
                         children: [
-                          // Ícone circular laranja
                           Container(
                             width: 32,
                             height: 32,
@@ -61,7 +57,6 @@ class DashboardLayout extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          // Texto Benício Advogados
                           const Text(
                             'BENÍCIO',
                             style: TextStyle(
