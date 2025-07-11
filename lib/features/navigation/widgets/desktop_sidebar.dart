@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DesktopSidebar extends StatelessWidget {
+class DesktopSidebar extends StatefulWidget {
   final int currentIndex;
   final Function(int) onNavigationTap;
   final List<String> pageTitles;
@@ -17,10 +17,41 @@ class DesktopSidebar extends StatelessWidget {
   });
 
   @override
+  State<DesktopSidebar> createState() => _DesktopSidebarState();
+}
+
+class _DesktopSidebarState extends State<DesktopSidebar> {
+  final TextEditingController _searchController = TextEditingController();
+  List<String> _filteredPageTitles = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _filteredPageTitles = widget.pageTitles;
+    _searchController.addListener(_filterPages);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_filterPages);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _filterPages() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      _filteredPageTitles = widget.pageTitles
+          .where((title) => title.toLowerCase().contains(query))
+          .toList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
-      width: isCollapsed ? 80 : 240,
+      width: widget.isCollapsed ? 80 : 240,
       decoration: const BoxDecoration(
         color: Color(0xFFF8F9FA),
         border: Border(
@@ -36,11 +67,12 @@ class DesktopSidebar extends StatelessWidget {
           Container(
             height: 80,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            alignment: isCollapsed ? Alignment.center : Alignment.centerLeft,
-            child: isCollapsed
+            alignment:
+                widget.isCollapsed ? Alignment.center : Alignment.centerLeft,
+            child: widget.isCollapsed
                 ? IconButton(
                     icon: const Icon(Icons.menu),
-                    onPressed: onToggle,
+                    onPressed: widget.onToggle,
                   )
                 : Row(
                     children: [
@@ -97,19 +129,39 @@ class DesktopSidebar extends StatelessWidget {
                       const Spacer(),
                       IconButton(
                         icon: const Icon(Icons.chevron_left),
-                        onPressed: onToggle,
+                        onPressed: widget.onToggle,
                       ),
                     ],
                   ),
           ),
+          if (!widget.isCollapsed)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Buscar...',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[200],
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                ),
+              ),
+            ),
           const Divider(height: 1, color: Color(0xFFE2E8F0)),
           // Navigation items
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              itemCount: pageTitles.length,
+              itemCount: _filteredPageTitles.length,
               itemBuilder: (context, index) {
-                bool isActive = currentIndex == index;
+                final title = _filteredPageTitles[index];
+                final originalIndex = widget.pageTitles.indexOf(title);
+                bool isActive = widget.currentIndex == originalIndex;
                 return Container(
                   margin:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
@@ -120,18 +172,18 @@ class DesktopSidebar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Tooltip(
-                    message: isCollapsed ? pageTitles[index] : '',
+                    message: widget.isCollapsed ? title : '',
                     child: ListTile(
                       leading: Icon(
-                        _getIconForIndex(index),
+                        _getIconForIndex(originalIndex),
                         color: isActive
                             ? const Color(0xFF582FFF)
                             : const Color(0xFF64748B),
                       ),
-                      title: isCollapsed
+                      title: widget.isCollapsed
                           ? null
                           : Text(
-                              pageTitles[index],
+                              title,
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: 14,
@@ -143,7 +195,7 @@ class DesktopSidebar extends StatelessWidget {
                                     : const Color(0xFF64748B),
                               ),
                             ),
-                      onTap: () => onNavigationTap(index),
+                      onTap: () => widget.onNavigationTap(originalIndex),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
