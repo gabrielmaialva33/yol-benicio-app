@@ -1,8 +1,9 @@
 import 'dart:math';
 import '../utils/mock_data_generator.dart';
 import '../../folders/models/folder.dart';
+import 'dart:ui';
+
 import '../../reports/models/area_division_data.dart';
-import '../../../core/theme/app_theme.dart';
 
 // Modelos para dados mais realistas
 class LawyerProfile {
@@ -110,15 +111,15 @@ class MockService {
   List<AreaDivisionData> getAreaDivisionData() {
     return [
       AreaDivisionData(
-          name: 'Trabalhista', value: 28.5, color: AppTheme.trabalhista),
+          name: 'Trabalhista', value: 28.5, color: Color(0xFF0284c7)),
       AreaDivisionData(
-          name: 'Tributário', value: 22.3, color: AppTheme.tributario),
-      AreaDivisionData(name: 'Civil', value: 18.7, color: AppTheme.civil),
-      AreaDivisionData(name: 'Penal', value: 15.2, color: AppTheme.penal),
+          name: 'Tributário', value: 22.3, color: Color(0xFF22c55e)),
+      AreaDivisionData(name: 'Civil', value: 18.7, color: Color(0xFFffab00)),
+      AreaDivisionData(name: 'Penal', value: 15.2, color: Color(0xFFff5630)),
       AreaDivisionData(
-          name: 'Empresarial', value: 10.8, color: AppTheme.empresarial),
+          name: 'Empresarial', value: 10.8, color: Color(0xFF00b8d9)),
       AreaDivisionData(
-          name: 'Contencioso', value: 4.5, color: AppTheme.contencioso),
+          name: 'Contencioso', value: 4.5, color: Color(0xFFffab00)),
     ];
   }
 

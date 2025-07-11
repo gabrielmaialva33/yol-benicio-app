@@ -8,7 +8,8 @@ import 'widgets/timeline_chart.dart';
 import 'widgets/performance_metrics.dart';
 import 'widgets/advanced_filters_panel.dart';
 import 'widgets/export_share_panel.dart';
-import '../../core/theme/app_theme.dart';
+import 'package:provider/provider.dart';
+import 'package:benicio/core/theme/theme_provider.dart';
 
 class ReportsPage extends StatefulWidget {
   const ReportsPage({Key? key}) : super(key: key);
@@ -79,25 +80,23 @@ class _ReportsPageState extends State<ReportsPage>
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: AppTheme.scaffoldBackground,
+      backgroundColor: themeProvider.themeData.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppTheme.cardBackground,
+        backgroundColor: themeProvider.themeData.cardColor,
         elevation: 0,
         surfaceTintColor: Colors.transparent,
         title: Text(
           'Relatórios Interativos',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: AppTheme.textPrimary,
-          ),
+          style: themeProvider.themeData.textTheme.titleLarge,
         ),
         automaticallyImplyLeading: false,
         actions: [
           PopupMenuButton<String>(
-            icon: Icon(Icons.filter_list_rounded, color: AppTheme.textPrimary),
-            surfaceTintColor: AppTheme.cardBackground,
+            icon: Icon(Icons.filter_list_rounded,
+                color: themeProvider.themeData.textTheme.titleLarge?.color),
+            surfaceTintColor: themeProvider.themeData.cardColor,
             onSelected: (value) {
               setState(() {
                 selectedPeriod = value;
@@ -105,20 +104,19 @@ class _ReportsPageState extends State<ReportsPage>
                 _slideController.forward();
               });
             },
-            itemBuilder: (context) =>
-                periods.map((period) {
-                  return PopupMenuItem(
-                    value: period,
-                    child: Text(period),
-                  );
-                }).toList(),
+            itemBuilder: (context) => periods.map((period) {
+              return PopupMenuItem(
+                value: period,
+                child: Text(period),
+              );
+            }).toList(),
           ),
           IconButton(
             icon: Icon(
               showDetails
                   ? Icons.visibility_off_rounded
                   : Icons.visibility_rounded,
-              color: AppTheme.textPrimary,
+              color: themeProvider.themeData.textTheme.titleLarge?.color,
             ),
             onPressed: () {
               setState(() {
@@ -144,9 +142,9 @@ class _ReportsPageState extends State<ReportsPage>
                   });
                 },
               ),
-              _buildPeriodSelector(),
+              _buildPeriodSelector(themeProvider),
               const SizedBox(height: 24),
-              _buildQuickStats(),
+              _buildQuickStats(themeProvider),
               const SizedBox(height: 24),
               AreaDivisionCard(
                 areaDivisionData: mockService.getAreaDivisionData(),
@@ -166,14 +164,23 @@ class _ReportsPageState extends State<ReportsPage>
     );
   }
 
-  Widget _buildPeriodSelector() {
+  Widget _buildPeriodSelector(ThemeProvider themeProvider) {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: AppTheme.cardBackground,
-        borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
-        border: Border.all(color: AppTheme.borderLight),
-        boxShadow: AppTheme.cardShadow,
+        color: themeProvider.themeData.cardColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+            color: themeProvider.isDarkMode
+                ? Colors.white.withOpacity(0.1)
+                : Colors.black.withOpacity(0.05)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 4,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         children: periods.map((period) {
@@ -188,12 +195,12 @@ class _ReportsPageState extends State<ReportsPage>
                 });
               },
               child: AnimatedContainer(
-                duration: AppTheme.animationMedium,
-                curve: AppTheme.animationCurve,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
-                  gradient: isSelected ? AppTheme.primaryGradient : null,
-                  borderRadius: BorderRadius.circular(AppTheme.radiusSmall),
+                  gradient: isSelected ? themeProvider.primaryGradient : null,
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   period,
@@ -201,7 +208,9 @@ class _ReportsPageState extends State<ReportsPage>
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: isSelected ? Colors.white : AppTheme.textSecondary,
+                    color: isSelected
+                        ? Colors.white
+                        : themeProvider.themeData.textTheme.bodySmall?.color,
                   ),
                 ),
               ),
@@ -212,7 +221,7 @@ class _ReportsPageState extends State<ReportsPage>
     );
   }
 
-  Widget _buildQuickStats() {
+  Widget _buildQuickStats(ThemeProvider themeProvider) {
     return SlideTransition(
       position: _slideAnimation,
       child: Row(
@@ -223,7 +232,7 @@ class _ReportsPageState extends State<ReportsPage>
               value: '2,847',
               subtitle: '+15.3% vs mês anterior',
               icon: Icons.folder_open_rounded,
-              color: AppTheme.infoColor,
+              color: themeProvider.primaryColor,
               onTap: () => _showStatsDetails('casos'),
             ),
           ),
@@ -234,7 +243,7 @@ class _ReportsPageState extends State<ReportsPage>
               value: '94.2%',
               subtitle: '+2.1% vs mês anterior',
               icon: Icons.trending_up_rounded,
-              color: AppTheme.successColor,
+              color: themeProvider.successColor,
               onTap: () => _showStatsDetails('sucesso'),
             ),
           ),
@@ -299,8 +308,8 @@ class _ReportsPageState extends State<ReportsPage>
             child: selectedChart == 'pie'
                 ? _buildInteractivePieChart()
                 : selectedChart == 'bar'
-                ? _buildInteractiveBarChart()
-                : _buildInteractiveLineChart(),
+                    ? _buildInteractiveBarChart()
+                    : _buildInteractiveLineChart(),
           ),
           if (showDetails) ...[
             const SizedBox(height: 16),
@@ -358,10 +367,7 @@ class _ReportsPageState extends State<ReportsPage>
             });
           },
         ),
-        sections: data
-            .asMap()
-            .entries
-            .map((entry) {
+        sections: data.asMap().entries.map((entry) {
           final index = entry.key;
           final data = entry.value;
           final isTouched = index == touchedIndex;
@@ -440,10 +446,7 @@ class _ReportsPageState extends State<ReportsPage>
           ),
         ),
         borderData: FlBorderData(show: false),
-        barGroups: data
-            .asMap()
-            .entries
-            .map((entry) {
+        barGroups: data.asMap().entries.map((entry) {
           final index = entry.key;
           final data = entry.value;
           return BarChartGroupData(
@@ -589,69 +592,66 @@ class _ReportsPageState extends State<ReportsPage>
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) =>
-          Container(
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+      builder: (context) => Container(
+        margin: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Detalhes de ${type.substring(0, 1).toUpperCase()}${type.substring(1)}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Detalhes de ${type.substring(0, 1).toUpperCase()}${type
-                      .substring(1)}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Análise detalhada dos dados de $type para o período selecionado: $selectedPeriod',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF64748B),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF582FFF),
-                    padding:
+            const SizedBox(height: 16),
+            Text(
+              'Análise detalhada dos dados de $type para o período selecionado: $selectedPeriod',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF64748B),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF582FFF),
+                padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text(
-                    'Fechar',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              ],
+              ),
+              child: const Text(
+                'Fechar',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
+          ],
+        ),
+      ),
     );
   }
 
   void _showMetricDetails(String metric) {
     showDialog(
       context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: Text('Análise de $metric'),
-            content: Text('Detalhes específicos sobre a métrica de $metric'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Fechar'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: Text('Análise de $metric'),
+        content: Text('Detalhes específicos sobre a métrica de $metric'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Fechar'),
           ),
+        ],
+      ),
     );
   }
 }
