@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/theme_provider.dart';
 
 class QuickThemeToggle extends StatelessWidget {
@@ -43,65 +42,63 @@ class QuickThemeToggle extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) =>
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: themeProvider.themeData.cardColor,
-              borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(20)),
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: themeProvider.themeData.cardColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            const SizedBox(height: 20),
+            Text(
+              'Escolha um tema',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: themeProvider.themeData.textTheme.titleLarge?.color,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Row(
               children: [
-                Center(
-                  child: Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(2),
-                    ),
+                Expanded(
+                  child: _buildThemeOption(
+                    context: context,
+                    themeProvider: themeProvider,
+                    theme: AppThemeMode.light,
+                    title: 'Claro',
+                    icon: Icons.light_mode_rounded,
                   ),
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  'Escolha um tema',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: themeProvider.themeData.textTheme.titleLarge?.color,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildThemeOption(
+                    context: context,
+                    themeProvider: themeProvider,
+                    theme: AppThemeMode.dark,
+                    title: 'Escuro',
+                    icon: Icons.dark_mode_rounded,
                   ),
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildThemeOption(
-                        context: context,
-                        themeProvider: themeProvider,
-                        theme: AppThemeMode.light,
-                        title: 'Claro',
-                        icon: Icons.light_mode_rounded,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildThemeOption(
-                        context: context,
-                        themeProvider: themeProvider,
-                        theme: AppThemeMode.dark,
-                        title: 'Escuro',
-                        icon: Icons.dark_mode_rounded,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
               ],
             ),
-          ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
     );
   }
 
