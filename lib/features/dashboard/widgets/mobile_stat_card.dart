@@ -98,18 +98,19 @@ class MobileStatCard extends StatelessWidget {
                 ),
               ),
             ),
-          ] else if (additionalInfo != null) ...[
-            const SizedBox(height: 4),
-            Text(
-              additionalInfo!,
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: infoColor ?? const Color(0xFF64748B),
+          ] else
+            if (additionalInfo != null) ...[
+              const SizedBox(height: 4),
+              Text(
+                additionalInfo!,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: infoColor ?? const Color(0xFF64748B),
+                ),
               ),
-            ),
-          ],
+            ],
         ],
       ),
     );

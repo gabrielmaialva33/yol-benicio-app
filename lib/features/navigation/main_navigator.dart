@@ -72,12 +72,12 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout desktop com sidebar
               return Scaffold(
                 backgroundColor:
-                    themeProvider.themeData.scaffoldBackgroundColor,
+                themeProvider.themeData.scaffoldBackgroundColor,
                 appBar: AppBar(
                   backgroundColor:
-                      themeProvider.themeData.appBarTheme.backgroundColor,
+                  themeProvider.themeData.appBarTheme.backgroundColor,
                   foregroundColor:
-                      themeProvider.themeData.appBarTheme.foregroundColor,
+                  themeProvider.themeData.appBarTheme.foregroundColor,
                   elevation: 0,
                   title: Row(
                     children: [
@@ -167,53 +167,53 @@ class _MainNavigatorState extends State<MainNavigator> {
               // Layout mobile/tablet com bottom navigation
               return Scaffold(
                 backgroundColor:
-                    themeProvider.themeData.scaffoldBackgroundColor,
+                themeProvider.themeData.scaffoldBackgroundColor,
                 appBar: isTablet
                     ? AppBar(
-                        backgroundColor:
-                            themeProvider.themeData.appBarTheme.backgroundColor,
-                        foregroundColor:
-                            themeProvider.themeData.appBarTheme.foregroundColor,
-                        elevation: 0,
-                        title: Row(
-                          children: [
-                            Text(
-                              _pageTitles[_currentIndex],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: themeProvider
-                                    .themeData.textTheme.titleLarge?.color,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(
-                                color:
-                                    themeProvider.primaryColor.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'Tablet',
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w500,
-                                  color: themeProvider.primaryColor,
-                                ),
-                              ),
-                            ),
-                          ],
+                  backgroundColor:
+                  themeProvider.themeData.appBarTheme.backgroundColor,
+                  foregroundColor:
+                  themeProvider.themeData.appBarTheme.foregroundColor,
+                  elevation: 0,
+                  title: Row(
+                    children: [
+                      Text(
+                        _pageTitles[_currentIndex],
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: themeProvider
+                              .themeData.textTheme.titleLarge?.color,
                         ),
-                        actions: [
-                          IconButton(
-                            icon: const Icon(Icons.notifications_outlined),
-                            onPressed: () {},
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color:
+                          themeProvider.primaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'Tablet',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                            color: themeProvider.primaryColor,
                           ),
-                          const QuickThemeToggle(),
-                          const SizedBox(width: 8),
-                        ],
-                      )
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.notifications_outlined),
+                      onPressed: () {},
+                    ),
+                    const QuickThemeToggle(),
+                    const SizedBox(width: 8),
+                  ],
+                )
                     : null,
                 body: PageView(
                   controller: _pageController,

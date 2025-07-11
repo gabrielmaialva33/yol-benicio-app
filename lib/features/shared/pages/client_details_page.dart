@@ -8,7 +8,7 @@ import '../services/mock_service.dart';
 
 class ClientDetailsPage extends StatefulWidget {
   final Client client;
-  
+
   const ClientDetailsPage({
     Key? key,
     required this.client,
@@ -42,7 +42,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
     setState(() {
       _isLoading = true;
     });
-    
+
     // Simular carregamento das pastas do cliente
     Future.delayed(const Duration(milliseconds: 500), () {
       final allFolders = _mockService.getFolders(50);
@@ -59,13 +59,13 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+
     return Scaffold(
       backgroundColor: themeProvider.themeData.scaffoldBackgroundColor,
       body: LayoutBuilder(
         builder: (context, constraints) {
           bool isDesktop = constraints.maxWidth > 900;
-          
+
           return CustomScrollView(
             slivers: [
               _buildSliverAppBar(themeProvider, isDesktop),
@@ -158,7 +158,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
           ),
         ],
       ),
-      child: isDesktop 
+      child: isDesktop
           ? _buildDesktopClientInfo(themeProvider)
           : _buildMobileClientInfo(themeProvider),
     );
@@ -183,7 +183,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: themeProvider.themeData.textTheme.titleMedium?.color,
+                        color: themeProvider.themeData.textTheme.titleMedium
+                            ?.color,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -193,7 +194,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       widget.client.displayContact,
                       style: TextStyle(
                         fontSize: 14,
-                        color: themeProvider.themeData.textTheme.bodyMedium?.color,
+                        color: themeProvider.themeData.textTheme.bodyMedium
+                            ?.color,
                       ),
                     ),
                   ],
@@ -227,7 +229,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: themeProvider.themeData.textTheme.titleMedium?.color,
+                      color: themeProvider.themeData.textTheme.titleMedium
+                          ?.color,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -264,8 +267,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
         ),
       ),
       child: Icon(
-        widget.client.isCorporate 
-            ? Icons.business_rounded 
+        widget.client.isCorporate
+            ? Icons.business_rounded
             : Icons.person_rounded,
         size: size * 0.4,
         color: themeProvider.primaryColor,
@@ -276,7 +279,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
   Widget _buildStatusChip(ThemeProvider themeProvider) {
     Color statusColor;
     String statusText;
-    
+
     switch (widget.client.status) {
       case ClientStatus.active:
         statusColor = themeProvider.successColor;
@@ -291,7 +294,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
         statusText = 'Inativo';
         break;
     }
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
@@ -416,7 +419,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: themeProvider.themeData.textTheme.bodyMedium?.color,
+        unselectedLabelColor: themeProvider.themeData.textTheme.bodyMedium
+            ?.color,
         dividerColor: Colors.transparent,
         tabs: const [
           Tab(text: 'Processos'),
@@ -553,53 +557,54 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Editar Cliente'),
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Editar Cliente - Em desenvolvimento'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
+      builder: (context) =>
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.edit),
+                  title: const Text('Editar Cliente'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Editar Cliente - Em desenvolvimento'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.add),
+                  title: const Text('Novo Processo'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Novo Processo - Em desenvolvimento'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.share),
+                  title: const Text('Compartilhar'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Compartilhar - Em desenvolvimento'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.add),
-              title: const Text('Novo Processo'),
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Novo Processo - Em desenvolvimento'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.share),
-              title: const Text('Compartilhar'),
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Compartilhar - Em desenvolvimento'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }

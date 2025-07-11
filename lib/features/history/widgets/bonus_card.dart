@@ -22,13 +22,13 @@ class BonusCard extends StatelessWidget {
                 Chip(
                   label: Text('Execução Definitiva'),
                   backgroundColor:
-                      themeProvider.themeData.scaffoldBackgroundColor,
+                  themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 Chip(
                   label: Text('Interno'),
                   backgroundColor:
-                      themeProvider.themeData.scaffoldBackgroundColor,
+                  themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(

@@ -297,7 +297,7 @@ class FolderCard extends StatelessWidget {
       {bool isCompact = false, bool isDesktop = false}) {
     return GestureDetector(
       onTap:
-          showClientNavigation ? () => _navigateToClientDetails(context) : null,
+      showClientNavigation ? () => _navigateToClientDetails(context) : null,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
@@ -342,7 +342,7 @@ class FolderCard extends StatelessWidget {
                       color: showClientNavigation
                           ? themeProvider.primaryColor
                           : themeProvider
-                              .themeData.textTheme.titleMedium?.color,
+                          .themeData.textTheme.titleMedium?.color,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -407,7 +407,7 @@ class FolderCard extends StatelessWidget {
           color: folder.isFavorite
               ? themeProvider.warningColor
               : themeProvider.themeData.textTheme.bodySmall?.color
-                  ?.withOpacity(0.5),
+              ?.withOpacity(0.5),
         ),
       ],
     );
@@ -513,7 +513,7 @@ class FolderCard extends StatelessWidget {
 
     return Column(
       crossAxisAlignment:
-          isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+      isDesktop ? CrossAxisAlignment.start : CrossAxisAlignment.end,
       children: [
         Text(
           'Valor do Contrato',
@@ -676,7 +676,9 @@ class FolderCard extends StatelessWidget {
 
   String _formatDate(DateTime date) {
     final now = DateTime.now();
-    final difference = now.difference(date).inDays;
+    final difference = now
+        .difference(date)
+        .inDays;
 
     if (difference == 0) return 'hoje';
     if (difference == 1) return 'ontem';

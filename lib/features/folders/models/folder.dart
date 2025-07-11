@@ -131,16 +131,21 @@ class Folder {
 
   // Helper methods
   bool get isActive => status == FolderStatus.active;
+
   bool get isOverdue => dueDate != null && DateTime.now().isAfter(dueDate!);
+
   bool get hasValue => contractValue != null && contractValue! > 0;
-  
+
   double get pendingBilling {
     if (contractValue == null) return 0.0;
     return contractValue! - (alreadyBilled ?? 0.0);
   }
 
   int get daysSinceCreation {
-    return DateTime.now().difference(createdAt).inDays;
+    return DateTime
+        .now()
+        .difference(createdAt)
+        .inDays;
   }
 
   int? get daysUntilDue {

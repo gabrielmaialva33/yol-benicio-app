@@ -374,7 +374,8 @@ class _ProfilePageState extends State<ProfilePage>
             ),
           ),
         ),
-        ...menuItems.map((item) => _buildMenuItem(
+        ...menuItems.map((item) =>
+            _buildMenuItem(
               icon: item['icon'] as IconData,
               title: item['title'] as String,
               subtitle: item['subtitle'] as String,
@@ -544,56 +545,58 @@ class _ProfilePageState extends State<ProfilePage>
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: themeProvider.themeData.cardColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
-              ),
+      builder: (context) =>
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: themeProvider.themeData.cardColor,
+              borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(20)),
             ),
-            const SizedBox(height: 20),
-            Text(
-              'Escolha o tema',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: themeProvider.themeData.textTheme.titleLarge?.color,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: _buildThemeOption(
-                    context: context,
-                    themeProvider: themeProvider,
-                    isLight: true,
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _buildThemeOption(
-                    context: context,
-                    themeProvider: themeProvider,
-                    isLight: false,
+                const SizedBox(height: 20),
+                Text(
+                  'Escolha o tema',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: themeProvider.themeData.textTheme.titleLarge?.color,
                   ),
                 ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildThemeOption(
+                        context: context,
+                        themeProvider: themeProvider,
+                        isLight: true,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: _buildThemeOption(
+                        context: context,
+                        themeProvider: themeProvider,
+                        isLight: false,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
               ],
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
@@ -603,7 +606,7 @@ class _ProfilePageState extends State<ProfilePage>
     required bool isLight,
   }) {
     final isSelected =
-        isLight ? !themeProvider.isDarkMode : themeProvider.isDarkMode;
+    isLight ? !themeProvider.isDarkMode : themeProvider.isDarkMode;
 
     return GestureDetector(
       onTap: () {
@@ -622,8 +625,8 @@ class _ProfilePageState extends State<ProfilePage>
             color: isSelected
                 ? themeProvider.primaryColor
                 : themeProvider.isDarkMode
-                    ? Colors.white.withOpacity(0.1)
-                    : Colors.black.withOpacity(0.1),
+                ? Colors.white.withOpacity(0.1)
+                : Colors.black.withOpacity(0.1),
             width: isSelected ? 2 : 1,
           ),
         ),
@@ -712,27 +715,28 @@ class _ProfilePageState extends State<ProfilePage>
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Confirmar Logout'),
-        content: const Text('Tem certeza que deseja sair da sua conta?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar'),
+      builder: (context) =>
+          AlertDialog(
+            title: const Text('Confirmar Logout'),
+            content: const Text('Tem certeza que deseja sair da sua conta?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  final authService = AuthService();
+                  await authService.logout();
+                  if (context.mounted) {
+                    Navigator.pushReplacementNamed(context, '/login');
+                  }
+                },
+                child: const Text('Sair', style: TextStyle(color: Colors.red)),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              final authService = AuthService();
-              await authService.logout();
-              if (context.mounted) {
-                Navigator.pushReplacementNamed(context, '/login');
-              }
-            },
-            child: const Text('Sair', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
   }
 }

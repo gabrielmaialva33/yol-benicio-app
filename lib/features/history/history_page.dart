@@ -10,6 +10,7 @@ import 'package:benicio/features/folders/models/folder.dart';
 
 class HistoryPage extends StatelessWidget {
   final Folder folder;
+
   const HistoryPage({super.key, required this.folder});
 
   @override

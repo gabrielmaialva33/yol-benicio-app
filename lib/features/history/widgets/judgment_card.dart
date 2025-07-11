@@ -22,13 +22,13 @@ class JudgmentCard extends StatelessWidget {
                 Chip(
                   label: Text('Recursal'),
                   backgroundColor:
-                      themeProvider.themeData.scaffoldBackgroundColor,
+                  themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 Chip(
                   label: Text('Interno'),
                   backgroundColor:
-                      themeProvider.themeData.scaffoldBackgroundColor,
+                  themeProvider.themeData.scaffoldBackgroundColor,
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(

@@ -42,7 +42,8 @@ class ThemeProvider extends ChangeNotifier {
 
   Color get successColor => success;
 
-  LinearGradient get primaryGradient => LinearGradient(
+  LinearGradient get primaryGradient =>
+      LinearGradient(
         colors: isDarkMode
             ? [primaryDark, Color(0xFF115e59)]
             : [primaryLight, Color(0xFF004b50)],
@@ -50,7 +51,8 @@ class ThemeProvider extends ChangeNotifier {
         end: Alignment.bottomRight,
       );
 
-  LinearGradient get successGradient => LinearGradient(
+  LinearGradient get successGradient =>
+      LinearGradient(
         colors: [successColor, Color(0xFF008980)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
@@ -131,7 +133,7 @@ class ThemeProvider extends ChangeNotifier {
         backgroundColor: isDarkMode ? cardDark : cardLight,
         selectedItemColor: primaryColor,
         unselectedItemColor:
-            isDarkMode ? textSecondaryDark : textSecondaryLight,
+        isDarkMode ? textSecondaryDark : textSecondaryLight,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
       ),

@@ -1,6 +1,6 @@
 enum ClientType {
   individual, // Pessoa física
-  corporate,  // Pessoa jurídica
+  corporate, // Pessoa jurídica
 }
 
 enum ClientStatus {
@@ -48,15 +48,17 @@ class Client {
 
   // Helper methods
   bool get isActive => status == ClientStatus.active;
+
   bool get isVip => status == ClientStatus.vip;
+
   bool get isCorporate => type == ClientType.corporate;
-  
+
   /// Retorna o número total de pastas/processos vinculados
   int get totalFolders => folderIds?.length ?? 0;
-  
+
   /// Verifica se o cliente tem múltiplos processos
   bool get hasMultipleFolders => totalFolders > 1;
-  
+
   /// Retorna o método de contato preferido formatado
   String get displayContact {
     if (preferredContact != null) {
@@ -72,17 +74,20 @@ class Client {
     }
     return email ?? phone ?? 'Contato não informado';
   }
-  
+
   String get formattedDocument {
     if (type == ClientType.corporate) {
       // Format CNPJ: XX.XXX.XXX/XXXX-XX
       if (document.length >= 14) {
-        return '${document.substring(0, 2)}.${document.substring(2, 5)}.${document.substring(5, 8)}/${document.substring(8, 12)}-${document.substring(12, 14)}';
+        return '${document.substring(0, 2)}.${document.substring(
+            2, 5)}.${document.substring(5, 8)}/${document.substring(
+            8, 12)}-${document.substring(12, 14)}';
       }
     } else {
       // Format CPF: XXX.XXX.XXX-XX
       if (document.length >= 11) {
-        return '${document.substring(0, 3)}.${document.substring(3, 6)}.${document.substring(6, 9)}-${document.substring(9, 11)}';
+        return '${document.substring(0, 3)}.${document.substring(
+            3, 6)}.${document.substring(6, 9)}-${document.substring(9, 11)}';
       }
     }
     return document;

@@ -37,10 +37,11 @@ class _DashboardPageState extends State<DashboardPage> {
                 SizedBox(height: isDesktop ? 32 : 24),
                 if (isDesktop)
                   _buildDesktopLayout()
-                else if (isTablet)
-                  _buildTabletLayout()
                 else
-                  _buildMobileLayout(),
+                  if (isTablet)
+                    _buildTabletLayout()
+                  else
+                    _buildMobileLayout(),
               ],
             ),
           );
@@ -318,7 +319,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Icons.add_circle_outline,
                       'Nova\nPasta',
                       const Color(0xFF3B82F6),
-                      () {},
+                          () {},
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -327,7 +328,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Icons.person_add_outlined,
                       'Novo\nCliente',
                       const Color(0xFF10B981),
-                      () {},
+                          () {},
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -336,7 +337,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Icons.calendar_today_outlined,
                       'Agenda',
                       const Color(0xFFF59E0B),
-                      () {},
+                          () {},
                     ),
                   ),
                 ],
@@ -429,8 +430,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildMobileQuickAction(
-      IconData icon, String label, Color color, VoidCallback onTap) {
+  Widget _buildMobileQuickAction(IconData icon, String label, Color color,
+      VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -586,7 +587,7 @@ class _DashboardPageState extends State<DashboardPage> {
               return ListTile(
                 dense: true,
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 leading: CircleAvatar(
                   radius: 16,
                   backgroundColor: types[index] == 'PF'
@@ -611,7 +612,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 subtitle: Text(
                   'Adicionado há ${dates[index]}',
                   style:
-                      const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
+                  const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                 onTap: () {
@@ -710,7 +711,8 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 12),
           _buildStatRow(
               'Taxa de Sucesso',
-              '${(((_mockData.deliveredFolders / _mockData.totalFolders) * 100).round())}%',
+              '${(((_mockData.deliveredFolders / _mockData.totalFolders) * 100)
+                  .round())}%',
               const Color(0xFF3B82F6)),
         ],
       ),

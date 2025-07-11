@@ -87,20 +87,21 @@ class MetricCard extends StatelessWidget {
 
             if (customContent != null) ...[
               customContent!,
-            ] else ...[
-              if (value.isNotEmpty) ...[
-                const SizedBox(height: 16),
-                Text(
-                  value,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 36,
-                    fontWeight: FontWeight.w700,
-                    color: valueColor ?? const Color(0xFF1E293B),
+            ] else
+              ...[
+                if (value.isNotEmpty) ...[
+                  const SizedBox(height: 16),
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 36,
+                      fontWeight: FontWeight.w700,
+                      color: valueColor ?? const Color(0xFF1E293B),
+                    ),
                   ),
-                ),
+                ],
               ],
-            ],
 
             if (subtitle != null) ...[
               const SizedBox(height: 8),
