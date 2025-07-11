@@ -1,9 +1,16 @@
+import 'package:benicio/features/history/widgets/billed_card.dart';
+import 'package:benicio/features/history/widgets/bonus_card.dart';
+import 'package:benicio/features/history/widgets/history_card.dart';
+import 'package:benicio/features/history/widgets/judgment_card.dart';
+import 'package:benicio/features/history/widgets/new_files_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:benicio/core/theme/theme_provider.dart';
+import 'package:benicio/features/folders/models/folder.dart';
 
 class HistoryPage extends StatelessWidget {
-  const HistoryPage({Key? key}) : super(key: key);
+  final Folder folder;
+  const HistoryPage({Key? key, required this.folder}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +21,7 @@ class HistoryPage extends StatelessWidget {
         backgroundColor: themeProvider.themeData.appBarTheme.backgroundColor,
         elevation: 0,
         title: Text(
-          'Histórico',
+          'Histórico - ${folder.title}',
           style: themeProvider.themeData.textTheme.titleLarge,
         ),
         automaticallyImplyLeading: false,
@@ -31,132 +38,40 @@ class HistoryPage extends StatelessWidget {
             const SizedBox(height: 20),
             Expanded(
               child: ListView(
-                children: [
-                  _buildHistoryItem(
-                    context,
-                    'Create FireStone Logo',
-                    'Due in 2 Days',
-                    const Color(0xFF2FAC68),
-                    '10:30 AM',
+                children: const [
+                  HistoryCard(
+                    title: 'Faturamento realizado com sucesso',
+                    subtitle: '',
+                    date: '29/11/2024',
+                    user: 'Dra. Ana Rodrigues',
+                    content: BilledCard(),
                   ),
-                  _buildHistoryItem(
-                    context,
-                    'Stakeholder Meeting',
-                    'Due in 3 Days',
-                    const Color(0xFF008980),
-                    '09:15 AM',
+                  HistoryCard(
+                    title: 'Acórdão Apelção #7979207',
+                    subtitle: '',
+                    date: '29/11/2024',
+                    user: 'Dr. Carlos Mendes',
+                    content: JudgmentCard(),
                   ),
-                  _buildHistoryItem(
-                    context,
-                    'Scoping & Estimations',
-                    'Due in 5 Days',
-                    const Color(0xFFF6C000),
-                    'Yesterday',
+                  HistoryCard(
+                    title: 'Bônus por improcedência #7966690',
+                    subtitle: '',
+                    date: '29/11/2024',
+                    user: 'Dr. Carlos Mendes',
+                    content: BonusCard(),
                   ),
-                  _buildHistoryItem(
-                    context,
-                    'KPI App Showcase',
-                    'Due in 2 Days',
-                    const Color(0xFF008980),
-                    '2 days ago',
-                  ),
-                  _buildHistoryItem(
-                    context,
-                    'Client Review Session',
-                    'Completed',
-                    const Color(0xFF582FFF),
-                    '3 days ago',
-                  ),
-                  _buildHistoryItem(
-                    context,
-                    'Design System Update',
-                    'Completed',
-                    const Color(0xFF2FAC68),
-                    '1 week ago',
+                  HistoryCard(
+                    title: '2 novos arquivos vinculados ao processo',
+                    subtitle: '',
+                    date: '29/11/2024',
+                    user: 'Dra. Mariana Silva',
+                    content: NewFilesCard(),
                   ),
                 ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildHistoryItem(BuildContext context, String title, String subtitle,
-      Color color, String time) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: themeProvider.themeData.cardColor,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: themeProvider.isDarkMode
-              ? Colors.white.withOpacity(0.1)
-              : Colors.black.withOpacity(0.05),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.03),
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 4,
-            height: 50,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(6),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: themeProvider.themeData.textTheme.bodyLarge,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: themeProvider.themeData.textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                time,
-                style: themeProvider.themeData.textTheme.bodySmall,
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: themeProvider.isDarkMode
-                      ? Colors.white.withOpacity(0.05)
-                      : Colors.black.withOpacity(0.02),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: themeProvider.themeData.textTheme.bodySmall?.color,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

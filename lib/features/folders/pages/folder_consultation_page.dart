@@ -1,3 +1,4 @@
+import 'package:benicio/features/history/history_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../../features/shared/services/mock_service.dart';
@@ -36,6 +37,14 @@ class _FolderConsultationPageState extends State<FolderConsultationPage> {
             trailing: Icon(
               folder.isFavorite ? Icons.star : Icons.star_border,
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HistoryPage(),
+                ),
+              );
+            },
           );
         },
       ),
