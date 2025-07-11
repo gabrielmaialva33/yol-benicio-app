@@ -24,6 +24,9 @@ class ClientListItem extends StatelessWidget {
         title: Text(title),
         subtitle: Text(dueDate),
         trailing: const Icon(Icons.chevron_right),
+        onTap: () {
+          print('ClientListItem for "$title" tapped.');
+        },
       ),
     );
   }

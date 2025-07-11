@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:yolapp/features/dashboard/widgets/logo.dart';
 
-class DashboardLayout extends StatelessWidget {
+class DashboardLayout extends StatefulWidget {
   final Widget child;
 
   const DashboardLayout({super.key, required this.child});
+
+  @override
+  State<DashboardLayout> createState() => _DashboardLayoutState();
+}
+
+class _DashboardLayoutState extends State<DashboardLayout> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    // TODO: Implement navigation to different pages based on index
+    print('Tapped on index: $index');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +37,11 @@ class DashboardLayout extends StatelessWidget {
           ),
         ],
       ),
-      body: child,
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
