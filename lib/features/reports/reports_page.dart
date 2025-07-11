@@ -132,6 +132,10 @@ class _ReportsPageState extends State<ReportsPage>
               const SizedBox(height: 24),
               _buildQuickStats(),
               const SizedBox(height: 24),
+              AreaDivisionCard(
+                areaDivisionData: mockService.getAreaDivisionData(),
+              ),
+              const SizedBox(height: 24),
               _buildInteractiveCharts(),
               const SizedBox(height: 24),
               _buildPerformanceMetrics(),
