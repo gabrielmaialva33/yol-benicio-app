@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/theme_provider.dart';
-import '../../core/theme/app_text_styles.dart';
 import '../shared/services/auth_service.dart';
 
 class ProfilePage extends StatefulWidget {
