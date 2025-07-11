@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../widgets/dashboard_layout.dart';
 import '../widgets/metric_card.dart';
+import 'package:fl_chart/fl_chart.dart';
+
+import '../models/billing_data.dart';
+import '../widgets/tasks_card.dart';
+import '../widgets/hearings_card.dart';
+import '../widgets/billing_card.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -92,6 +98,12 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ],
         ),
+        const SizedBox(height: 24),
+        const TasksCard(),
+        const SizedBox(height: 24),
+        const HearingsCard(),
+        const SizedBox(height: 24),
+        BillingCard(billingData: _mockData.billingData),
         const SizedBox(height: 24),
         MetricCard(
           title: 'Prazos de Pastas',
@@ -338,6 +350,12 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
         const SizedBox(height: 24),
+        const TasksCard(),
+        const SizedBox(height: 24),
+        const HearingsCard(),
+        const SizedBox(height: 24),
+        BillingCard(billingData: _mockData.billingData),
+        const SizedBox(height: 24),
         MetricCard(
           title: 'Entradas',
           value: _mockData.totalRevenue,
@@ -365,4 +383,18 @@ class MockData {
   final int delayedFolders = 47;
   final String totalRevenue = 'R\$1.084.000,00';
   final String delayedRevenue = 'R\$584.000,00';
+
+  final BillingData billingData = BillingData(
+    value: 'R\$ 2.5M',
+    percentage: 15.3,
+    chartData: [
+      const FlSpot(0, 1),
+      const FlSpot(1, 1.5),
+      const FlSpot(2, 1.4),
+      const FlSpot(3, 3.4),
+      const FlSpot(4, 2),
+      const FlSpot(5, 2.2),
+      const FlSpot(6, 1.8),
+    ],
+  );
 }
