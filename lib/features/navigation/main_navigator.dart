@@ -6,6 +6,7 @@ import '../navigation/bottom_navigation.dart';
 import '../profile/profile_page.dart';
 import '../reports/reports_page.dart';
 import '../search/search_page.dart';
+import '../folders/pages/folder_consultation_page.dart';
 
 class MainNavigator extends StatefulWidget {
   const MainNavigator({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   final List<Widget> _pages = [
     const DashboardPage(),
+    const FolderConsultationPage(),
     const SearchPage(),
     const ReportsPage(),
     const HistoryPage(),
@@ -28,6 +30,7 @@ class _MainNavigatorState extends State<MainNavigator> {
 
   final List<String> _pageTitles = [
     'Dashboard',
+    'Pastas',
     'Buscar',
     'Relatórios',
     'Histórico',
