@@ -53,12 +53,12 @@ class MockDataGenerator {
 
   List<AreaDivisionData> generateAreaDivisionData() {
     return [
-      AreaDivisionData(name: 'Trabalhista', value: 30, color: Colors.blue),
-      AreaDivisionData(name: 'Penal', value: 25, color: Colors.red),
-      AreaDivisionData(name: 'Cível', value: 20, color: Colors.green),
+      AreaDivisionData(name: 'Trabalhista', value: 30.0, color: Colors.blue),
+      AreaDivisionData(name: 'Penal', value: 25.0, color: Colors.red),
+      AreaDivisionData(name: 'Cível', value: 20.0, color: Colors.green),
       AreaDivisionData(
-          name: 'Cível Contencioso', value: 15, color: Colors.orange),
-      AreaDivisionData(name: 'Tributário', value: 10, color: Colors.purple),
+          name: 'Cível Contencioso', value: 15.0, color: Colors.orange),
+      AreaDivisionData(name: 'Tributário', value: 10.0, color: Colors.purple),
     ];
   }
 }

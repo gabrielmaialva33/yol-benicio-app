@@ -6,6 +6,9 @@ import 'widgets/area_division_card.dart';
 import 'widgets/interactive_stats_card.dart';
 import 'widgets/timeline_chart.dart';
 import 'widgets/performance_metrics.dart';
+import 'widgets/advanced_filters_panel.dart';
+import 'widgets/export_share_panel.dart';
+import 'widgets/export_share_panel.dart';
 
 class ReportsPage extends StatefulWidget {
   const ReportsPage({Key? key}) : super(key: key);
@@ -128,6 +131,14 @@ class _ReportsPageState extends State<ReportsPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              AdvancedFiltersPanel(
+                onFiltersChanged: (filters) {
+                  // Handle filter changes
+                  setState(() {
+                    // Update data based on filters
+                  });
+                },
+              ),
               _buildPeriodSelector(),
               const SizedBox(height: 24),
               _buildQuickStats(),
@@ -141,6 +152,8 @@ class _ReportsPageState extends State<ReportsPage>
               _buildPerformanceMetrics(),
               const SizedBox(height: 24),
               _buildTimelineAnalysis(),
+              const SizedBox(height: 24),
+              const ExportSharePanel(),
             ],
           ),
         ),
