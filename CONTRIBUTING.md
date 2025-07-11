@@ -1,6 +1,6 @@
-# Guia de Contribuição - YOL App
+# Guia de Contribuição - Benicio
 
-Obrigado por considerar contribuir para o YOL App! 🎉
+Obrigado por considerar contribuir para o Benicio! 🎉
 
 ## 📋 Índice
 
@@ -20,8 +20,8 @@ Este projeto adota um código de conduta para garantir um ambiente acolhedor par
 
 1. **Fork o repositório**
    ```bash
-   git clone https://github.com/seu-usuario/yolapp.git
-   cd yolapp
+   git clone https://github.com/seu-usuario/yol-benicio-app.git
+   cd yol-benicio-app
    ```
 
 2. **Crie uma branch para sua feature**
@@ -220,7 +220,7 @@ void main() {
 ## ❓ Dúvidas?
 
 Se tiver dúvidas:
-1. Verifique a [documentação](https://github.com/gabrielmaialva33/yolapp/wiki)
+1. Verifique a [documentação](https://github.com/gabrielmaialva33/yol-benicio-app/wiki)
 2. Procure em issues existentes
 3. Abra uma nova issue com a tag `question`
 4. Entre em contato: gabriel.maia@benicio.com.br
