@@ -19,13 +19,12 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
     with TickerProviderStateMixin {
   late List<AnimationController> _animationControllers;
   late List<Animation<double>> _scaleAnimations;
-  late List<Animation<double>> _bounceAnimations;
 
   @override
   void initState() {
     super.initState();
     _animationControllers = List.generate(
-      6,
+      5,
       (index) => AnimationController(
         duration: AppTheme.animationMedium,
         vsync: this,
@@ -35,12 +34,6 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
     _scaleAnimations = _animationControllers.map((controller) {
       return Tween<double>(begin: 1.0, end: 1.1).animate(
         CurvedAnimation(parent: controller, curve: AppTheme.animationCurve),
-      );
-    }).toList();
-
-    _bounceAnimations = _animationControllers.map((controller) {
-      return Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: controller, curve: AppTheme.bounceCurve),
       );
     }).toList();
 
@@ -153,7 +146,7 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
       child: GestureDetector(
         onTap: () {
           widget.onTap(index);
-          // Feedback háptico
+          // Feedback visual
           if (isActive) return;
           
           // Trigger animation
@@ -263,74 +256,6 @@ class _BenicioBottomNavigationState extends State<BenicioBottomNavigation>
               ),
             );
           },
-        ),
-      ),
-    );
-  }
-                label: 'Relatórios',
-                isActive: currentIndex == 2,
-              ),
-              _buildNavItem(
-                context: context,
-                index: 3,
-                icon: Icons.history,
-                label: 'Histórico',
-                isActive: currentIndex == 3,
-              ),
-              _buildNavItem(
-                context: context,
-                index: 4,
-                icon: Icons.person,
-                label: 'Perfil',
-                isActive: currentIndex == 4,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem({
-    required BuildContext context,
-    required int index,
-    required IconData icon,
-    required String label,
-    required bool isActive,
-  }) {
-    return GestureDetector(
-      onTap: () => onTap(index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: isActive
-              ? const Color(0xFF582FFF).withOpacity(0.12)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 20,
-              color:
-              isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: isActive
-                    ? const Color(0xFF582FFF)
-                    : const Color(0xFF484C52),
-              ),
-            ),
-          ],
         ),
       ),
     );

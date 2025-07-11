@@ -85,33 +85,6 @@ class MockService {
   final MockDataGenerator _generator = MockDataGenerator();
   static final Random _random = Random();
 
-  // Dados realistas para escritório de advocacia
-  final List<String> _legalAreas = [
-    'Direito Trabalhista',
-    'Direito Penal',
-    'Direito Civil',
-    'Direito Tributário',
-    'Direito Empresarial',
-    'Direito de Família',
-    'Direito Previdenciário',
-    'Direito do Consumidor',
-    'Direito Administrativo',
-    'Direito Contencioso',
-  ];
-
-  final List<String> _caseTypes = [
-    'Ação Trabalhista',
-    'Defesa Criminal',
-    'Ação de Cobrança',
-    'Recurso Fiscal',
-    'Consultoria Empresarial',
-    'Divórcio Consensual',
-    'Aposentadoria',
-    'Defesa do Consumidor',
-    'Licitação Pública',
-    'Execução Fiscal',
-  ];
-
   final List<String> _realClientNames = [
     'João Silva & Cia Ltda',
     'Maria Santos Comércio',
@@ -241,9 +214,6 @@ class MockService {
   }
 
   Map<String, dynamic> getFinancialMetrics() {
-    final currentMonth = DateTime.now().month;
-    final lastMonth = currentMonth == 1 ? 12 : currentMonth - 1;
-    
     return {
       'monthly_revenue': 850000.0,
       'last_month_revenue': 782000.0,
