@@ -69,7 +69,7 @@ class AppThemes {
       foregroundColor: AppColors.slate900,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
-      titleTextStyle: GoogleFonts.inter(
+      titleTextStyle: AppTextStyles.body1(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: AppColors.slate900,
@@ -84,8 +84,8 @@ class AppThemes {
       unselectedItemColor: AppColors.slate500,
       type: BottomNavigationBarType.fixed,
       elevation: 8,
-      selectedLabelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600),
-      unselectedLabelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
+      selectedLabelStyle: AppTextStyles.body1(fontSize: 12, fontWeight: FontWeight.w600),
+      unselectedLabelStyle: AppTextStyles.body1(fontSize: 12, fontWeight: FontWeight.w400),
     ),
     
     // Cards
@@ -104,7 +104,7 @@ class AppThemes {
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600),
+        textStyle: AppTextStyles.body1(fontSize: 16, fontWeight: FontWeight.w600),
       ),
     ),
     
@@ -112,7 +112,7 @@ class AppThemes {
       style: TextButton.styleFrom(
         foregroundColor: AppColors.blue600,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+        textStyle: AppTextStyles.body1(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
     
@@ -132,27 +132,27 @@ class AppThemes {
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.blue600, width: 2),
       ),
-      labelStyle: GoogleFonts.inter(color: AppColors.slate500),
-      hintStyle: GoogleFonts.inter(color: AppColors.slate400),
+      labelStyle: AppTextStyles.body1(color: AppColors.slate500),
+      hintStyle: AppTextStyles.body1(color: AppColors.slate400),
     ),
     
     // Tipografia
     textTheme: GoogleFonts.interTextTheme().copyWith(
-      displayLarge: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w700),
-      displayMedium: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w700),
-      displaySmall: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w600),
-      headlineLarge: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w700),
-      headlineMedium: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w600),
-      headlineSmall: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w600),
-      titleLarge: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w600),
-      titleMedium: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w600),
-      titleSmall: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w500),
-      bodyLarge: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w400),
-      bodyMedium: GoogleFonts.inter(color: AppColors.slate500, fontWeight: FontWeight.w400),
-      bodySmall: GoogleFonts.inter(color: AppColors.slate400, fontWeight: FontWeight.w400),
-      labelLarge: GoogleFonts.inter(color: AppColors.slate900, fontWeight: FontWeight.w600),
-      labelMedium: GoogleFonts.inter(color: AppColors.slate500, fontWeight: FontWeight.w500),
-      labelSmall: GoogleFonts.inter(color: AppColors.slate400, fontWeight: FontWeight.w500),
+      displayLarge: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w700),
+      displayMedium: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w700),
+      displaySmall: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w600),
+      headlineLarge: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w700),
+      headlineMedium: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w600),
+      headlineSmall: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w600),
+      titleLarge: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w600),
+      titleMedium: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w600),
+      titleSmall: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w500),
+      bodyLarge: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w400),
+      bodyMedium: AppTextStyles.body1(color: AppColors.slate500, fontWeight: FontWeight.w400),
+      bodySmall: AppTextStyles.body1(color: AppColors.slate400, fontWeight: FontWeight.w400),
+      labelLarge: AppTextStyles.body1(color: AppColors.slate900, fontWeight: FontWeight.w600),
+      labelMedium: AppTextStyles.body1(color: AppColors.slate500, fontWeight: FontWeight.w500),
+      labelSmall: AppTextStyles.body1(color: AppColors.slate400, fontWeight: FontWeight.w500),
     ),
   );
 
@@ -184,7 +184,7 @@ class AppThemes {
       foregroundColor: AppColors.white,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
-      titleTextStyle: GoogleFonts.inter(
+      titleTextStyle: AppTextStyles.body1(
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: AppColors.white,
@@ -199,8 +199,8 @@ class AppThemes {
       unselectedItemColor: AppColors.gray400,
       type: BottomNavigationBarType.fixed,
       elevation: 8,
-      selectedLabelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600),
-      unselectedLabelStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400),
+      selectedLabelStyle: AppTextStyles.body1(fontSize: 12, fontWeight: FontWeight.w600),
+      unselectedLabelStyle: AppTextStyles.body1(fontSize: 12, fontWeight: FontWeight.w400),
     ),
     
     // Cards
@@ -219,7 +219,7 @@ class AppThemes {
         elevation: 0,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w600),
+        textStyle: AppTextStyles.body1(fontSize: 16, fontWeight: FontWeight.w600),
       ),
     ),
     
@@ -227,7 +227,7 @@ class AppThemes {
       style: TextButton.styleFrom(
         foregroundColor: AppColors.cyan400,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
+        textStyle: AppTextStyles.body1(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
     
@@ -247,27 +247,27 @@ class AppThemes {
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide(color: AppColors.cyan400, width: 2),
       ),
-      labelStyle: GoogleFonts.inter(color: AppColors.gray400),
-      hintStyle: GoogleFonts.inter(color: AppColors.gray600),
+      labelStyle: AppTextStyles.body1(color: AppColors.gray400),
+      hintStyle: AppTextStyles.body1(color: AppColors.gray600),
     ),
     
     // Tipografia
     textTheme: GoogleFonts.interTextTheme().copyWith(
-      displayLarge: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w700),
-      displayMedium: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w700),
-      displaySmall: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w600),
-      headlineLarge: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w700),
-      headlineMedium: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w600),
-      headlineSmall: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w600),
-      titleLarge: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w600),
-      titleMedium: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w600),
-      titleSmall: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w500),
-      bodyLarge: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w400),
-      bodyMedium: GoogleFonts.inter(color: AppColors.gray400, fontWeight: FontWeight.w400),
-      bodySmall: GoogleFonts.inter(color: AppColors.gray600, fontWeight: FontWeight.w400),
-      labelLarge: GoogleFonts.inter(color: AppColors.white, fontWeight: FontWeight.w600),
-      labelMedium: GoogleFonts.inter(color: AppColors.gray400, fontWeight: FontWeight.w500),
-      labelSmall: GoogleFonts.inter(color: AppColors.gray600, fontWeight: FontWeight.w500),
+      displayLarge: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w700),
+      displayMedium: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w700),
+      displaySmall: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w600),
+      headlineLarge: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w700),
+      headlineMedium: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w600),
+      headlineSmall: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w600),
+      titleLarge: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w600),
+      titleMedium: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w600),
+      titleSmall: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w500),
+      bodyLarge: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w400),
+      bodyMedium: AppTextStyles.body1(color: AppColors.gray400, fontWeight: FontWeight.w400),
+      bodySmall: AppTextStyles.body1(color: AppColors.gray600, fontWeight: FontWeight.w400),
+      labelLarge: AppTextStyles.body1(color: AppColors.white, fontWeight: FontWeight.w600),
+      labelMedium: AppTextStyles.body1(color: AppColors.gray400, fontWeight: FontWeight.w500),
+      labelSmall: AppTextStyles.body1(color: AppColors.gray600, fontWeight: FontWeight.w500),
     ),
   );
 

@@ -66,7 +66,7 @@ class QuickThemeToggle extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               'Escolha um tema',
-              style: GoogleFonts.inter(
+              style: AppTextStyles.body1(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: themeProvider.themeData.textTheme.titleLarge?.color,
@@ -144,7 +144,7 @@ class QuickThemeToggle extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               title,
-              style: GoogleFonts.inter(
+              style: AppTextStyles.body1(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: themeProvider.themeData.textTheme.bodyMedium?.color,
