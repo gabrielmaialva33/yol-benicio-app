@@ -106,13 +106,26 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Criar Nova Pasta',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: themeProvider.themeData.textTheme.titleLarge?.color,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Criar Novo Processo',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
+                          color: themeProvider.themeData.textTheme.titleLarge?.color,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Cada pasta representa um processo do cliente',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: themeProvider.themeData.textTheme.bodyMedium?.color,
+                        ),
+                      ),
+                    ],
                   ),
                   IconButton(
                     icon: const Icon(Icons.close),
@@ -127,30 +140,43 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Title field
-                      TextFormField(
-                        controller: _titleController,
-                        decoration: const InputDecoration(
-                          labelText: 'Título do Processo *',
-                          hintText: 'Ex: Ação de Cobrança - Cliente XYZ',
-                          prefixIcon: Icon(Icons.title),
+                      // Client selection - FIRST AND PROMINENT
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: themeProvider.primaryColor.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: themeProvider.primaryColor.withOpacity(0.2),
+                          ),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'O título é obrigatório';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      
-                      // Client selection
-                      DropdownButtonFormField<Client>(
-                        value: _selectedClient,
-                        decoration: const InputDecoration(
-                          labelText: 'Cliente *',
-                          prefixIcon: Icon(Icons.person_outline),
-                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.person_outline,
+                                  color: themeProvider.primaryColor,
+                                ),
+                                const SizedBox(width: 8),
+                                const Text(
+                                  'Cliente do Processo',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            DropdownButtonFormField<Client>(
+                              value: _selectedClient,
+                              decoration: const InputDecoration(
+                                labelText: 'Selecione o cliente *',
+                                hintText: 'Para qual cliente é este processo?',
+                                prefixIcon: Icon(Icons.search),
+                              ),
                         items: _clients.map((client) {
                           return DropdownMenuItem(
                             value: client,

@@ -8,6 +8,8 @@ import '../models/billing_data.dart';
 import '../widgets/tasks_card.dart';
 import '../widgets/hearings_card.dart';
 import '../widgets/billing_card.dart';
+import '../../folders/widgets/create_folder_dialog.dart';
+import '../../shared/widgets/create_client_dialog.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -117,7 +119,7 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Nova Pasta',
           color: const Color(0xFF3B82F6),
           onTap: () {
-            // TODO: Implementar criação de nova pasta
+            _showCreateFolderDialog();
           },
         ),
         const SizedBox(width: 12),
@@ -126,7 +128,7 @@ class _DashboardPageState extends State<DashboardPage> {
           label: 'Novo Cliente',
           color: const Color(0xFF10B981),
           onTap: () {
-            // TODO: Implementar criação de novo cliente
+            _showCreateClientDialog();
           },
         ),
       ],
@@ -303,59 +305,61 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         const SizedBox(height: 20),
 
-        // Seção de ações rápidas
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF8F9FA),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFE5E7EB)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Ações Rápidas',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF1E293B),
+          // Seção de ações rápidas
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8F9FA),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: const Color(0xFFE5E7EB)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Ações Rápidas',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1E293B),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildMobileQuickAction(
-                      Icons.add_circle_outline,
-                      'Nova\nPasta',
-                      const Color(0xFF3B82F6),
-                          () {},
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildMobileQuickAction(
+                        Icons.add_circle_outline,
+                        'Nova\nPasta',
+                        const Color(0xFF3B82F6),
+                        _showCreateFolderDialog,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildMobileQuickAction(
-                      Icons.person_add_outlined,
-                      'Novo\nCliente',
-                      const Color(0xFF10B981),
-                          () {},
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildMobileQuickAction(
+                        Icons.person_add_outlined,
+                        'Novo\nCliente',
+                        const Color(0xFF10B981),
+                        _showCreateClientDialog,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildMobileQuickAction(
-                      Icons.calendar_today_outlined,
-                      'Agenda',
-                      const Color(0xFFF59E0B),
-                          () {},
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildMobileQuickAction(
+                        Icons.calendar_today_outlined,
+                        'Agenda',
+                        const Color(0xFFF59E0B),
+                        () {
+                          // TODO: Navigate to calendar
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
         const SizedBox(height: 20),
 
         // Tasks Card
@@ -755,5 +759,35 @@ class _DashboardPageState extends State<DashboardPage> {
       percentage: 15.3,
       chartData: _mockService.generateChartData(7),
     );
+  }
+  
+  void _showCreateFolderDialog() async {
+    final result = await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const CreateFolderDialog(),
+    );
+    
+    if (result != null) {
+      // Refresh dashboard data
+      setState(() {
+        _loadDashboardData();
+      });
+    }
+  }
+  
+  void _showCreateClientDialog() async {
+    final result = await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const CreateClientDialog(),
+    );
+    
+    if (result != null) {
+      // Refresh dashboard data
+      setState(() {
+        _loadDashboardData();
+      });
+    }
   }
 }
