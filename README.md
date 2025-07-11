@@ -1,8 +1,8 @@
 <div align="center">
   <br/>
   <p align="center">
-    <a href="https://github.com/gabrielmaialva33/yolapp">
-      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/assets/icons/logo.svg" width="200" alt="YOL Logo"/>
+    <a href="https://github.com/gabrielmaialva33/yol-benicio-app">
+      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/assets/icons/logo.svg" width="200" alt="Benicio Logo"/>
     </a>
   </p>
   <br/>
@@ -13,11 +13,11 @@
     <a href="https://dart.dev">
       <img src="https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white" alt="Dart"/>
     </a>
-    <a href="https://github.com/gabrielmaialva33/yolapp/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/gabrielmaialva33/yolapp?style=for-the-badge&color=582FFF" alt="License"/>
+    <a href="https://github.com/gabrielmaialva33/yol-benicio-app/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/gabrielmaialva33/yol-benicio-app?style=for-the-badge&color=582FFF" alt="License"/>
     </a>
   </p>
-  <h3 align="center">YOL App</h3>
+  <h3 align="center">Benicio</h3>
   <p align="center">
     ⚡️ Sistema jurídico moderno e intuitivo para Benício Advogados
     <br />
@@ -33,7 +33,7 @@
 <br/>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/preview.png" alt="YOL App Preview" width="100%">
+  <img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/preview.png" alt="Benicio App Preview" width="100%">
 </div>
 
 <br/>
@@ -43,21 +43,21 @@
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/responsive.svg" width="80" height="80" alt="Responsive"/>
+      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/responsive.svg" width="80" height="80" alt="Responsive"/>
       <br />
       <strong>Totalmente Responsivo</strong>
       <br />
       <sub>Interface adaptativa para mobile, tablet e desktop</sub>
     </td>
     <td align="center" width="33%">
-      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/performance.svg" width="80" height="80" alt="Performance"/>
+      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/performance.svg" width="80" height="80" alt="Performance"/>
       <br />
       <strong>Alta Performance</strong>
       <br />
       <sub>Otimizado com Flutter para experiência nativa</sub>
     </td>
     <td align="center" width="33%">
-      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/secure.svg" width="80" height="80" alt="Secure"/>
+      <img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/secure.svg" width="80" height="80" alt="Secure"/>
       <br />
       <strong>Seguro</strong>
       <br />
@@ -93,7 +93,7 @@
         <br>Material Design
       </td>
       <td align="center" width="96">
-        <img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/provider.png" width="48" height="48" alt="Provider" />
+        <img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/provider.png" width="48" height="48" alt="Provider" />
         <br>Provider
       </td>
     </tr>
@@ -142,10 +142,10 @@ Certifique-se de ter instalado:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/gabrielmaialva33/yolapp.git
+git clone https://github.com/gabrielmaialva33/yol-benicio-app.git
 
 # Entre no diretório
-cd yolapp
+cd yol-benicio-app
 
 # Instale as dependências
 flutter pub get
@@ -206,10 +206,10 @@ Utilizamos Google Fonts para tipografia consistente:
 <div align="center">
   <table>
     <tr>
-      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/screenshots/login.png" alt="Login" width="200"/></td>
-      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/screenshots/dashboard.png" alt="Dashboard" width="200"/></td>
-      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/screenshots/folders.png" alt="Folders" width="200"/></td>
-      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yolapp/main/.github/assets/screenshots/profile.png" alt="Profile" width="200"/></td>
+      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/screenshots/login.png" alt="Login" width="200"/></td>
+      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/screenshots/dashboard.png" alt="Dashboard" width="200"/></td>
+      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/screenshots/folders.png" alt="Folders" width="200"/></td>
+      <td><img src="https://raw.githubusercontent.com/gabrielmaialva33/yol-benicio-app/main/.github/assets/screenshots/profile.png" alt="Profile" width="200"/></td>
     </tr>
   </table>
 </div>
@@ -232,7 +232,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 - [Flutter Team](https://flutter.dev/) pela incrível framework
 - [Benício Advogados](https://benicio.com.br) pela confiança no projeto
-- Todos os [contribuidores](https://github.com/gabrielmaialva33/yolapp/graphs/contributors)
+- Todos os [contribuidores](https://github.com/gabrielmaialva33/yol-benicio-app/graphs/contributors)
 
 ## 📞 Contato
 
