@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class YolBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -14,7 +15,11 @@ class YolBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFF5F6F7),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -25,45 +30,54 @@ class YolBottomNavigation extends StatelessWidget {
       ),
       child: SafeArea(
         child: Container(
-          height: 70,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          height: 83,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
             children: [
-              _buildNavItem(
-                context: context,
-                index: 0,
-                icon: Icons.home,
-                label: 'Home',
-                isActive: currentIndex == 0,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem(
+                    index: 0,
+                    icon: FontAwesomeIcons.house,
+                    label: 'Home',
+                    isActive: currentIndex == 0,
+                  ),
+                  _buildNavItem(
+                    index: 1,
+                    icon: FontAwesomeIcons.magnifyingGlass,
+                    label: 'Buscar',
+                    isActive: currentIndex == 1,
+                  ),
+                  _buildNavItem(
+                    index: 2,
+                    icon: FontAwesomeIcons.chartPie,
+                    label: 'Relatórios',
+                    isActive: currentIndex == 2,
+                  ),
+                  _buildNavItem(
+                    index: 3,
+                    icon: FontAwesomeIcons.clockRotateLeft,
+                    label: 'Histórico',
+                    isActive: currentIndex == 3,
+                  ),
+                  _buildNavItem(
+                    index: 4,
+                    icon: FontAwesomeIcons.user,
+                    label: 'Perfil',
+                    isActive: currentIndex == 4,
+                  ),
+                ],
               ),
-              _buildNavItem(
-                context: context,
-                index: 1,
-                icon: Icons.search,
-                label: 'Buscar',
-                isActive: currentIndex == 1,
-              ),
-              _buildNavItem(
-                context: context,
-                index: 2,
-                icon: Icons.analytics,
-                label: 'Relatórios',
-                isActive: currentIndex == 2,
-              ),
-              _buildNavItem(
-                context: context,
-                index: 3,
-                icon: Icons.history,
-                label: 'Histórico',
-                isActive: currentIndex == 3,
-              ),
-              _buildNavItem(
-                context: context,
-                index: 4,
-                icon: Icons.person,
-                label: 'Perfil',
-                isActive: currentIndex == 4,
+              const SizedBox(height: 6),
+              // Linha indicadora inferior
+              Container(
+                width: 135,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFB9C0C9),
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ],
           ),
@@ -73,7 +87,6 @@ class YolBottomNavigation extends StatelessWidget {
   }
 
   Widget _buildNavItem({
-    required BuildContext context,
     required int index,
     required IconData icon,
     required String label,
@@ -81,38 +94,56 @@ class YolBottomNavigation extends StatelessWidget {
   }) {
     return GestureDetector(
       onTap: () => onTap(index),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: isActive
-              ? const Color(0xFF582FFF).withOpacity(0.12)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 20,
-              color:
-                  isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: isActive
+                  ? const Color(0xFF582FFF).withOpacity(0.12)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(100),
             ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FaIcon(
+                  icon,
+                  size: 20,
+                  color: isActive
+                      ? const Color(0xFF582FFF)
+                      : const Color(0xFF484C52),
+                ),
+                if (isActive) ...[
+                  const SizedBox(width: 6),
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF582FFF),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          if (!isActive) ...[
             const SizedBox(height: 2),
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
-                color: isActive
-                    ? const Color(0xFF582FFF)
-                    : const Color(0xFF484C52),
+                color: Color(0xFF484C52),
               ),
             ),
           ],
-        ),
+        ],
       ),
     );
   }
