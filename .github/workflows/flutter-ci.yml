@@ -1,0 +1,81 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Test Flutter App
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.5.4'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Analyze code
+      run: flutter analyze
+    
+    - name: Run tests
+      run: flutter test --coverage
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage/lcov.info
+    
+    - name: Check code formatting
+      run: dart format --set-exit-if-changed .
+
+  build:
+    name: Build Flutter App
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            build-command: flutter build apk --release
+            artifact-name: app-release.apk
+            artifact-path: build/app/outputs/flutter-apk/
+          - os: macos-latest
+            build-command: flutter build ios --release --no-codesign
+            artifact-name: Runner.app
+            artifact-path: build/ios/iphoneos/
+          - os: windows-latest
+            build-command: flutter build windows --release
+            artifact-name: yolapp.exe
+            artifact-path: build/windows/runner/Release/
+    
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.5.4'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build app
+      run: ${{ matrix.build-command }}
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.artifact-name }}-${{ matrix.os }}
+        path: ${{ matrix.artifact-path }}
