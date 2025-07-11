@@ -167,8 +167,7 @@ class ThemeProvider extends ChangeNotifier {
         primary: primaryColor,
         secondary: accentColor,
         error: errorColor,
-        surface: isDarkMode ? cardDark : cardLight,
-        background: isDarkMode ? backgroundDark : backgroundLight,
+        surface: isDarkMode ? backgroundDark : backgroundLight,
       ),
     );
   }

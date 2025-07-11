@@ -15,7 +15,7 @@ class MetricCard extends StatelessWidget {
   final Widget? customContent;
 
   const MetricCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     this.subtitle,
@@ -28,7 +28,7 @@ class MetricCard extends StatelessWidget {
     this.height,
     this.hasViewIcon = false,
     this.customContent,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -87,21 +87,20 @@ class MetricCard extends StatelessWidget {
 
             if (customContent != null) ...[
               customContent!,
-            ] else
-              ...[
-                if (value.isNotEmpty) ...[
-                  const SizedBox(height: 16),
-                  Text(
-                    value,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 36,
-                      fontWeight: FontWeight.w700,
-                      color: valueColor ?? const Color(0xFF1E293B),
-                    ),
+            ] else ...[
+              if (value.isNotEmpty) ...[
+                const SizedBox(height: 16),
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 36,
+                    fontWeight: FontWeight.w700,
+                    color: valueColor ?? const Color(0xFF1E293B),
                   ),
-                ],
+                ),
               ],
+            ],
 
             if (subtitle != null) ...[
               const SizedBox(height: 8),

@@ -14,7 +14,7 @@ class MobileStatCard extends StatelessWidget {
   final bool isRevenueCard;
 
   const MobileStatCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.value,
     this.subtitle,
@@ -26,7 +26,7 @@ class MobileStatCard extends StatelessWidget {
     this.infoColor,
     this.height,
     this.isRevenueCard = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -98,19 +98,18 @@ class MobileStatCard extends StatelessWidget {
                 ),
               ),
             ),
-          ] else
-            if (additionalInfo != null) ...[
-              const SizedBox(height: 4),
-              Text(
-                additionalInfo!,
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: infoColor ?? const Color(0xFF64748B),
-                ),
+          ] else if (additionalInfo != null) ...[
+            const SizedBox(height: 4),
+            Text(
+              additionalInfo!,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: infoColor ?? const Color(0xFF64748B),
               ),
-            ],
+            ),
+          ],
         ],
       ),
     );
@@ -126,13 +125,13 @@ class FolderStatCard extends StatelessWidget {
   final String delayedValue;
 
   const FolderStatCard({
-    Key? key,
+    super.key,
     required this.activeValue,
     required this.closedValue,
     required this.totalValue,
     required this.deliveredValue,
     required this.delayedValue,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

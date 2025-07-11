@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MobileHeader extends StatelessWidget {
-  const MobileHeader({Key? key}) : super(key: key);
+  const MobileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class MobileHeader extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 26.36,
                     height: 18.35,
                     child: Stack(
@@ -84,7 +84,7 @@ class MobileHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Container(
+                  SizedBox(
                     width: 27.91,
                     height: 18.6,
                     child: SvgPicture.asset(

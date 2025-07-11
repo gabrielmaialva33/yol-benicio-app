@@ -65,9 +65,11 @@ class _MainNavigatorState extends State<MainNavigator> {
         return LayoutBuilder(
           builder: (context, constraints) {
             bool isDesktop = constraints.maxWidth > 900;
+            bool isTablet =
+                constraints.maxWidth > 600 && constraints.maxWidth <= 900;
 
             if (isDesktop) {
-              // Layout desktop sem bottom navigation
+              // Layout desktop com sidebar
               return Scaffold(
                 backgroundColor:
                     themeProvider.themeData.scaffoldBackgroundColor,
@@ -77,15 +79,50 @@ class _MainNavigatorState extends State<MainNavigator> {
                   foregroundColor:
                       themeProvider.themeData.appBarTheme.foregroundColor,
                   elevation: 0,
-                  title: Text(
-                    _pageTitles[_currentIndex],
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color:
-                          themeProvider.themeData.textTheme.titleLarge?.color,
-                    ),
+                  title: Row(
+                    children: [
+                      Text(
+                        _pageTitles[_currentIndex],
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: themeProvider
+                              .themeData.textTheme.titleLarge?.color,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: themeProvider.primaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          'Desktop',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: themeProvider.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   actions: [
+                    IconButton(
+                      icon: const Icon(Icons.notifications_outlined),
+                      onPressed: () {
+                        // TODO: Mostrar notificações
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {
+                        setState(() {
+                          _currentIndex = 2; // Ir para página de busca
+                        });
+                      },
+                    ),
                     const QuickThemeToggle(),
                     const SizedBox(width: 16),
                   ],
@@ -103,18 +140,81 @@ class _MainNavigatorState extends State<MainNavigator> {
                         });
                       },
                     ),
-                    // Main content
                     Expanded(
-                      child: _pages[_currentIndex],
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: themeProvider.themeData.cardColor,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: _pages[_currentIndex],
+                        ),
+                      ),
                     ),
                   ],
                 ),
               );
             } else {
-              // Layout mobile com bottom navigation
+              // Layout mobile/tablet com bottom navigation
               return Scaffold(
                 backgroundColor:
                     themeProvider.themeData.scaffoldBackgroundColor,
+                appBar: isTablet
+                    ? AppBar(
+                        backgroundColor:
+                            themeProvider.themeData.appBarTheme.backgroundColor,
+                        foregroundColor:
+                            themeProvider.themeData.appBarTheme.foregroundColor,
+                        elevation: 0,
+                        title: Row(
+                          children: [
+                            Text(
+                              _pageTitles[_currentIndex],
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: themeProvider
+                                    .themeData.textTheme.titleLarge?.color,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color:
+                                    themeProvider.primaryColor.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'Tablet',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: themeProvider.primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          IconButton(
+                            icon: const Icon(Icons.notifications_outlined),
+                            onPressed: () {},
+                          ),
+                          const QuickThemeToggle(),
+                          const SizedBox(width: 8),
+                        ],
+                      )
+                    : null,
                 body: PageView(
                   controller: _pageController,
                   onPageChanged: (index) {
