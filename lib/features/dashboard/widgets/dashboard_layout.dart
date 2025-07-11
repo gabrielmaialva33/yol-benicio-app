@@ -147,7 +147,6 @@ class DashboardLayout extends StatelessWidget {
             color: Colors.white,
             child: Column(
               children: [
-                // Header móvel
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                   decoration: const BoxDecoration(
@@ -163,7 +162,6 @@ class DashboardLayout extends StatelessWidget {
                     bottom: false,
                     child: Row(
                       children: [
-                        // Logo Benício Advogados mobile
                         Row(
                           children: [
                             Container(
@@ -247,7 +245,6 @@ class DashboardLayout extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Conteúdo principal
                 Expanded(
                   child: child,
                 ),
