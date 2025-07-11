@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class YolBottomNavigation extends StatelessWidget {
+class BenicioBottomNavigation extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  const YolBottomNavigation({
+  const BenicioBottomNavigation({
     Key? key,
     required this.currentIndex,
     required this.onTap,

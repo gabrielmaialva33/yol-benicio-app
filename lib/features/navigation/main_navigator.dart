@@ -207,7 +207,7 @@ class _MainNavigatorState extends State<MainNavigator> {
               },
               children: _pages,
             ),
-            bottomNavigationBar: YolBottomNavigation(
+            bottomNavigationBar: BenicioBottomNavigation(
               currentIndex: _currentIndex,
               onTap: _onNavigationTap,
             ),
