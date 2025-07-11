@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:benicio/features/auth/pages/login_page.dart';
 import 'package:benicio/features/auth/services/auth_service.dart';
 import 'package:benicio/features/navigation/main_navigator.dart';
-import 'package:benicio/core/theme/theme_provider.dart';
+import 'package:benicio/core/theme/theme_provider_simplified.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {

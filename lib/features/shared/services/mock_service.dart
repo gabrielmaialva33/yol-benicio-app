@@ -307,6 +307,56 @@ class MockService {
     ];
   }
 
+  // Método de busca para a SearchPage
+  List<Map<String, dynamic>> searchItems(String query, String category) {
+    final List<Map<String, dynamic>> allItems = [
+      // Clientes
+      ...List.generate(20, (index) => {
+        'type': 'client',
+        'title': 'João Silva ${index + 1}',
+        'subtitle': 'Cliente desde ${2020 + (index % 5)}',
+        'category': 'Clientes',
+      }),
+      // Processos
+      ...List.generate(15, (index) => {
+        'type': 'process',
+        'title': 'Processo ${100000 + index}',
+        'subtitle': 'Direito Civil • Em andamento',
+        'category': 'Processos',
+      }),
+      // Documentos
+      ...List.generate(25, (index) => {
+        'type': 'document',
+        'title': 'Contrato ${index + 1}',
+        'subtitle': 'Documento criado em ${DateTime.now().subtract(Duration(days: index * 5)).day}/${DateTime.now().month}',
+        'category': 'Documentos',
+      }),
+      // Pastas
+      ...List.generate(10, (index) => {
+        'type': 'folder',
+        'title': 'Pasta ${index + 1}',
+        'subtitle': 'Processo familiar • Ativa',
+        'category': 'Pastas Ativas',
+      }),
+    ];
+
+    // Filtrar por categoria
+    List<Map<String, dynamic>> filteredByCategory = category == 'Todos' 
+        ? allItems 
+        : allItems.where((item) => 
+            item['category'].toString().toLowerCase().contains(category.toLowerCase()) ||
+            item['type'].toString().toLowerCase().contains(category.toLowerCase())
+          ).toList();
+
+    // Filtrar por query
+    if (query.isEmpty) return filteredByCategory;
+    
+    return filteredByCategory.where((item) =>
+        item['title'].toString().toLowerCase().contains(query.toLowerCase()) ||
+        item['subtitle'].toString().toLowerCase().contains(query.toLowerCase())
+    ).toList();
+  }
+
   // Métodos auxiliares para gerar dados realistas
   String _generateDocument() {
     final isCPF = _random.nextBool();

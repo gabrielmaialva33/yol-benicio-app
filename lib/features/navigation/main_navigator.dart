@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/theme/theme_provider.dart';
+import '../../core/theme/theme_provider_simplified.dart';
 import '../shared/widgets/quick_theme_toggle.dart';
 import '../dashboard/pages/dashboard_page.dart';
 import '../history/history_page.dart';
 import '../navigation/bottom_navigation.dart';
 import '../profile/profile_page.dart';
 import '../reports/reports_page.dart';
-import '../search/search_page.dart';
+import '../search/search_page_enhanced.dart';
 import '../folders/pages/folder_consultation_page.dart';
 import 'widgets/desktop_sidebar.dart';
 

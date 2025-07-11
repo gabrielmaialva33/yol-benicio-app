@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'app_themes.dart';
+import 'app_themes_simplified.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  static const String _themeKey = 'selected_theme';
-
-  AppThemeVariant _currentTheme = AppThemeVariant.oceanLight;
-  AppThemeVariant get currentTheme => _currentTheme;
-
-  ThemeData get themeData => AppThemes.getTheme(_currentTheme);
-
-  String get themeName => AppThemes.getThemeName(_currentTheme);
-
-  IconData get themeIcon => AppThemes.getThemeIcon(_currentTheme);
-
-  Color get themeColor => AppThemes.getThemePreviewColor(_currentTheme);
-
-  LinearGradient get themeGradient => AppThemes.getGradient(_currentTheme);
-
-  bool get isDarkMode {
-    return _currentTheme == AppThemeVariant.oceanDark ||
-        _currentTheme == AppThemeVariant.forestDark;
+  static const String _themeKey = 'app_theme_mode';
+  
+  AppThemeMode _currentTheme = AppThemeMode.light;
+  
+  AppThemeMode get currentTheme => _currentTheme;
+  bool get isDarkMode => _currentTheme == AppThemeMode.dark;
+  
+  ThemeData get themeData {
+    return _currentTheme == AppThemeMode.light 
+        ? AppThemes.lightTheme 
+        : AppThemes.darkTheme;
   }
-
-  bool get isOceanTheme {
-    return _currentTheme == AppThemeVariant.oceanLight ||
-        _currentTheme == AppThemeVariant.oceanDark;
-  }
-
-  bool get isForestTheme {
-    return _currentTheme == AppThemeVariant.forestLight ||
-        _currentTheme == AppThemeVariant.forestDark;
-  }
+  
+  String get themeName => isDarkMode ? 'Escuro' : 'Claro';
+  
+  IconData get themeIcon => isDarkMode 
+      ? Icons.dark_mode_rounded 
+      : Icons.light_mode_rounded;
+  
+  Color get primaryColor => isDarkMode 
+      ? AppColors.cyan400 
+      : AppColors.blue600;
+      
+  LinearGradient get primaryGradient => isDarkMode 
+      ? AppThemes.primaryGradientDark 
+      : AppThemes.primaryGradientLight;
 
   ThemeProvider() {
     _loadTheme();
@@ -39,79 +36,36 @@ class ThemeProvider extends ChangeNotifier {
 
   Future<void> _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
-    final themeIndex = prefs.getInt(_themeKey) ?? 0;
-
-    if (themeIndex >= 0 && themeIndex < AppThemes.availableThemes.length) {
-      _currentTheme = AppThemes.availableThemes[themeIndex];
-      notifyListeners();
-    }
+    final isDark = prefs.getBool(_themeKey) ?? false;
+    
+    _currentTheme = isDark ? AppThemeMode.dark : AppThemeMode.light;
+    notifyListeners();
   }
 
-  Future<void> setTheme(AppThemeVariant theme) async {
+  Future<void> setTheme(AppThemeMode theme) async {
     if (_currentTheme != theme) {
       _currentTheme = theme;
-
+      
       final prefs = await SharedPreferences.getInstance();
-      final themeIndex = AppThemes.availableThemes.indexOf(theme);
-      await prefs.setInt(_themeKey, themeIndex);
-
+      await prefs.setBool(_themeKey, theme == AppThemeMode.dark);
+      
       notifyListeners();
     }
   }
 
-  Future<void> toggleDarkMode() async {
-    AppThemeVariant newTheme;
-
-    switch (_currentTheme) {
-      case AppThemeVariant.oceanLight:
-        newTheme = AppThemeVariant.oceanDark;
-        break;
-      case AppThemeVariant.oceanDark:
-        newTheme = AppThemeVariant.oceanLight;
-        break;
-      case AppThemeVariant.forestLight:
-        newTheme = AppThemeVariant.forestDark;
-        break;
-      case AppThemeVariant.forestDark:
-        newTheme = AppThemeVariant.forestLight;
-        break;
-    }
-
+  Future<void> toggleTheme() async {
+    final newTheme = isDarkMode ? AppThemeMode.light : AppThemeMode.dark;
     await setTheme(newTheme);
   }
-
-  Future<void> switchThemeFamily() async {
-    AppThemeVariant newTheme;
-
-    switch (_currentTheme) {
-      case AppThemeVariant.oceanLight:
-        newTheme = AppThemeVariant.forestLight;
-        break;
-      case AppThemeVariant.oceanDark:
-        newTheme = AppThemeVariant.forestDark;
-        break;
-      case AppThemeVariant.forestLight:
-        newTheme = AppThemeVariant.oceanLight;
-        break;
-      case AppThemeVariant.forestDark:
-        newTheme = AppThemeVariant.oceanDark;
-        break;
-    }
-
-    await setTheme(newTheme);
-  }
-
-  List<AppThemeVariant> get availableThemes => AppThemes.availableThemes;
-
-  Color getThemePreviewColor(AppThemeVariant theme) {
-    return AppThemes.getThemePreviewColor(theme);
-  }
-
-  String getThemeName(AppThemeVariant theme) {
-    return AppThemes.getThemeName(theme);
-  }
-
-  IconData getThemeIcon(AppThemeVariant theme) {
-    return AppThemes.getThemeIcon(theme);
-  }
+  
+  // Cores de status com base no tema
+  Color get successColor => AppColors.green600;
+  Color get warningColor => AppColors.amber500;
+  Color get errorColor => AppColors.red500;
+  Color get infoColor => primaryColor;
+  
+  // Gradientes de status
+  LinearGradient get successGradient => AppThemes.successGradient;
+  LinearGradient get warningGradient => AppThemes.warningGradient;
+  LinearGradient get errorGradient => AppThemes.errorGradient;
 }
