@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage>
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         final theme = themeProvider.themeData;
-
+        
         return Scaffold(
           backgroundColor: theme.scaffoldBackgroundColor,
           body: FadeTransition(
@@ -101,7 +101,7 @@ class _ProfilePageState extends State<ProfilePage>
       floating: false,
       pinned: true,
       elevation: 0,
-      backgroundColor: themeProvider.themeData.primaryColor,
+      backgroundColor: themeProvider.primaryColor,
       foregroundColor: Colors.white,
       flexibleSpace: FlexibleSpaceBar(
         titlePadding: const EdgeInsets.only(left: 20, bottom: 16),
@@ -115,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         background: Container(
           decoration: BoxDecoration(
-            gradient: themeProvider.themeGradient,
+            gradient: themeProvider.primaryGradient,
           ),
         ),
       ),
@@ -126,12 +126,12 @@ class _ProfilePageState extends State<ProfilePage>
         ),
         IconButton(
           icon: Icon(
-            themeProvider.isDarkMode
-                ? Icons.light_mode_outlined
-                : Icons.dark_mode_outlined,
+            themeProvider.isDarkMode 
+              ? Icons.light_mode_outlined 
+              : Icons.dark_mode_outlined,
             color: Colors.white,
           ),
-          onPressed: () => themeProvider.toggleDarkMode(),
+          onPressed: () => themeProvider.toggleTheme(),
         ),
         const SizedBox(width: 8),
       ],
@@ -146,9 +146,9 @@ class _ProfilePageState extends State<ProfilePage>
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: themeProvider.isDarkMode
-                ? Colors.black.withOpacity(0.3)
-                : Colors.black.withOpacity(0.1),
+            color: themeProvider.isDarkMode 
+              ? Colors.black.withOpacity(0.3)
+              : Colors.black.withOpacity(0.1),
             blurRadius: 20,
             offset: const Offset(0, 4),
           ),
@@ -161,11 +161,11 @@ class _ProfilePageState extends State<ProfilePage>
             child: Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: themeProvider.themeGradient,
+                gradient: themeProvider.primaryGradient,
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: themeProvider.themeColor.withOpacity(0.3),
+                    color: themeProvider.primaryColor.withOpacity(0.3),
                     blurRadius: 15,
                     offset: const Offset(0, 5),
                   ),
@@ -207,15 +207,10 @@ class _ProfilePageState extends State<ProfilePage>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  const Color(0xFF2FAC68).withOpacity(0.1),
-                  const Color(0xFF00A76F).withOpacity(0.1),
-                ],
-              ),
+              gradient: themeProvider.successGradient.scale(0.1),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: const Color(0xFF2FAC68).withOpacity(0.3),
+                color: themeProvider.successColor.withOpacity(0.3),
               ),
             ),
             child: Text(
@@ -223,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage>
               style: GoogleFonts.inter(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: const Color(0xFF2FAC68),
+                color: themeProvider.successColor,
               ),
             ),
           ),
@@ -237,25 +232,25 @@ class _ProfilePageState extends State<ProfilePage>
       {
         'icon': Icons.analytics_outlined,
         'title': 'Estatísticas',
-        'color': const Color(0xFF0284C7),
+        'color': themeProvider.primaryColor,
         'onTap': () => _showStatistics(context),
       },
       {
         'icon': Icons.calendar_today_outlined,
         'title': 'Agenda',
-        'color': const Color(0xFFFF5630),
+        'color': themeProvider.errorColor,
         'onTap': () => _showCalendar(context),
       },
       {
         'icon': Icons.star_outline,
         'title': 'Avaliações',
-        'color': const Color(0xFFFFAB00),
+        'color': themeProvider.warningColor,
         'onTap': () => _showReviews(context),
       },
       {
         'icon': Icons.palette_outlined,
         'title': 'Temas',
-        'color': themeProvider.themeColor,
+        'color': themeProvider.accentColor,
         'onTap': () => _showThemeSelector(context),
       },
     ];
@@ -299,9 +294,9 @@ class _ProfilePageState extends State<ProfilePage>
           ),
           boxShadow: [
             BoxShadow(
-              color: themeProvider.isDarkMode
-                  ? Colors.black.withOpacity(0.2)
-                  : Colors.black.withOpacity(0.05),
+              color: themeProvider.isDarkMode 
+                ? Colors.black.withOpacity(0.2)
+                : Colors.black.withOpacity(0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -417,15 +412,15 @@ class _ProfilePageState extends State<ProfilePage>
         color: themeProvider.themeData.cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: themeProvider.isDarkMode
-              ? Colors.white.withOpacity(0.1)
-              : Colors.black.withOpacity(0.05),
+          color: themeProvider.isDarkMode 
+            ? Colors.white.withOpacity(0.1)
+            : Colors.black.withOpacity(0.05),
         ),
         boxShadow: [
           BoxShadow(
-            color: themeProvider.isDarkMode
-                ? Colors.black.withOpacity(0.2)
-                : Colors.black.withOpacity(0.03),
+            color: themeProvider.isDarkMode 
+              ? Colors.black.withOpacity(0.2)
+              : Colors.black.withOpacity(0.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -436,12 +431,12 @@ class _ProfilePageState extends State<ProfilePage>
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: themeProvider.themeColor.withOpacity(0.1),
+            color: themeProvider.primaryColor.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(
             icon,
-            color: themeProvider.themeColor,
+            color: themeProvider.primaryColor,
             size: 24,
           ),
         ),
@@ -476,7 +471,7 @@ class _ProfilePageState extends State<ProfilePage>
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFFEC6553).withOpacity(0.3),
+          color: themeProvider.errorColor.withOpacity(0.3),
         ),
       ),
       child: ListTile(
@@ -484,12 +479,12 @@ class _ProfilePageState extends State<ProfilePage>
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xFFEC6553).withOpacity(0.1),
+            color: themeProvider.errorColor.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.logout_rounded,
-            color: Color(0xFFEC6553),
+            color: themeProvider.errorColor,
             size: 24,
           ),
         ),
@@ -498,7 +493,7 @@ class _ProfilePageState extends State<ProfilePage>
           style: GoogleFonts.inter(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFFEC6553),
+            color: themeProvider.errorColor,
           ),
         ),
         subtitle: Text(
@@ -508,72 +503,29 @@ class _ProfilePageState extends State<ProfilePage>
             color: themeProvider.themeData.textTheme.bodySmall?.color,
           ),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.arrow_forward_ios_rounded,
           size: 16,
-          color: Color(0xFFEC6553),
+          color: themeProvider.errorColor,
         ),
         onTap: () => _showLogoutDialog(context),
       ),
     );
   }
 
-  // Métodos de ação
+  // Métodos de ação simplificados
   void _showProfileEdit(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        maxChildSize: 0.95,
-        minChildSize: 0.5,
-        builder: (context, scrollController) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
-            ),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Editar Perfil',
-                    style: GoogleFonts.inter(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  // Campos de edição aqui
-                  Text('Funcionalidade em desenvolvimento...'),
-                ],
-              ),
-            ),
-          );
-        },
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Editar Perfil - Em desenvolvimento'),
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
   void _showStatistics(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Estatísticas - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -582,7 +534,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   void _showCalendar(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Agenda - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -591,7 +543,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   void _showReviews(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Avaliações - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -599,16 +551,129 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   void _showThemeSelector(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ThemeSelectionPage(),
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: themeProvider.themeData.cardColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Escolha o tema',
+              style: GoogleFonts.inter(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: themeProvider.themeData.textTheme.titleLarge?.color,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildThemeOption(
+                    context: context,
+                    themeProvider: themeProvider,
+                    isLight: true,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: _buildThemeOption(
+                    context: context,
+                    themeProvider: themeProvider,
+                    isLight: false,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildThemeOption({
+    required BuildContext context,
+    required ThemeProvider themeProvider,
+    required bool isLight,
+  }) {
+    final isSelected = isLight ? !themeProvider.isDarkMode : themeProvider.isDarkMode;
+    
+    return GestureDetector(
+      onTap: () {
+        themeProvider.setTheme(isLight ? AppThemeMode.light : AppThemeMode.dark);
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: isSelected 
+            ? themeProvider.primaryColor.withOpacity(0.1)
+            : themeProvider.themeData.cardColor,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected 
+              ? themeProvider.primaryColor
+              : themeProvider.isDarkMode
+                ? Colors.white.withOpacity(0.1)
+                : Colors.black.withOpacity(0.1),
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              isLight ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+              color: isSelected 
+                ? themeProvider.primaryColor 
+                : themeProvider.themeData.textTheme.bodyMedium?.color,
+              size: 32,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              isLight ? 'Claro' : 'Escuro',
+              style: GoogleFonts.inter(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: isSelected 
+                  ? themeProvider.primaryColor 
+                  : themeProvider.themeData.textTheme.bodyMedium?.color,
+              ),
+            ),
+            if (isSelected) ...[
+              const SizedBox(height: 8),
+              Icon(
+                Icons.check_rounded,
+                color: themeProvider.primaryColor,
+                size: 20,
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
 
   void _showSecurityOptions(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Segurança - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -617,7 +682,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   void _showNotificationSettings(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Notificações - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -626,7 +691,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   void _showLanguageOptions(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Idiomas - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -635,7 +700,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   void _showSupport(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Suporte - Em desenvolvimento'),
         behavior: SnackBarBehavior.floating,
       ),
@@ -647,8 +712,8 @@ class _ProfilePageState extends State<ProfilePage>
       context: context,
       applicationName: 'YOL Advocacia',
       applicationVersion: '1.0.0',
-      applicationIcon: Icon(Icons.gavel_rounded),
-      children: [
+      applicationIcon: const Icon(Icons.gavel_rounded),
+      children: const [
         Text('Sistema de gestão para escritórios de advocacia.'),
       ],
     );
@@ -658,12 +723,12 @@ class _ProfilePageState extends State<ProfilePage>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Confirmar Logout'),
-        content: Text('Tem certeza que deseja sair da sua conta?'),
+        title: const Text('Confirmar Logout'),
+        content: const Text('Tem certeza que deseja sair da sua conta?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () async {
@@ -674,7 +739,7 @@ class _ProfilePageState extends State<ProfilePage>
                 Navigator.pushReplacementNamed(context, '/login');
               }
             },
-            child: Text('Sair', style: TextStyle(color: Colors.red)),
+            child: const Text('Sair', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

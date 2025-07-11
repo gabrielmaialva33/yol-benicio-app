@@ -42,12 +42,14 @@ class _HearingsCardState extends State<HearingsCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Audiências e Prazos',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
+              const Expanded(
+                child: Text(
+                  'Audiências e Prazos',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF111827),
+                  ),
                 ),
               ),
               // Placeholder for DateRangePicker
