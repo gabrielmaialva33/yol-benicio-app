@@ -1,11 +1,11 @@
 {
-  "name": "yolapp",
-  "short_name": "yolapp",
+  "name": "Benicio",
+  "short_name": "Benicio",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0175C2",
-  "theme_color": "#0175C2",
-  "description": "A new Flutter project.",
+  "background_color": "#582FFF",
+  "theme_color": "#582FFF",
+  "description": "Sistema jurídico moderno e intuitivo para Benício Advogados.",
   "orientation": "portrait-primary",
   "prefer_related_applications": false,
   "icons": [
