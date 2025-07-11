@@ -133,7 +133,6 @@ class DashboardLayout extends StatelessWidget {
                     ],
                   ),
                 ),
-                // Conteúdo principal
                 Expanded(
                   child: Container(
                     color: const Color(0xFFFAFAFA),
