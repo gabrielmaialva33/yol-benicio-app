@@ -224,10 +224,11 @@ class _ReportsPageState extends State<ReportsPage>
   Widget _buildQuickStats(ThemeProvider themeProvider) {
     return SlideTransition(
       position: _slideAnimation,
-      child: Row(
-        children: [
-          Expanded(
-            child: InteractiveStatsCard(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            InteractiveStatsCard(
               title: 'Total de Casos',
               value: '2,847',
               subtitle: '+15.3% vs mês anterior',
@@ -235,10 +236,8 @@ class _ReportsPageState extends State<ReportsPage>
               color: themeProvider.primaryColor,
               onTap: () => _showStatsDetails('casos'),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: InteractiveStatsCard(
+            const SizedBox(width: 16),
+            InteractiveStatsCard(
               title: 'Taxa de Sucesso',
               value: '94.2%',
               subtitle: '+2.1% vs mês anterior',
@@ -246,10 +245,8 @@ class _ReportsPageState extends State<ReportsPage>
               color: themeProvider.successColor,
               onTap: () => _showStatsDetails('sucesso'),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: InteractiveStatsCard(
+            const SizedBox(width: 16),
+            InteractiveStatsCard(
               title: 'Faturamento',
               value: 'R\$ 2.5M',
               subtitle: '+8.5% vs mês anterior',
@@ -257,8 +254,8 @@ class _ReportsPageState extends State<ReportsPage>
               color: const Color(0xFFF59E0B),
               onTap: () => _showStatsDetails('faturamento'),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
