@@ -143,7 +143,6 @@ class DashboardLayout extends StatelessWidget {
             ),
           );
         } else {
-          // Layout mobile original
           return Container(
             color: Colors.white,
             child: Column(
