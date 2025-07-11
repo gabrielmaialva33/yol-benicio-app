@@ -4,9 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:benicio/features/auth/pages/login_page.dart';
 import 'package:benicio/features/auth/services/auth_service.dart';
 import 'package:benicio/features/navigation/main_navigator.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting('pt_BR', null).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -18,9 +21,7 @@ class MyApp extends StatelessWidget {
       create: (_) => AuthService(),
       child: Consumer<AuthService>(
         builder: (context, authService, child) {
-          final textTheme = Theme
-              .of(context)
-              .textTheme;
+          final textTheme = Theme.of(context).textTheme;
           return MaterialApp(
             title: 'Benicio',
             theme: ThemeData(
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
               ),
               brightness: Brightness.light,
               textTheme: textTheme.apply(
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                fontFamily:
+                    'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
               ),
               scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
                   foregroundColor: Colors.white,
                   elevation: 0,
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -60,8 +62,9 @@ class MyApp extends StatelessWidget {
               ),
               brightness: Brightness.dark,
               textTheme: textTheme.apply(
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                bodyColor: Colors.white, 
+                fontFamily:
+                    'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                bodyColor: Colors.white,
                 displayColor: Colors.white,
               ),
               scaffoldBackgroundColor: const Color(0xFF1F2A37),
