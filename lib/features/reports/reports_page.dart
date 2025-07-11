@@ -105,18 +105,18 @@ class _ReportsPageState extends State<ReportsPage>
                 _slideController.forward();
               });
             },
-            itemBuilder: (context) =>
-                periods.map((period) {
-                  return PopupMenuItem(
-                    value: period,
-                    child: Text(period),
-                  );
-                }).toList(),
+            itemBuilder: (context) => periods.map((period) {
+              return PopupMenuItem(
+                value: period,
+                child: Text(period),
+              );
+            }).toList(),
           ),
           IconButton(
             icon: Icon(
-              showDetails ? Icons.visibility_off_rounded : Icons
-                  .visibility_rounded,
+              showDetails
+                  ? Icons.visibility_off_rounded
+                  : Icons.visibility_rounded,
               color: AppTheme.textPrimary,
             ),
             onPressed: () {
@@ -298,8 +298,8 @@ class _ReportsPageState extends State<ReportsPage>
             child: selectedChart == 'pie'
                 ? _buildInteractivePieChart()
                 : selectedChart == 'bar'
-                ? _buildInteractiveBarChart()
-                : _buildInteractiveLineChart(),
+                    ? _buildInteractiveBarChart()
+                    : _buildInteractiveLineChart(),
           ),
           if (showDetails) ...[
             const SizedBox(height: 16),
@@ -357,10 +357,7 @@ class _ReportsPageState extends State<ReportsPage>
             });
           },
         ),
-        sections: data
-            .asMap()
-            .entries
-            .map((entry) {
+        sections: data.asMap().entries.map((entry) {
           final index = entry.key;
           final data = entry.value;
           final isTouched = index == touchedIndex;
@@ -439,10 +436,7 @@ class _ReportsPageState extends State<ReportsPage>
           ),
         ),
         borderData: FlBorderData(show: false),
-        barGroups: data
-            .asMap()
-            .entries
-            .map((entry) {
+        barGroups: data.asMap().entries.map((entry) {
           final index = entry.key;
           final data = entry.value;
           return BarChartGroupData(
@@ -588,69 +582,66 @@ class _ReportsPageState extends State<ReportsPage>
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (context) =>
-          Container(
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
+      builder: (context) => Container(
+        margin: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Detalhes de ${type.substring(0, 1).toUpperCase()}${type.substring(1)}',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Detalhes de ${type.substring(0, 1).toUpperCase()}${type
-                      .substring(1)}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'Análise detalhada dos dados de $type para o período selecionado: $selectedPeriod',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF64748B),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF582FFF),
-                    padding:
+            const SizedBox(height: 16),
+            Text(
+              'Análise detalhada dos dados de $type para o período selecionado: $selectedPeriod',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF64748B),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF582FFF),
+                padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text(
-                    'Fechar',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              ],
+              ),
+              child: const Text(
+                'Fechar',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
+          ],
+        ),
+      ),
     );
   }
 
   void _showMetricDetails(String metric) {
     showDialog(
       context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: Text('Análise de $metric'),
-            content: Text('Detalhes específicos sobre a métrica de $metric'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Fechar'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: Text('Análise de $metric'),
+        content: Text('Detalhes específicos sobre a métrica de $metric'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Fechar'),
           ),
+        ],
+      ),
     );
   }
 }
