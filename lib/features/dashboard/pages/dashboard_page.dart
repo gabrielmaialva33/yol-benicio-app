@@ -223,7 +223,6 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         const SizedBox(height: 24),
 
-        // Third row - Folder Activity
         MetricCard(
           title: 'Atividade Pastas',
           subtitle: 'de 20/12/24 à 03/01/25',
@@ -295,7 +294,6 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         const SizedBox(height: 24),
 
-        // Fourth row - Revenue (highlighted with blue border)
         Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -322,7 +320,6 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _buildMobileLayout() {
     return Column(
       children: [
-        // Statistics cards in mobile grid (2 columns)
         GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -347,7 +344,6 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         const SizedBox(height: 24),
 
-        // Revenue cards in single column
         MetricCard(
           title: 'Entradas',
           value: _mockData.totalRevenue,
