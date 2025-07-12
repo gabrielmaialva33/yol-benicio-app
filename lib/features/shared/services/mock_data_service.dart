@@ -208,11 +208,24 @@ class MockDataService {
 
     final historyCount = _random.nextInt(15) + 5;
     final history = <dynamic>[];
+    final daysSinceCreation =
+        DateTime.now().difference(folder.createdAt).inDays;
+    if (daysSinceCreation < 1) {
+      history.add({
+        'id': 1,
+        'type': 'Pasta criada',
+        'description': 'A pasta foi criada no sistema.',
+        'date': folder.createdAt,
+        'user': folder.responsibleLawyer.name,
+        'attachments': 0,
+      });
+      _folderHistory[folder.id] = history;
+      return;
+    }
 
     for (int i = 0; i < historyCount; i++) {
-      final date = folder.createdAt.add(Duration(
-          days: _random
-              .nextInt(DateTime.now().difference(folder.createdAt).inDays)));
+      final date = folder.createdAt
+          .add(Duration(days: _random.nextInt(daysSinceCreation)));
 
       history.add({
         'id': i + 1,

@@ -25,7 +25,7 @@ class HistoryCard extends StatefulWidget {
   State<HistoryCard> createState() => _HistoryCardState();
 }
 
-class _HistoryCardState extends State<HistoryCard> 
+class _HistoryCardState extends State<HistoryCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -38,7 +38,7 @@ class _HistoryCardState extends State<HistoryCard>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -46,7 +46,7 @@ class _HistoryCardState extends State<HistoryCard>
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
-    
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.2),
       end: Offset.zero,
@@ -54,7 +54,7 @@ class _HistoryCardState extends State<HistoryCard>
       parent: _animationController,
       curve: Curves.easeOutCubic,
     ));
-    
+
     // Delay the animation based on the delay parameter
     Future.delayed(Duration(milliseconds: widget.delay), () {
       if (mounted) {
@@ -72,7 +72,7 @@ class _HistoryCardState extends State<HistoryCard>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+
     return FadeTransition(
       opacity: _fadeAnimation,
       child: SlideTransition(
@@ -121,7 +121,8 @@ class _HistoryCardState extends State<HistoryCard>
                         Icon(
                           FontAwesomeIcons.pencilAlt,
                           size: 16,
-                          color: themeProvider.themeData.textTheme.bodySmall?.color,
+                          color: themeProvider
+                              .themeData.textTheme.bodySmall?.color,
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -133,7 +134,8 @@ class _HistoryCardState extends State<HistoryCard>
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: themeProvider.themeData.textTheme.titleMedium?.color,
+                                  color: themeProvider
+                                      .themeData.textTheme.titleMedium?.color,
                                 ),
                               ),
                               if (widget.subtitle.isNotEmpty) ...[
@@ -142,7 +144,8 @@ class _HistoryCardState extends State<HistoryCard>
                                   widget.subtitle,
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: themeProvider.themeData.textTheme.bodySmall?.color,
+                                    color: themeProvider
+                                        .themeData.textTheme.bodySmall?.color,
                                   ),
                                 ),
                               ],
@@ -154,7 +157,8 @@ class _HistoryCardState extends State<HistoryCard>
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
-                            color: themeProvider.themeData.textTheme.bodySmall?.color,
+                            color: themeProvider
+                                .themeData.textTheme.bodySmall?.color,
                           ),
                         ),
                       ],
@@ -166,7 +170,8 @@ class _HistoryCardState extends State<HistoryCard>
                           'Adicionado por',
                           style: TextStyle(
                             fontSize: 12,
-                            color: themeProvider.themeData.textTheme.bodySmall?.color,
+                            color: themeProvider
+                                .themeData.textTheme.bodySmall?.color,
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -184,7 +189,11 @@ class _HistoryCardState extends State<HistoryCard>
                           ),
                           child: Center(
                             child: Text(
-                              widget.user.split(' ').map((n) => n[0]).take(2).join(),
+                              widget.user
+                                  .split(' ')
+                                  .map((n) => n[0])
+                                  .take(2)
+                                  .join(),
                               style: const TextStyle(
                                 fontSize: 8,
                                 fontWeight: FontWeight.w600,
@@ -194,18 +203,23 @@ class _HistoryCardState extends State<HistoryCard>
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: themeProvider.primaryColor.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            widget.user,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: themeProvider.primaryColor,
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color:
+                                  themeProvider.primaryColor.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Text(
+                              widget.user,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: themeProvider.primaryColor,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
@@ -214,7 +228,7 @@ class _HistoryCardState extends State<HistoryCard>
                   ],
                 ),
               ),
-              
+
               // Content
               if (widget.content != null)
                 Padding(

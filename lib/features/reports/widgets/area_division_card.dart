@@ -132,10 +132,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
   }
 
   List<PieChartSectionData> _getAnimatedSections() {
-    return widget.areaDivisionData
-        .asMap()
-        .entries
-        .map((entry) {
+    return widget.areaDivisionData.asMap().entries.map((entry) {
       final index = entry.key;
       final data = entry.value;
       final isTouched = index == touchedIndex;
@@ -166,81 +163,83 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
   }
 
   Widget _buildInteractiveLegend() {
-    return Wrap(
-      spacing: 16,
-      runSpacing: 12,
-      children: widget.areaDivisionData
-          .asMap()
-          .entries
-          .map((entry) {
-        final index = entry.key;
-        final data = entry.value;
-        final isSelected = index == touchedIndex;
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Wrap(
+        spacing: 16,
+        runSpacing: 12,
+        children: widget.areaDivisionData.asMap().entries.map((entry) {
+          final index = entry.key;
+          final data = entry.value;
+          final isSelected = index == touchedIndex;
 
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              touchedIndex = touchedIndex == index ? -1 : index;
-            });
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color:
-              isSelected ? data.color.withOpacity(0.1) : Colors.transparent,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: isSelected ? data.color : Colors.transparent,
-                width: 1,
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                touchedIndex = touchedIndex == index ? -1 : index;
+              });
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? data.color.withOpacity(0.1)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: isSelected ? data.color : Colors.transparent,
+                  width: 1,
+                ),
               ),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  width: isSelected ? 16 : 12,
-                  height: isSelected ? 16 : 12,
-                  decoration: BoxDecoration(
-                    color: data.color,
-                    borderRadius: BorderRadius.circular(isSelected ? 8 : 2),
-                    boxShadow: isSelected
-                        ? [
-                      BoxShadow(
-                        color: data.color.withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ]
-                        : null,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  data.name,
-                  style: TextStyle(
-                    fontSize: isSelected ? 14 : 12,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                    color: isSelected ? data.color : const Color(0xFF64748B),
-                  ),
-                ),
-                if (isSelected) ...[
-                  const SizedBox(width: 4),
-                  Text(
-                    '(${data.value.toInt()}%)',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    width: isSelected ? 16 : 12,
+                    height: isSelected ? 16 : 12,
+                    decoration: BoxDecoration(
                       color: data.color,
+                      borderRadius: BorderRadius.circular(isSelected ? 8 : 2),
+                      boxShadow: isSelected
+                          ? [
+                              BoxShadow(
+                                color: data.color.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ]
+                          : null,
                     ),
                   ),
+                  const SizedBox(width: 8),
+                  Text(
+                    data.name,
+                    style: TextStyle(
+                      fontSize: isSelected ? 14 : 12,
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.w500,
+                      color: isSelected ? data.color : const Color(0xFF64748B),
+                    ),
+                  ),
+                  if (isSelected) ...[
+                    const SizedBox(width: 4),
+                    Text(
+                      '(${data.value.toInt()}%)',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: data.color,
+                      ),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 
