@@ -4,7 +4,7 @@ import '../../../core/theme/theme_provider.dart';
 import '../models/client.dart';
 import '../../folders/models/folder.dart';
 import '../../folders/widgets/folder_card.dart';
-import '../services/mock_service.dart';
+import '../services/mock_data_service.dart';
 
 class ClientDetailsPage extends StatefulWidget {
   final Client client;
@@ -20,7 +20,7 @@ class ClientDetailsPage extends StatefulWidget {
 
 class _ClientDetailsPageState extends State<ClientDetailsPage>
     with TickerProviderStateMixin {
-  final MockService _mockService = MockService();
+  final MockDataService _mockService = MockDataService();
   late TabController _tabController;
   List<Folder> _clientFolders = [];
   bool _isLoading = true;
@@ -45,7 +45,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
 
     // Simular carregamento das pastas do cliente
     Future.delayed(const Duration(milliseconds: 500), () {
-      final List<Folder> allFolders = _mockService.getFolders(50);
+      final List<Folder> allFolders = _mockService.getFolders();
       setState(() {
         // Filtrar pastas que pertencem a este cliente
         _clientFolders = allFolders
@@ -195,7 +195,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       style: TextStyle(
                         fontSize: 14,
                         color:
-                        themeProvider.themeData.textTheme.bodyMedium?.color,
+                            themeProvider.themeData.textTheme.bodyMedium?.color,
                       ),
                     ),
                   ],
@@ -230,7 +230,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color:
-                      themeProvider.themeData.textTheme.titleMedium?.color,
+                          themeProvider.themeData.textTheme.titleMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -424,7 +424,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
         unselectedLabelColor:
-        themeProvider.themeData.textTheme.bodyMedium?.color,
+            themeProvider.themeData.textTheme.bodyMedium?.color,
         dividerColor: Colors.transparent,
         tabs: const [
           Tab(text: 'Processos'),
@@ -561,54 +561,53 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) =>
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.edit),
-                  title: const Text('Editar Cliente'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Editar Cliente - Em desenvolvimento'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.add),
-                  title: const Text('Novo Processo'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Novo Processo - Em desenvolvimento'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.share),
-                  title: const Text('Compartilhar'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Compartilhar - Em desenvolvimento'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-              ],
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Editar Cliente'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Editar Cliente - Em desenvolvimento'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
             ),
-          ),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Novo Processo'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Novo Processo - Em desenvolvimento'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.share),
+              title: const Text('Compartilhar'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Compartilhar - Em desenvolvimento'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
