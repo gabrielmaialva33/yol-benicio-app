@@ -183,8 +183,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: themeProvider.themeData.textTheme.titleMedium
-                            ?.color,
+                        color: themeProvider
+                            .themeData.textTheme.titleMedium?.color,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -194,8 +194,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       widget.client.displayContact,
                       style: TextStyle(
                         fontSize: 14,
-                        color: themeProvider.themeData.textTheme.bodyMedium
-                            ?.color,
+                        color:
+                            themeProvider.themeData.textTheme.bodyMedium?.color,
                       ),
                     ),
                   ],
@@ -229,8 +229,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      color: themeProvider.themeData.textTheme.titleMedium
-                          ?.color,
+                      color:
+                          themeProvider.themeData.textTheme.titleMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -373,25 +373,29 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                 size: 24,
               ),
               const SizedBox(height: 8),
-              Text(
-                metric['value'] as String,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: themeProvider.themeData.textTheme.titleLarge?.color,
+              Flexible(
+                child: Text(
+                  metric['value'] as String,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: themeProvider.themeData.textTheme.titleLarge?.color,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 4),
-              Text(
-                metric['title'] as String,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: themeProvider.themeData.textTheme.bodySmall?.color,
+              Flexible(
+                child: Text(
+                  metric['title'] as String,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: themeProvider.themeData.textTheme.bodySmall?.color,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -419,8 +423,8 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: themeProvider.themeData.textTheme.bodyMedium
-            ?.color,
+        unselectedLabelColor:
+            themeProvider.themeData.textTheme.bodyMedium?.color,
         dividerColor: Colors.transparent,
         tabs: const [
           Tab(text: 'Processos'),
@@ -557,54 +561,53 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) =>
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.edit),
-                  title: const Text('Editar Cliente'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Editar Cliente - Em desenvolvimento'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.add),
-                  title: const Text('Novo Processo'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Novo Processo - Em desenvolvimento'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.share),
-                  title: const Text('Compartilhar'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Compartilhar - Em desenvolvimento'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  },
-                ),
-              ],
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Editar Cliente'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Editar Cliente - Em desenvolvimento'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
             ),
-          ),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Novo Processo'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Novo Processo - Em desenvolvimento'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.share),
+              title: const Text('Compartilhar'),
+              onTap: () {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Compartilhar - Em desenvolvimento'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

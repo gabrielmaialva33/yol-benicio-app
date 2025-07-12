@@ -10,14 +10,14 @@ jobs:
   test:
     name: Test Flutter App
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.5.4'
+          flutter-version: '3.24.3'
           channel: 'stable'
 
       - name: Install dependencies
@@ -56,16 +56,16 @@ jobs:
             build-command: flutter build windows --release
             artifact-name: yolapp.exe
             artifact-path: build/windows/runner/Release/
-    
+
     needs: test
-    
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.5.4'
+          flutter-version: '3.24.3'
           channel: 'stable'
 
       - name: Install dependencies

@@ -67,27 +67,36 @@ class Client {
           return email ?? 'Email não informado';
         case 'phone':
         case 'whatsapp':
-          return phone ?? 'Telefone não informado';
+          return _formatPhone(phone) ?? 'Telefone não informado';
         default:
-          return email ?? phone ?? 'Contato não informado';
+          return email ?? _formatPhone(phone) ?? 'Contato não informado';
       }
     }
-    return email ?? phone ?? 'Contato não informado';
+    return email ?? _formatPhone(phone) ?? 'Contato não informado';
+  }
+
+  String? _formatPhone(String? phone) {
+    if (phone == null) return null;
+    final cleanPhone = phone.replaceAll(RegExp(r'[^0-9]'), '');
+    if (cleanPhone.length == 11) {
+      return '(${cleanPhone.substring(0, 2)}) ${cleanPhone.substring(2, 7)}-${cleanPhone.substring(7)}';
+    }
+    if (cleanPhone.length == 10) {
+      return '(${cleanPhone.substring(0, 2)}) ${cleanPhone.substring(2, 6)}-${cleanPhone.substring(6)}';
+    }
+    return phone;
   }
 
   String get formattedDocument {
     if (type == ClientType.corporate) {
       // Format CNPJ: XX.XXX.XXX/XXXX-XX
       if (document.length >= 14) {
-        return '${document.substring(0, 2)}.${document.substring(
-            2, 5)}.${document.substring(5, 8)}/${document.substring(
-            8, 12)}-${document.substring(12, 14)}';
+        return '${document.substring(0, 2)}.${document.substring(2, 5)}.${document.substring(5, 8)}/${document.substring(8, 12)}-${document.substring(12, 14)}';
       }
     } else {
       // Format CPF: XXX.XXX.XXX-XX
       if (document.length >= 11) {
-        return '${document.substring(0, 3)}.${document.substring(
-            3, 6)}.${document.substring(6, 9)}-${document.substring(9, 11)}';
+        return '${document.substring(0, 3)}.${document.substring(3, 6)}.${document.substring(6, 9)}-${document.substring(9, 11)}';
       }
     }
     return document;
