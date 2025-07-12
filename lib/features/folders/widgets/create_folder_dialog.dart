@@ -296,62 +296,56 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         const SizedBox(height: 16),
 
                         // Area and Priority
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
                           children: [
-                            Flexible(
-                              flex: 2,
-                              child: DropdownButtonFormField<FolderArea>(
-                                value: _selectedArea,
-                                decoration: const InputDecoration(
-                                  labelText: 'Área',
-                                  prefixIcon: Icon(Icons.category_outlined),
-                                ),
-                                isExpanded: true,
-                                items: FolderArea.values.map((area) {
-                                  return DropdownMenuItem(
-                                    value: area,
-                                    child: Text(
-                                      area.displayName,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) =>
-                                    setState(() => _selectedArea = value!),
+                            DropdownButtonFormField<FolderArea>(
+                              value: _selectedArea,
+                              decoration: const InputDecoration(
+                                labelText: 'Área',
+                                prefixIcon: Icon(Icons.category_outlined),
                               ),
+                              isExpanded: true,
+                              items: FolderArea.values.map((area) {
+                                return DropdownMenuItem(
+                                  value: area,
+                                  child: Text(
+                                    area.displayName,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) =>
+                                  setState(() => _selectedArea = value!),
                             ),
-                            const SizedBox(width: 16),
-                            Flexible(
-                              flex: 1,
-                              child: DropdownButtonFormField<FolderPriority>(
-                                value: _selectedPriority,
-                                decoration: const InputDecoration(
-                                  labelText: 'Prioridade',
-                                  prefixIcon: Icon(Icons.flag_outlined),
-                                ),
-                                items: FolderPriority.values.map((priority) {
-                                  return DropdownMenuItem(
-                                    value: priority,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: 12,
-                                          height: 12,
-                                          decoration: BoxDecoration(
-                                            color: _getPriorityColor(priority),
-                                            shape: BoxShape.circle,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(_getPriorityLabel(priority)),
-                                      ],
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) =>
-                                    setState(() => _selectedPriority = value!),
+                            DropdownButtonFormField<FolderPriority>(
+                              value: _selectedPriority,
+                              decoration: const InputDecoration(
+                                labelText: 'Prioridade',
+                                prefixIcon: Icon(Icons.flag_outlined),
                               ),
+                              items: FolderPriority.values.map((priority) {
+                                return DropdownMenuItem(
+                                  value: priority,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 12,
+                                        height: 12,
+                                        decoration: BoxDecoration(
+                                          color: _getPriorityColor(priority),
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(_getPriorityLabel(priority)),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (value) =>
+                                  setState(() => _selectedPriority = value!),
                             ),
                           ],
                         ),
@@ -490,27 +484,24 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         const SizedBox(height: 16),
 
                         // Process and Court numbers
-                        Row(
+                        Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
                           children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: _processNumberController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Número do Processo',
-                                  hintText: '0000000-00.0000.0.00.0000',
-                                  prefixIcon: Icon(Icons.numbers),
-                                ),
+                            TextFormField(
+                              controller: _processNumberController,
+                              decoration: const InputDecoration(
+                                labelText: 'Número do Processo',
+                                hintText: '0000000-00.0000.0.00.0000',
+                                prefixIcon: Icon(Icons.numbers),
                               ),
                             ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: TextFormField(
-                                controller: _courtNumberController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Vara/Tribunal',
-                                  hintText: 'Ex: 2ª Vara Cível',
-                                  prefixIcon: Icon(Icons.gavel),
-                                ),
+                            TextFormField(
+                              controller: _courtNumberController,
+                              decoration: const InputDecoration(
+                                labelText: 'Vara/Tribunal',
+                                hintText: 'Ex: 2ª Vara Cível',
+                                prefixIcon: Icon(Icons.gavel),
                               ),
                             ),
                           ],
@@ -518,55 +509,52 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                         const SizedBox(height: 16),
 
                         // Contract value and Due date
-                        Row(
+                        Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
                           children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: _contractValueController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Valor do Contrato',
-                                  hintText: '0,00',
-                                  prefixIcon: Icon(Icons.attach_money),
-                                ),
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'[\d,.]')),
-                                ],
+                            TextFormField(
+                              controller: _contractValueController,
+                              decoration: const InputDecoration(
+                                labelText: 'Valor do Contrato',
+                                hintText: '0,00',
+                                prefixIcon: Icon(Icons.attach_money),
                               ),
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[\d,.]')),
+                              ],
                             ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () async {
-                                  final date = await showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now()
-                                        .add(const Duration(days: 30)),
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime.now()
-                                        .add(const Duration(days: 365)),
-                                  );
-                                  if (date != null) {
-                                    setState(() => _dueDate = date);
-                                  }
-                                },
-                                child: InputDecorator(
-                                  decoration: const InputDecoration(
-                                    labelText: 'Prazo',
-                                    prefixIcon:
-                                        Icon(Icons.calendar_today_outlined),
-                                  ),
-                                  child: Text(
-                                    _dueDate != null
-                                        ? '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}'
-                                        : 'Selecionar data',
-                                    style: TextStyle(
-                                      color: _dueDate != null
-                                          ? null
-                                          : themeProvider.themeData.textTheme
-                                              .bodySmall?.color,
-                                    ),
+                            InkWell(
+                              onTap: () async {
+                                final date = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now()
+                                      .add(const Duration(days: 30)),
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime.now()
+                                      .add(const Duration(days: 365)),
+                                );
+                                if (date != null) {
+                                  setState(() => _dueDate = date);
+                                }
+                              },
+                              child: InputDecorator(
+                                decoration: const InputDecoration(
+                                  labelText: 'Prazo',
+                                  prefixIcon:
+                                      Icon(Icons.calendar_today_outlined),
+                                ),
+                                child: Text(
+                                  _dueDate != null
+                                      ? '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}'
+                                      : 'Selecionar data',
+                                  style: TextStyle(
+                                    color: _dueDate != null
+                                        ? null
+                                        : themeProvider.themeData.textTheme
+                                            .bodySmall?.color,
                                   ),
                                 ),
                               ),
