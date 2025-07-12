@@ -15,7 +15,7 @@ class CreateClientDialog extends StatefulWidget {
 class _CreateClientDialogState extends State<CreateClientDialog> {
   final _formKey = GlobalKey<FormState>();
   final _mockService = MockDataService();
-  
+
   // Controllers
   final _nameController = TextEditingController();
   final _documentController = TextEditingController();
@@ -23,12 +23,12 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   final _notesController = TextEditingController();
-  
+
   // Form data
   ClientType _selectedType = ClientType.individual;
   ClientStatus _selectedStatus = ClientStatus.active;
   String _preferredContact = 'email';
-  
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -39,7 +39,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
     _notesController.dispose();
     super.dispose();
   }
-  
+
   void _createClient() {
     if (_formKey.currentState!.validate()) {
       // Create client through mock service
@@ -58,12 +58,12 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
         notes: _notesController.text.isNotEmpty ? _notesController.text : null,
         preferredContact: _preferredContact,
       );
-      
+
       // Save to mock service
       final savedClient = _mockService.createClient(newClient);
-      
+
       Navigator.pop(context, savedClient);
-      
+
       // Show success message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -73,14 +73,14 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
       );
     }
   }
-  
+
   String? _validateDocument(String? value) {
     if (value == null || value.isEmpty) {
       return 'Documento é obrigatório';
     }
-    
+
     final cleanValue = value.replaceAll(RegExp(r'[^0-9]'), '');
-    
+
     if (_selectedType == ClientType.individual) {
       if (cleanValue.length != 11) {
         return 'CPF deve ter 11 dígitos';
@@ -90,16 +90,16 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
         return 'CNPJ deve ter 14 dígitos';
       }
     }
-    
+
     return null;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final screenSize = MediaQuery.of(context).size;
     final isSmallScreen = screenSize.height < 700;
-    
+
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       backgroundColor: Colors.white,
@@ -118,7 +118,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Row(
+                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -135,9 +135,9 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-              
-              Expanded(
+                const SizedBox(height: 24),
+
+                Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +186,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Name field
                       TextFormField(
                         controller: _nameController,
@@ -209,7 +209,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Document field
                       TextFormField(
                         controller: _documentController,
@@ -230,7 +230,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         validator: _validateDocument,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Email field
                       TextFormField(
                         controller: _emailController,
@@ -251,7 +251,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Phone field
                       TextFormField(
                         controller: _phoneController,
@@ -273,7 +273,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Address field
                       TextFormField(
                         controller: _addressController,
@@ -285,7 +285,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         maxLines: 2,
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Preferred contact
                       DropdownButtonFormField<String>(
                         value: _preferredContact,
@@ -301,7 +301,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         onChanged: (value) => setState(() => _preferredContact = value!),
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Status
                       DropdownButtonFormField<ClientStatus>(
                         value: _selectedStatus,
@@ -332,7 +332,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         onChanged: (value) => setState(() => _selectedStatus = value!),
                       ),
                       const SizedBox(height: 16),
-                      
+
                       // Notes
                       TextFormField(
                         controller: _notesController,
@@ -347,11 +347,11 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                   ),
                 ),
               ),
-              
-              const SizedBox(height: 24),
-              
-              // Action buttons
-              Row(
+
+                const SizedBox(height: 24),
+
+                // Action buttons
+                Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
@@ -365,8 +365,8 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                     label: const Text('Criar Cliente'),
                   ),
                 ],
-              ),
-            ],
+                ),
+              ],
           ),
         ),
       ),
@@ -383,13 +383,13 @@ class _CpfInputFormatter extends TextInputFormatter {
   ) {
     final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     final buffer = StringBuffer();
-    
+
     for (int i = 0; i < newText.length && i < 11; i++) {
       if (i == 3 || i == 6) buffer.write('.');
       if (i == 9) buffer.write('-');
       buffer.write(newText[i]);
     }
-    
+
     return TextEditingValue(
       text: buffer.toString(),
       selection: TextSelection.collapsed(offset: buffer.length),
@@ -406,14 +406,14 @@ class _CnpjInputFormatter extends TextInputFormatter {
   ) {
     final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     final buffer = StringBuffer();
-    
+
     for (int i = 0; i < newText.length && i < 14; i++) {
       if (i == 2 || i == 5) buffer.write('.');
       if (i == 8) buffer.write('/');
       if (i == 12) buffer.write('-');
       buffer.write(newText[i]);
     }
-    
+
     return TextEditingValue(
       text: buffer.toString(),
       selection: TextSelection.collapsed(offset: buffer.length),
@@ -430,14 +430,14 @@ class _PhoneInputFormatter extends TextInputFormatter {
   ) {
     final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     final buffer = StringBuffer();
-    
+
     for (int i = 0; i < newText.length && i < 11; i++) {
       if (i == 0) buffer.write('(');
       if (i == 2) buffer.write(') ');
       if (i == 7) buffer.write('-');
       buffer.write(newText[i]);
     }
-    
+
     return TextEditingValue(
       text: buffer.toString(),
       selection: TextSelection.collapsed(offset: buffer.length),

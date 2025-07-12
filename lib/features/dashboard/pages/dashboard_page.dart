@@ -539,7 +539,7 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           );
           print('DEBUG: Test dialog result: $result');
-          
+
           if (mounted && result != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -821,7 +821,7 @@ class _DashboardPageState extends State<DashboardPage> {
       chartData: _mockService.generateChartData(7),
     );
   }
-  
+
   void _showCreateFolderDialog() async {
     print('DEBUG: _showCreateFolderDialog called');
     try {
@@ -830,17 +830,17 @@ class _DashboardPageState extends State<DashboardPage> {
         barrierDismissible: true,
         builder: (BuildContext dialogContext) {
           print('DEBUG: Building SimpleCreateFolderDialog');
-          return const SimpleCreateFolderDialog();
+          return const CreateFolderDialog();
         },
       );
-      
+
       print('DEBUG: Dialog result: $result');
       if (result != null) {
         // Refresh dashboard data
         setState(() {
           _loadDashboardData();
         });
-        
+
         // Show success message
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -863,7 +863,7 @@ class _DashboardPageState extends State<DashboardPage> {
       }
     }
   }
-  
+
   void _showCreateClientDialog() async {
     print('DEBUG: _showCreateClientDialog called');
     try {
@@ -872,17 +872,17 @@ class _DashboardPageState extends State<DashboardPage> {
         barrierDismissible: true,
         builder: (BuildContext dialogContext) {
           print('DEBUG: Building SimpleCreateClientDialog');
-          return const SimpleCreateClientDialog();
+          return const CreateClientDialog();
         },
       );
-      
+
       print('DEBUG: Dialog result: $result');
       if (result != null) {
         // Refresh dashboard data
         setState(() {
           _loadDashboardData();
         });
-        
+
         // Show success message
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

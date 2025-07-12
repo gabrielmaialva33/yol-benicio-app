@@ -115,7 +115,7 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Row(
+                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
@@ -145,9 +145,9 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              Expanded(
+                Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -659,10 +659,10 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // Action buttons
-              Row(
+                // Action buttons
+                Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
@@ -679,8 +679,8 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                     ),
                   ),
                 ],
-              ),
-            ],
+                ),
+              ],
           ),
         ),
       ),
