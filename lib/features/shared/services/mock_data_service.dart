@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:faker/faker.dart' hide Color;
 import '../../folders/models/folder.dart';
 import '../../shared/models/client.dart';
 import '../../shared/models/user.dart';

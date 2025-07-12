@@ -31,7 +31,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
     {
       'type': 'billing',
       'title': 'Faturamento realizado com sucesso',
-      'description': 'Valor de R\$ 3.500,00 referente aos honorários do processo #2024-1234',
+      'description':
+          'Valor de R\$ 3.500,00 referente aos honorários do processo #2024-1234',
       'user': 'Dra. Ana Rodrigues',
       'date': DateTime.now().subtract(const Duration(hours: 2)),
       'icon': FontAwesomeIcons.dollarSign,
@@ -243,8 +244,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
     );
   }
 
-  Widget _buildActivityList(BuildContext context,
-      ThemeProvider themeProvider,
+  Widget _buildActivityList(BuildContext context, ThemeProvider themeProvider,
       {bool filterToday = false, bool filterWeek = false}) {
     List<Map<String, dynamic>> activities = _filteredActivities;
 
@@ -369,16 +369,16 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: themeProvider.themeData.textTheme.titleMedium
-                              ?.color,
+                          color: themeProvider
+                              .themeData.textTheme.titleMedium?.color,
                         ),
                       ),
                       Text(
                         '${activities.length} atividades',
                         style: TextStyle(
                           fontSize: 14,
-                          color: themeProvider.themeData.textTheme.bodySmall
-                              ?.color,
+                          color: themeProvider
+                              .themeData.textTheme.bodySmall?.color,
                         ),
                       ),
                     ],
@@ -387,12 +387,11 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ),
             ),
           ),
-
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                (context, index) {
                   final activity = activities[index];
                   return _buildActivityCard(activity, themeProvider);
                 },
@@ -400,7 +399,6 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ),
             ),
           ),
-
           const SliverToBoxAdapter(
             child: SizedBox(height: 100),
           ),
@@ -409,8 +407,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
     );
   }
 
-  Widget _buildActivityCard(Map<String, dynamic> activity,
-      ThemeProvider themeProvider) {
+  Widget _buildActivityCard(
+      Map<String, dynamic> activity, ThemeProvider themeProvider) {
     final dateFormat = DateFormat('dd/MM/yyyy');
     final timeFormat = DateFormat('HH:mm');
     final date = activity['date'] as DateTime;
@@ -465,8 +463,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: themeProvider.themeData.textTheme.titleMedium
-                            ?.color,
+                        color: themeProvider
+                            .themeData.textTheme.titleMedium?.color,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -476,8 +474,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                           'Adicionado por ',
                           style: TextStyle(
                             fontSize: 12,
-                            color: themeProvider.themeData.textTheme.bodySmall
-                                ?.color,
+                            color: themeProvider
+                                .themeData.textTheme.bodySmall?.color,
                           ),
                         ),
                         Container(
@@ -611,8 +609,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               children: [
                 if (activity['priority'] == 'high')
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xFFEF4444).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(6),
@@ -623,7 +621,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                     child: Row(
                       children: [
                         const Icon(
-                          FontAwesomeIcons.exclamationTriangle,
+                          FontAwesomeIcons.triangleExclamation,
                           size: 10,
                           color: Color(0xFFEF4444),
                         ),
@@ -660,27 +658,26 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                       ),
                     ),
                   )
-                else
-                  if (activity['status'] == 'view')
-                    OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: themeProvider.primaryColor,
-                        side: BorderSide(color: themeProvider.primaryColor),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        'Visualizar',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                        ),
+                else if (activity['status'] == 'view')
+                  OutlinedButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: themeProvider.primaryColor,
+                      side: BorderSide(color: themeProvider.primaryColor),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
+                    child: const Text(
+                      'Visualizar',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
               ],
             ),
           ],

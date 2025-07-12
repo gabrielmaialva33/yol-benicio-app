@@ -109,8 +109,8 @@ class _HistoryPageState extends State<HistoryPage>
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.only(
-                  left: 20, bottom: 16, right: 20),
+              titlePadding:
+                  const EdgeInsets.only(left: 20, bottom: 16, right: 20),
               title: FadeTransition(
                 opacity: _fadeAnimation,
                 child: Container(
@@ -122,8 +122,8 @@ class _HistoryPageState extends State<HistoryPage>
                     children: [
                       Flexible(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12,
-                              vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(20),
@@ -246,12 +246,11 @@ class _HistoryPageState extends State<HistoryPage>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Processo #${widget.folder.processNumber ??
-                                    widget.folder.code}',
+                                'Processo #${widget.folder.processNumber ?? widget.folder.code}',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: themeProvider.themeData.textTheme
-                                      .bodySmall?.color,
+                                  color: themeProvider
+                                      .themeData.textTheme.bodySmall?.color,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -260,8 +259,8 @@ class _HistoryPageState extends State<HistoryPage>
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: themeProvider.themeData.textTheme
-                                      .titleMedium?.color,
+                                  color: themeProvider
+                                      .themeData.textTheme.titleMedium?.color,
                                 ),
                               ),
                             ],
@@ -300,7 +299,7 @@ class _HistoryPageState extends State<HistoryPage>
                         ),
                         const SizedBox(width: 12),
                         _buildInfoChip(
-                          icon: FontAwesomeIcons.fileAlt,
+                          icon: FontAwesomeIcons.fileLines,
                           label: '${widget.folder.documentsCount} docs',
                           color: const Color(0xFF6366F1),
                         ),
@@ -308,8 +307,8 @@ class _HistoryPageState extends State<HistoryPage>
                         if (widget.folder.contractValue != null)
                           _buildInfoChip(
                             icon: FontAwesomeIcons.dollarSign,
-                            label: 'R\$ ${widget.folder.contractValue!
-                                .toStringAsFixed(2)}',
+                            label:
+                                'R\$ ${widget.folder.contractValue!.toStringAsFixed(2)}',
                             color: const Color(0xFF10B981),
                           ),
                       ],
@@ -332,8 +331,8 @@ class _HistoryPageState extends State<HistoryPage>
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: themeProvider.themeData.textTheme.titleMedium
-                          ?.color,
+                      color:
+                          themeProvider.themeData.textTheme.titleMedium?.color,
                     ),
                   ),
                   TextButton.icon(

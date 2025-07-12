@@ -87,15 +87,6 @@ class _HistoryCardState extends State<HistoryCard>
                   ? Colors.white.withOpacity(0.1)
                   : const Color(0xFFE2E8F0),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: themeProvider.isDarkMode
-                    ? Colors.black.withOpacity(0.2)
-                    : Colors.black.withOpacity(0.05),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
           ),
           child: Column(
             children: [
@@ -152,14 +143,15 @@ class _HistoryCardState extends State<HistoryCard>
                             ],
                           ),
                         ),
-                        Text(
-                          widget.date,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: themeProvider
-                                .themeData.textTheme.bodySmall?.color,
+                        IconButton(
+                          icon: const FaIcon(
+                            FontAwesomeIcons.pencil,
+                            size: 14,
+                            color: Color(0xFF94A3B8),
                           ),
+                          onPressed: () {
+                            // TODO: Implementar edição
+                          },
                         ),
                       ],
                     ),
@@ -209,7 +201,7 @@ class _HistoryCardState extends State<HistoryCard>
                                 horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
                               color:
-                              themeProvider.primaryColor.withOpacity(0.1),
+                                  themeProvider.primaryColor.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(

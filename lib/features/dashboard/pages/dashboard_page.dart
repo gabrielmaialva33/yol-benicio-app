@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../folders/widgets/create_folder_dialog.dart';
 import '../../shared/services/mock_data_service.dart';
 import '../../shared/widgets/create_client_dialog.dart';
-import '../../shared/widgets/simple_test_dialog.dart';
 import '../models/billing_data.dart';
 import '../widgets/billing_card.dart';
 import '../widgets/dashboard_layout.dart';
@@ -123,20 +122,14 @@ class _DashboardPageState extends State<DashboardPage> {
           icon: Icons.add_circle_outline,
           label: 'Nova Pasta',
           color: const Color(0xFF3B82F6),
-          onTap: () {
-            print('DEBUG: Nova Pasta button pressed');
-            _showCreateFolderDialog();
-          },
+          onTap: _showCreateFolderDialog,
         ),
         const SizedBox(width: 12),
         _buildActionButton(
           icon: Icons.person_add_outlined,
           label: 'Novo Cliente',
           color: const Color(0xFF10B981),
-          onTap: () {
-            print('DEBUG: Novo Cliente button pressed');
-            _showCreateClientDialog();
-          },
+          onTap: _showCreateClientDialog,
         ),
       ],
     );
@@ -151,10 +144,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {
-          print('DEBUG: Action button "$label" tapped');
-          onTap();
-        },
+        onTap: onTap,
         borderRadius: BorderRadius.circular(8),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -774,18 +764,15 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   void _showCreateFolderDialog() async {
-    print('DEBUG: _showCreateFolderDialog called');
     try {
       final result = await showDialog(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext dialogContext) {
-          print('DEBUG: Building SimpleCreateFolderDialog');
           return const CreateFolderDialog();
         },
       );
 
-      print('DEBUG: Dialog result: $result');
       if (result != null) {
         // Refresh dashboard data
         setState(() {
@@ -803,7 +790,6 @@ class _DashboardPageState extends State<DashboardPage> {
         }
       }
     } catch (e) {
-      print('DEBUG: Error showing folder dialog: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -816,18 +802,15 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   void _showCreateClientDialog() async {
-    print('DEBUG: _showCreateClientDialog called');
     try {
       final result = await showDialog(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext dialogContext) {
-          print('DEBUG: Building SimpleCreateClientDialog');
           return const CreateClientDialog();
         },
       );
 
-      print('DEBUG: Dialog result: $result');
       if (result != null) {
         // Refresh dashboard data
         setState(() {
@@ -845,7 +828,6 @@ class _DashboardPageState extends State<DashboardPage> {
         }
       }
     } catch (e) {
-      print('DEBUG: Error showing client dialog: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
