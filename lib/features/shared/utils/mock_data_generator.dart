@@ -15,11 +15,29 @@ class MockDataGenerator {
   MockDataGenerator() : faker = Faker();
 
   User generateUser() {
+    final name = faker.person.name();
+    final role = [
+      'Sócio',
+      'Advogado Sênior',
+      'Advogado',
+      'Advogado Júnior',
+      'Estagiário'
+    ][_random.nextInt(5)];
+    final department = [
+      'Cível',
+      'Trabalhista',
+      'Criminal',
+      'Tributário',
+      'Família'
+    ][_random.nextInt(5)];
+
     return User(
       id: faker.randomGenerator.integer(1000),
-      fullName: faker.person.name(),
+      name: name,
       email: faker.internet.email(),
-      avatarUrl: faker.image.image(),
+      role: role,
+      department: department,
+      avatarUrl: faker.image.loremPicsum(),
     );
   }
 
@@ -353,8 +371,6 @@ class MockDataGenerator {
 
     return tags.isEmpty ? null : tags;
   }
-
-  // ...existing code...
 
   List<Folder> generateFolders(int count) {
     return List.generate(count, (_) => generateFolder());

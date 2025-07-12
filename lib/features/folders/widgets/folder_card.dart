@@ -25,7 +25,6 @@ class FolderCard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final bool isDesktop = constraints.maxWidth > 1200;
         final bool isTablet =
             constraints.maxWidth > 768 && constraints.maxWidth <= 1200;
         final bool isMobile = constraints.maxWidth <= 768;
@@ -705,4 +704,5 @@ class FolderCard extends StatelessWidget {
       ),
     );
   }
+}
 }

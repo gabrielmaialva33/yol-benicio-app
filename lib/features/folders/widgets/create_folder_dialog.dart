@@ -62,21 +62,31 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
   }
 
   void _createFolder() {
-    if (_formKey.currentState!.validate() && _selectedClient != null && _selectedLawyer != null) {
+    if (_formKey.currentState!.validate() &&
+        _selectedClient != null &&
+        _selectedLawyer != null) {
       final newFolder = _mockService.createFolder({
         'title': _titleController.text,
-        'description': _descriptionController.text.isNotEmpty ? _descriptionController.text : null,
+        'description': _descriptionController.text.isNotEmpty
+            ? _descriptionController.text
+            : null,
         'area': _selectedArea,
         'priority': _selectedPriority,
         'client': _selectedClient,
         'responsibleLawyer': _selectedLawyer,
-        'assistantLawyers': _selectedAssistants.isNotEmpty ? _selectedAssistants : null,
+        'assistantLawyers':
+            _selectedAssistants.isNotEmpty ? _selectedAssistants : null,
         'dueDate': _dueDate,
-        'contractValue': _contractValueController.text.isNotEmpty 
-            ? double.tryParse(_contractValueController.text.replaceAll(',', '.'))
+        'contractValue': _contractValueController.text.isNotEmpty
+            ? double.tryParse(
+                _contractValueController.text.replaceAll(',', '.'))
             : null,
-        'processNumber': _processNumberController.text.isNotEmpty ? _processNumberController.text : null,
-        'courtNumber': _courtNumberController.text.isNotEmpty ? _courtNumberController.text : null,
+        'processNumber': _processNumberController.text.isNotEmpty
+            ? _processNumberController.text
+            : null,
+        'courtNumber': _courtNumberController.text.isNotEmpty
+            ? _courtNumberController.text
+            : null,
       });
 
       Navigator.pop(context, newFolder);
@@ -116,571 +126,619 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Criar Novo Processo',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          color: themeProvider.themeData.textTheme.titleLarge?.color,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Criar Novo Processo',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                            color: themeProvider
+                                .themeData.textTheme.titleLarge?.color,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'Cada pasta representa um processo do cliente',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: themeProvider.themeData.textTheme.bodyMedium?.color,
+                        const SizedBox(height: 4),
+                        Text(
+                          'Cada pasta representa um processo do cliente',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: themeProvider
+                                .themeData.textTheme.bodyMedium?.color,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 24),
 
                 Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Client selection - FIRST AND PROMINENT
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: themeProvider.primaryColor.withOpacity(0.05),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: themeProvider.primaryColor.withOpacity(0.2),
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.person_outline,
-                                  color: themeProvider.primaryColor,
-                                ),
-                                const SizedBox(width: 8),
-                                const Text(
-                                  'Cliente do Processo',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Client selection - FIRST AND PROMINENT
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: themeProvider.primaryColor.withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color:
+                                  themeProvider.primaryColor.withOpacity(0.2),
                             ),
-                            const SizedBox(height: 12),
-                            DropdownButtonFormField<Client>(
-                              value: _selectedClient,
-                              decoration: const InputDecoration(
-                                labelText: 'Selecione o cliente *',
-                                hintText: 'Para qual cliente é este processo?',
-                                prefixIcon: Icon(Icons.search),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.person_outline,
+                                    color: themeProvider.primaryColor,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  const Text(
+                                    'Cliente do Processo',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              items: _clients.map((client) {
-                                return DropdownMenuItem(
-                                  value: client,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                        decoration: BoxDecoration(
-                                          color: client.type == ClientType.corporate
-                                              ? Colors.blue.withOpacity(0.1)
-                                              : Colors.green.withOpacity(0.1),
-                                          borderRadius: BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          client.type == ClientType.corporate ? 'PJ' : 'PF',
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w600,
-                                            color: client.type == ClientType.corporate
-                                                ? Colors.blue
-                                                : Colors.green,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              client.name,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(fontWeight: FontWeight.w500),
-                                            ),
-                                            if (client.activeFolders > 0)
-                                              Text(
-                                                '${client.activeFolders} processo(s) ativo(s)',
-                                                style: const TextStyle(
-                                                  fontSize: 12,
-                                                  color: Color(0xFF6B7280),
-                                                ),
-                                              ),
-                                          ],
-                                        ),
-                                      ),
-                                      if (client.status == ClientStatus.vip)
+                              const SizedBox(height: 12),
+                              DropdownButtonFormField<Client>(
+                                value: _selectedClient,
+                                decoration: const InputDecoration(
+                                  labelText: 'Selecione o cliente *',
+                                  hintText:
+                                      'Para qual cliente é este processo?',
+                                  prefixIcon: Icon(Icons.search),
+                                ),
+                                items: _clients.map((client) {
+                                  return DropdownMenuItem(
+                                    value: client,
+                                    child: Row(
+                                      children: [
                                         Container(
-                                          margin: const EdgeInsets.only(left: 8),
-                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 2),
                                           decoration: BoxDecoration(
-                                            color: Colors.amber.withOpacity(0.1),
-                                            borderRadius: BorderRadius.circular(8),
+                                            color: client.type ==
+                                                    ClientType.corporate
+                                                ? Colors.blue.withOpacity(0.1)
+                                                : Colors.green.withOpacity(0.1),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
                                           ),
-                                          child: const Row(
+                                          child: Text(
+                                            client.type == ClientType.corporate
+                                                ? 'PJ'
+                                                : 'PF',
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600,
+                                              color: client.type ==
+                                                      ClientType.corporate
+                                                  ? Colors.blue
+                                                  : Colors.green,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Icon(Icons.star, size: 12, color: Colors.amber),
-                                              SizedBox(width: 2),
                                               Text(
-                                                'VIP',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.amber,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                                client.name,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.w500),
                                               ),
+                                              if (client.activeFolders > 0)
+                                                Text(
+                                                  '${client.activeFolders} processo(s) ativo(s)',
+                                                  style: const TextStyle(
+                                                    fontSize: 12,
+                                                    color: Color(0xFF6B7280),
+                                                  ),
+                                                ),
                                             ],
                                           ),
                                         ),
-                                    ],
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) => setState(() => _selectedClient = value),
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Selecione um cliente';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 8),
-                            TextButton.icon(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                // Navigate to create client
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const CreateClientDialog(),
-                                );
-                              },
-                              icon: const Icon(Icons.person_add, size: 16),
-                              label: const Text('Cliente não está na lista? Criar novo'),
-                              style: TextButton.styleFrom(
-                                foregroundColor: themeProvider.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-
-                      // Title field
-                      TextFormField(
-                        controller: _titleController,
-                        decoration: const InputDecoration(
-                          labelText: 'Título do Processo *',
-                          hintText: 'Ex: Ação de Cobrança, Reclamação Trabalhista, etc.',
-                          prefixIcon: Icon(Icons.folder_outlined),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'O título é obrigatório';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Area and Priority
-                      Row(
-                        children: [
-                          Expanded(
-                            child: DropdownButtonFormField<FolderArea>(
-                              value: _selectedArea,
-                              decoration: const InputDecoration(
-                                labelText: 'Área',
-                                prefixIcon: Icon(Icons.category_outlined),
-                              ),
-                              items: FolderArea.values.map((area) {
-                                return DropdownMenuItem(
-                                  value: area,
-                                  child: Text(area.displayName),
-                                );
-                              }).toList(),
-                              onChanged: (value) => setState(() => _selectedArea = value!),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: DropdownButtonFormField<FolderPriority>(
-                              value: _selectedPriority,
-                              decoration: const InputDecoration(
-                                labelText: 'Prioridade',
-                                prefixIcon: Icon(Icons.flag_outlined),
-                              ),
-                              items: FolderPriority.values.map((priority) {
-                                return DropdownMenuItem(
-                                  value: priority,
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 12,
-                                        height: 12,
-                                        decoration: BoxDecoration(
-                                          color: _getPriorityColor(priority),
-                                          shape: BoxShape.circle,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Text(_getPriorityLabel(priority)),
-                                    ],
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (value) => setState(() => _selectedPriority = value!),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Responsible lawyer
-                      DropdownButtonFormField<User>(
-                        value: _selectedLawyer,
-                        decoration: const InputDecoration(
-                          labelText: 'Advogado Responsável *',
-                          prefixIcon: Icon(Icons.account_circle_outlined),
-                        ),
-                        items: _lawyers.map((lawyer) {
-                          return DropdownMenuItem(
-                            value: lawyer,
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 12,
-                                  backgroundColor: themeProvider.primaryColor.withOpacity(0.1),
-                                  child: Text(
-                                    lawyer.initials,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: themeProvider.primaryColor,
+                                        if (client.status == ClientStatus.vip)
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 8),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 6, vertical: 2),
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Colors.amber.withOpacity(0.1),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: const Row(
+                                              children: [
+                                                Icon(Icons.star,
+                                                    size: 12,
+                                                    color: Colors.amber),
+                                                SizedBox(width: 2),
+                                                Text(
+                                                  'VIP',
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Colors.amber,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      ],
                                     ),
-                                  ),
+                                  );
+                                }).toList(),
+                                onChanged: (value) =>
+                                    setState(() => _selectedClient = value),
+                                validator: (value) {
+                                  if (value == null) {
+                                    return 'Selecione um cliente';
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 8),
+                              TextButton.icon(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  // Navigate to create client
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        const CreateClientDialog(),
+                                  );
+                                },
+                                icon: const Icon(Icons.person_add, size: 16),
+                                label: const Text(
+                                    'Cliente não está na lista? Criar novo'),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: themeProvider.primaryColor,
                                 ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(lawyer.name, style: const TextStyle(fontSize: 14)),
-                                      Text(
-                                        lawyer.role,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: themeProvider.themeData.textTheme.bodySmall?.color,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) => setState(() => _selectedLawyer = value),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Selecione um advogado responsável';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Assistant lawyers (multi-select)
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.withOpacity(0.3)),
-                          borderRadius: BorderRadius.circular(8),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        const SizedBox(height: 24),
+
+                        // Title field
+                        TextFormField(
+                          controller: _titleController,
+                          decoration: const InputDecoration(
+                            labelText: 'Título do Processo *',
+                            hintText:
+                                'Ex: Ação de Cobrança, Reclamação Trabalhista, etc.',
+                            prefixIcon: Icon(Icons.folder_outlined),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'O título é obrigatório';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Area and Priority
+                        Row(
                           children: [
-                            Row(
-                              children: [
-                                const Icon(Icons.group_outlined, size: 20),
-                                const SizedBox(width: 8),
-                                const Text('Advogados Assistentes (opcional)'),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: _lawyers
-                                  .where((l) => l != _selectedLawyer)
-                                  .map((lawyer) {
-                                return FilterChip(
-                                  label: Text(lawyer.name),
-                                  selected: _selectedAssistants.contains(lawyer),
-                                  onSelected: (selected) {
-                                    setState(() {
-                                      if (selected) {
-                                        _selectedAssistants.add(lawyer);
-                                      } else {
-                                        _selectedAssistants.remove(lawyer);
-                                      }
-                                    });
-                                  },
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Description
-                      TextFormField(
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                          labelText: 'Descrição do Processo',
-                          hintText: 'Detalhes sobre o processo, objetivo, contexto...',
-                          prefixIcon: Icon(Icons.description_outlined),
-                          helperText: 'Esta descrição ajudará a identificar rapidamente o processo',
-                        ),
-                        maxLines: 3,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Process and Court numbers
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _processNumberController,
-                              decoration: const InputDecoration(
-                                labelText: 'Número do Processo',
-                                hintText: '0000000-00.0000.0.00.0000',
-                                prefixIcon: Icon(Icons.numbers),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _courtNumberController,
-                              decoration: const InputDecoration(
-                                labelText: 'Vara/Tribunal',
-                                hintText: 'Ex: 2ª Vara Cível',
-                                prefixIcon: Icon(Icons.gavel),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Contract value and Due date
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _contractValueController,
-                              decoration: const InputDecoration(
-                                labelText: 'Valor do Contrato',
-                                hintText: '0,00',
-                                prefixIcon: Icon(Icons.attach_money),
-                              ),
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(RegExp(r'[\d,.]')),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () async {
-                                final date = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now().add(const Duration(days: 30)),
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime.now().add(const Duration(days: 365)),
-                                );
-                                if (date != null) {
-                                  setState(() => _dueDate = date);
-                                }
-                              },
-                              child: InputDecorator(
+                            Expanded(
+                              child: DropdownButtonFormField<FolderArea>(
+                                value: _selectedArea,
                                 decoration: const InputDecoration(
-                                  labelText: 'Prazo',
-                                  prefixIcon: Icon(Icons.calendar_today_outlined),
+                                  labelText: 'Área',
+                                  prefixIcon: Icon(Icons.category_outlined),
                                 ),
-                                child: Text(
-                                  _dueDate != null
-                                      ? '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}'
-                                      : 'Selecionar data',
-                                  style: TextStyle(
-                                    color: _dueDate != null
-                                        ? null
-                                        : themeProvider.themeData.textTheme.bodySmall?.color,
-                                  ),
-                                ),
+                                items: FolderArea.values.map((area) {
+                                  return DropdownMenuItem(
+                                    value: area,
+                                    child: Text(area.displayName),
+                                  );
+                                }).toList(),
+                                onChanged: (value) =>
+                                    setState(() => _selectedArea = value!),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-
-                      // Tags section
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.05),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.withOpacity(0.2)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Icon(Icons.label_outline, size: 20),
-                                const SizedBox(width: 8),
-                                const Text(
-                                  'Tags (palavras-chave)',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: DropdownButtonFormField<FolderPriority>(
+                                value: _selectedPriority,
+                                decoration: const InputDecoration(
+                                  labelText: 'Prioridade',
+                                  prefixIcon: Icon(Icons.flag_outlined),
                                 ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              'Adicione tags para facilitar a busca e organização',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF6B7280),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    decoration: const InputDecoration(
-                                      hintText: 'Digite uma tag e pressione Enter',
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                items: FolderPriority.values.map((priority) {
+                                  return DropdownMenuItem(
+                                    value: priority,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 12,
+                                          height: 12,
+                                          decoration: BoxDecoration(
+                                            color: _getPriorityColor(priority),
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(_getPriorityLabel(priority)),
+                                      ],
                                     ),
-                                    onChanged: (value) => _currentTag = value,
-                                    onSubmitted: (value) {
-                                      if (value.isNotEmpty && !_tags.contains(value)) {
-                                        setState(() {
-                                          _tags.add(value);
-                                          _currentTag = '';
-                                        });
-                                      }
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                IconButton(
-                                  onPressed: () {
-                                    if (_currentTag.isNotEmpty && !_tags.contains(_currentTag)) {
-                                      setState(() {
-                                        _tags.add(_currentTag);
-                                        _currentTag = '';
-                                      });
-                                    }
-                                  },
-                                  icon: const Icon(Icons.add_circle),
-                                  color: themeProvider.primaryColor,
-                                ),
-                              ],
+                                  );
+                                }).toList(),
+                                onChanged: (value) =>
+                                    setState(() => _selectedPriority = value!),
+                              ),
                             ),
-                            if (_tags.isNotEmpty) ...[
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Responsible lawyer
+                        DropdownButtonFormField<User>(
+                          value: _selectedLawyer,
+                          decoration: const InputDecoration(
+                            labelText: 'Advogado Responsável *',
+                            prefixIcon: Icon(Icons.account_circle_outlined),
+                          ),
+                          items: _lawyers.map((lawyer) {
+                            return DropdownMenuItem(
+                              value: lawyer,
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 12,
+                                    backgroundColor: themeProvider.primaryColor
+                                        .withOpacity(0.1),
+                                    child: Text(
+                                      lawyer.initials,
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                        color: themeProvider.primaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(lawyer.name,
+                                            style:
+                                                const TextStyle(fontSize: 14)),
+                                        Text(
+                                          lawyer.role,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: themeProvider.themeData
+                                                .textTheme.bodySmall?.color,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) =>
+                              setState(() => _selectedLawyer = value),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Selecione um advogado responsável';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Assistant lawyers (multi-select)
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Colors.grey.withOpacity(0.3)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.group_outlined, size: 20),
+                                  const SizedBox(width: 8),
+                                  const Text(
+                                      'Advogados Assistentes (opcional)'),
+                                ],
+                              ),
                               const SizedBox(height: 8),
                               Wrap(
                                 spacing: 8,
                                 runSpacing: 8,
-                                children: _tags.map((tag) {
-                                  return Chip(
-                                    label: Text(tag),
-                                    onDeleted: () {
+                                children: _lawyers
+                                    .where((l) => l != _selectedLawyer)
+                                    .map((lawyer) {
+                                  return FilterChip(
+                                    label: Text(lawyer.name),
+                                    selected:
+                                        _selectedAssistants.contains(lawyer),
+                                    onSelected: (selected) {
                                       setState(() {
-                                        _tags.remove(tag);
+                                        if (selected) {
+                                          _selectedAssistants.add(lawyer);
+                                        } else {
+                                          _selectedAssistants.remove(lawyer);
+                                        }
                                       });
                                     },
-                                    deleteIconColor: Colors.red,
                                   );
                                 }).toList(),
                               ),
                             ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Description
+                        TextFormField(
+                          controller: _descriptionController,
+                          decoration: const InputDecoration(
+                            labelText: 'Descrição do Processo',
+                            hintText:
+                                'Detalhes sobre o processo, objetivo, contexto...',
+                            prefixIcon: Icon(Icons.description_outlined),
+                            helperText:
+                                'Esta descrição ajudará a identificar rapidamente o processo',
+                          ),
+                          maxLines: 3,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Process and Court numbers
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _processNumberController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Número do Processo',
+                                  hintText: '0000000-00.0000.0.00.0000',
+                                  prefixIcon: Icon(Icons.numbers),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: TextFormField(
+                                controller: _courtNumberController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Vara/Tribunal',
+                                  hintText: 'Ex: 2ª Vara Cível',
+                                  prefixIcon: Icon(Icons.gavel),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 16),
+                        const SizedBox(height: 16),
 
-                      // Notes section
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: 'Observações Internas',
-                          hintText: 'Notas importantes sobre o processo...',
-                          prefixIcon: Icon(Icons.note_add_outlined),
-                          alignLabelWithHint: true,
+                        // Contract value and Due date
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _contractValueController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Valor do Contrato',
+                                  hintText: '0,00',
+                                  prefixIcon: Icon(Icons.attach_money),
+                                ),
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[\d,.]')),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () async {
+                                  final date = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now()
+                                        .add(const Duration(days: 30)),
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime.now()
+                                        .add(const Duration(days: 365)),
+                                  );
+                                  if (date != null) {
+                                    setState(() => _dueDate = date);
+                                  }
+                                },
+                                child: InputDecorator(
+                                  decoration: const InputDecoration(
+                                    labelText: 'Prazo',
+                                    prefixIcon:
+                                        Icon(Icons.calendar_today_outlined),
+                                  ),
+                                  child: Text(
+                                    _dueDate != null
+                                        ? '${_dueDate!.day}/${_dueDate!.month}/${_dueDate!.year}'
+                                        : 'Selecionar data',
+                                    style: TextStyle(
+                                      color: _dueDate != null
+                                          ? null
+                                          : themeProvider.themeData.textTheme
+                                              .bodySmall?.color,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        maxLines: 3,
-                      ),
-                    ],
+                        const SizedBox(height: 24),
+
+                        // Tags section
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.05),
+                            borderRadius: BorderRadius.circular(12),
+                            border:
+                                Border.all(color: Colors.grey.withOpacity(0.2)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.label_outline, size: 20),
+                                  const SizedBox(width: 8),
+                                  const Text(
+                                    'Tags (palavras-chave)',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                'Adicione tags para facilitar a busca e organização',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFF6B7280),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextField(
+                                      decoration: const InputDecoration(
+                                        hintText:
+                                            'Digite uma tag e pressione Enter',
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 8),
+                                      ),
+                                      onChanged: (value) => _currentTag = value,
+                                      onSubmitted: (value) {
+                                        if (value.isNotEmpty &&
+                                            !_tags.contains(value)) {
+                                          setState(() {
+                                            _tags.add(value);
+                                            _currentTag = '';
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  IconButton(
+                                    onPressed: () {
+                                      if (_currentTag.isNotEmpty &&
+                                          !_tags.contains(_currentTag)) {
+                                        setState(() {
+                                          _tags.add(_currentTag);
+                                          _currentTag = '';
+                                        });
+                                      }
+                                    },
+                                    icon: const Icon(Icons.add_circle),
+                                    color: themeProvider.primaryColor,
+                                  ),
+                                ],
+                              ),
+                              if (_tags.isNotEmpty) ...[
+                                const SizedBox(height: 8),
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: _tags.map((tag) {
+                                    return Chip(
+                                      label: Text(tag),
+                                      onDeleted: () {
+                                        setState(() {
+                                          _tags.remove(tag);
+                                        });
+                                      },
+                                      deleteIconColor: Colors.red,
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Notes section
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            labelText: 'Observações Internas',
+                            hintText: 'Notas importantes sobre o processo...',
+                            prefixIcon: Icon(Icons.note_add_outlined),
+                            alignLabelWithHint: true,
+                          ),
+                          maxLines: 3,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
                 const SizedBox(height: 24),
 
                 // Action buttons
                 Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancelar'),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: _createFolder,
-                    icon: const Icon(Icons.create_new_folder),
-                    label: const Text('Criar Processo'),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancelar'),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 16),
+                    ElevatedButton.icon(
+                      onPressed: _createFolder,
+                      icon: const Icon(Icons.create_new_folder),
+                      label: const Text('Criar Processo'),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                      ),
+                    ),
+                  ],
                 ),
               ],
+            ),
           ),
         ),
       ),

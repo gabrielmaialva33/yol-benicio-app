@@ -24,7 +24,6 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
   List<Client> _clientResults = [];
   List<Task> _taskResults = [];
   bool _isSearching = false;
-  final String _searchType = 'all'; // all, folders, clients, tasks
   
   // Search history
   final List<String> _searchHistory = [];
@@ -679,4 +678,5 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
         return const Color(0xFF8B5CF6);
     }
   }
+}
 }

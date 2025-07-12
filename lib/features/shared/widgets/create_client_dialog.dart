@@ -367,9 +367,14 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                 ],
                 ),
               ],
-          ),
-        ),
-      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+        }
+      }
     );
   }
 }
