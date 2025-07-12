@@ -104,16 +104,12 @@ class _DashboardPageState extends State<DashboardPage> {
             if (isDesktop || isTablet) ...[
               const SizedBox(width: 16),
               _buildQuickActions(),
-              const SizedBox(width: 16),
-              _buildTestButton(),
             ],
           ],
         ),
         if (!isDesktop && !isTablet) ...[
           const SizedBox(height: 16),
           _buildQuickActions(),
-          const SizedBox(height: 8),
-          _buildTestButton(),
         ],
       ],
     );
@@ -313,7 +309,8 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
             MetricCard(
               title: 'Receita',
-              value: _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
+              value:
+                  _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
               subtitle: 'Este mês',
               backgroundColor: Colors.white,
               valueColor: const Color(0xFF059669),
@@ -322,61 +319,61 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         const SizedBox(height: 20),
 
-          // Seção de ações rápidas
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF8F9FA),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFE5E7EB)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Ações Rápidas',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E293B),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildMobileQuickAction(
-                        Icons.add_circle_outline,
-                        'Nova\nPasta',
-                        const Color(0xFF3B82F6),
-                        _showCreateFolderDialog,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildMobileQuickAction(
-                        Icons.person_add_outlined,
-                        'Novo\nCliente',
-                        const Color(0xFF10B981),
-                        _showCreateClientDialog,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: _buildMobileQuickAction(
-                        Icons.calendar_today_outlined,
-                        'Agenda',
-                        const Color(0xFFF59E0B),
-                        () {
-                          // TODO: Navigate to calendar
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+        // Seção de ações rápidas
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF8F9FA),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFE5E7EB)),
           ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Ações Rápidas',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildMobileQuickAction(
+                      Icons.add_circle_outline,
+                      'Nova\nPasta',
+                      const Color(0xFF3B82F6),
+                      _showCreateFolderDialog,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildMobileQuickAction(
+                      Icons.person_add_outlined,
+                      'Novo\nCliente',
+                      const Color(0xFF10B981),
+                      _showCreateClientDialog,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildMobileQuickAction(
+                      Icons.calendar_today_outlined,
+                      'Agenda',
+                      const Color(0xFFF59E0B),
+                      () {
+                        // TODO: Navigate to calendar
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
         const SizedBox(height: 20),
 
         // Tasks Card
@@ -462,8 +459,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildMobileQuickAction(IconData icon, String label, Color color,
-      VoidCallback onTap) {
+  Widget _buildMobileQuickAction(
+      IconData icon, String label, Color color, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -522,50 +519,6 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildTestButton() {
-    return ElevatedButton.icon(
-      onPressed: () async {
-        print('DEBUG: Test button pressed');
-        try {
-          final result = await showDialog<String>(
-            context: context,
-            builder: (context) => const SimpleTestDialog(
-              title: 'Teste de Diálogo',
-              content: 'Este é um teste para verificar se os diálogos estão funcionando.',
-            ),
-          );
-          print('DEBUG: Test dialog result: $result');
-
-          if (mounted && result != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Diálogo de teste funcionou!'),
-                backgroundColor: Colors.green,
-              ),
-            );
-          }
-        } catch (e) {
-          print('DEBUG: Error in test dialog: $e');
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Erro no teste: $e'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        }
-      },
-      icon: const Icon(Icons.bug_report, size: 16),
-      label: const Text('Teste'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.purple,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       ),
     );
   }
@@ -660,7 +613,7 @@ class _DashboardPageState extends State<DashboardPage> {
               return ListTile(
                 dense: true,
                 contentPadding:
-                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 leading: CircleAvatar(
                   radius: 16,
                   backgroundColor: types[index] == 'PF'
@@ -685,7 +638,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 subtitle: Text(
                   'Adicionado há ${dates[index]}',
                   style:
-                  const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
+                      const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                 onTap: () {
@@ -773,11 +726,13 @@ class _DashboardPageState extends State<DashboardPage> {
       customContent: Column(
         children: [
           const SizedBox(height: 16),
-          _buildStatRow('Total de Processos', (_metrics['totalFolders'] ?? 0).toString(),
+          _buildStatRow(
+              'Total de Processos',
+              (_metrics['totalFolders'] ?? 0).toString(),
               const Color(0xFF1E293B)),
           const SizedBox(height: 12),
-          _buildStatRow('Entregues no Prazo', '${_metrics['deliveredFolders'] ?? 0}',
-              const Color(0xFF10B981)),
+          _buildStatRow('Entregues no Prazo',
+              '${_metrics['deliveredFolders'] ?? 0}', const Color(0xFF10B981)),
           const SizedBox(height: 12),
           _buildStatRow('Com Atraso', '${_metrics['delayedFolders'] ?? 0}',
               const Color(0xFFEF4444)),

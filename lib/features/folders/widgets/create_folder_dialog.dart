@@ -206,93 +206,46 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                 items: _clients.map((client) {
                                   return DropdownMenuItem(
                                     value: client,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8, vertical: 2),
-                                          decoration: BoxDecoration(
-                                            color: client.type ==
-                                                    ClientType.corporate
-                                                ? Colors.blue.withOpacity(0.1)
-                                                : Colors.green.withOpacity(0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                          child: Text(
-                                            client.type == ClientType.corporate
-                                                ? 'PJ'
-                                                : 'PF',
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w600,
-                                              color: client.type ==
-                                                      ClientType.corporate
-                                                  ? Colors.blue
-                                                  : Colors.green,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Flexible(
-                                                child: Text(
-                                                  client.name,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                              ),
-                                              if (client.activeFolders > 0)
-                                                Flexible(
-                                                  child: Text(
-                                                    '${client.activeFolders} processo(s) ativo(s)',
-                                                    style: const TextStyle(
-                                                      fontSize: 12,
-                                                      color: Color(0xFF6B7280),
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                        if (client.status == ClientStatus.vip)
+                                    child: Container(
+                                      constraints: const BoxConstraints(
+                                          maxWidth: 200),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
                                           Container(
-                                            margin:
-                                                const EdgeInsets.only(left: 8),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 6, vertical: 2),
+                                            width: 12,
+                                            height: 12,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  Colors.amber.withOpacity(0.1),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                              shape: BoxShape.circle,
+                                              color: client.color,
                                             ),
-                                            child: const Row(
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Flexible(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                Icon(Icons.star,
-                                                    size: 12,
-                                                    color: Colors.amber),
-                                                SizedBox(width: 2),
                                                 Text(
-                                                  'VIP',
+                                                  client.name,
+                                                  style:
+                                                      const TextStyle(fontSize: 14),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  client.type,
                                                   style: TextStyle(
-                                                    fontSize: 10,
-                                                    color: Colors.amber,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12,
+                                                    color: Colors.grey[600],
                                                   ),
+                                                  overflow: TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
                                           ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }).toList(),
@@ -732,6 +685,50 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                     ),
                     const SizedBox(width: 16),
                     ElevatedButton.icon(
+                      onPressed: _createFolder,
+                      icon: const Icon(Icons.create_new_folder),
+                      label: const Text('Criar Processo'),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color _getPriorityColor(FolderPriority priority) {
+    switch (priority) {
+      case FolderPriority.low:
+        return Colors.green;
+      case FolderPriority.medium:
+        return Colors.orange;
+      case FolderPriority.high:
+        return Colors.deepOrange;
+      case FolderPriority.urgent:
+        return Colors.red;
+    }
+  }
+
+  String _getPriorityLabel(FolderPriority priority) {
+    switch (priority) {
+      case FolderPriority.low:
+        return 'Baixa';
+      case FolderPriority.medium:
+        return 'Média';
+      case FolderPriority.high:
+        return 'Alta';
+      case FolderPriority.urgent:
+        return 'Urgente';
+    }
+  }
+}
                       onPressed: _createFolder,
                       icon: const Icon(Icons.create_new_folder),
                       label: const Text('Criar Processo'),
