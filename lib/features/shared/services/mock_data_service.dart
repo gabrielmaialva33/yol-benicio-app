@@ -14,9 +14,7 @@ class MockDataService {
   static final MockDataService _instance = MockDataService._internal();
   factory MockDataService() => _instance;
 
-  MockDataService._internal() {
-    _initializeData();
-  }
+  MockDataService._internal();
 
   final _generator = MockDataGenerator();
   final _random = Random();
@@ -29,9 +27,12 @@ class MockDataService {
   late final List<Hearing> _hearings;
   late final Map<int, List<dynamic>> _folderHistory;
   late final Map<String, dynamic> _dashboardMetrics;
+  bool _isInitialized = false;
 
   // Initialize data on first access
   void _initializeData() {
+    if (_isInitialized) return;
+
     _clients = _generator.generateClients();
     _users = _generator.generateUsers();
     _folders = _generator.generateFolders(_clients, _users);
@@ -40,6 +41,7 @@ class MockDataService {
     _folderHistory = _generator.generateFolderHistory(_folders, _users);
     _dashboardMetrics =
         _generator.generateDashboardMetrics(_folders, _tasks, _hearings);
+    _isInitialized = true;
   }
 
   // Public methods to access data
