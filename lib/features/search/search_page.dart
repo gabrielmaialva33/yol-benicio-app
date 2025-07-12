@@ -14,20 +14,21 @@ class SearchPage extends StatefulWidget {
   State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateMixin {
+class _SearchPageState extends State<SearchPage>
+    with SingleTickerProviderStateMixin {
   final _searchController = TextEditingController();
   final _mockService = MockDataService();
   late TabController _tabController;
-  
+
   List<dynamic> _searchResults = [];
   List<Folder> _folderResults = [];
   List<Client> _clientResults = [];
   List<Task> _taskResults = [];
   bool _isSearching = false;
-  
+
   // Search history
   final List<String> _searchHistory = [];
-  
+
   @override
   void initState() {
     super.initState();
@@ -38,14 +39,14 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       }
     });
   }
-  
+
   @override
   void dispose() {
     _searchController.dispose();
     _tabController.dispose();
     super.dispose();
   }
-  
+
   void _performSearch(String query) {
     if (query.isEmpty) {
       setState(() {
@@ -56,9 +57,9 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       });
       return;
     }
-    
+
     setState(() => _isSearching = true);
-    
+
     // Add to search history
     if (!_searchHistory.contains(query)) {
       _searchHistory.insert(0, query);
@@ -66,11 +67,11 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
         _searchHistory.removeLast();
       }
     }
-    
+
     // Simulate search delay
     Future.delayed(const Duration(milliseconds: 300), () {
       final results = _mockService.search(query);
-      
+
       setState(() {
         _searchResults = results;
         _folderResults = results.whereType<Folder>().toList();
@@ -80,11 +81,11 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       });
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+
     return Scaffold(
       backgroundColor: themeProvider.themeData.scaffoldBackgroundColor,
       body: Column(
@@ -114,7 +115,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
                   ),
                 ),
                 const SizedBox(height: 20),
-                
+
                 // Search field
                 TextField(
                   controller: _searchController,
@@ -142,9 +143,10 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
                   ),
                   onChanged: _performSearch,
                 ),
-                
+
                 // Search suggestions
-                if (_searchHistory.isNotEmpty && _searchController.text.isEmpty) ...[
+                if (_searchHistory.isNotEmpty &&
+                    _searchController.text.isEmpty) ...[
                   const SizedBox(height: 16),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -153,7 +155,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
                         Text(
                           'Recentes: ',
                           style: TextStyle(
-                            color: themeProvider.themeData.textTheme.bodySmall?.color,
+                            color: themeProvider
+                                .themeData.textTheme.bodySmall?.color,
                             fontSize: 14,
                           ),
                         ),
@@ -176,7 +179,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
               ],
             ),
           ),
-          
+
           // Tabs
           if (_searchController.text.isNotEmpty) ...[
             Container(
@@ -184,7 +187,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
               child: TabBar(
                 controller: _tabController,
                 labelColor: themeProvider.primaryColor,
-                unselectedLabelColor: themeProvider.themeData.textTheme.bodyMedium?.color,
+                unselectedLabelColor:
+                    themeProvider.themeData.textTheme.bodyMedium?.color,
                 indicatorColor: themeProvider.primaryColor,
                 tabs: [
                   Tab(
@@ -203,7 +207,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
               ),
             ),
           ],
-          
+
           // Results
           Expanded(
             child: _buildSearchResults(themeProvider),
@@ -212,38 +216,38 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildSearchResults(ThemeProvider themeProvider) {
     if (_searchController.text.isEmpty) {
       return _buildEmptyState(themeProvider);
     }
-    
+
     if (_isSearching) {
       return const Center(child: CircularProgressIndicator());
     }
-    
+
     if (_searchResults.isEmpty) {
       return _buildNoResultsState(themeProvider);
     }
-    
+
     return TabBarView(
       controller: _tabController,
       children: [
         // All results
         _buildAllResults(themeProvider),
-        
+
         // Folder results
         _buildFolderResults(themeProvider),
-        
+
         // Client results
         _buildClientResults(themeProvider),
-        
+
         // Task results
         _buildTaskResults(themeProvider),
       ],
     );
   }
-  
+
   Widget _buildEmptyState(ThemeProvider themeProvider) {
     return Center(
       child: Column(
@@ -252,7 +256,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
           Icon(
             Icons.search,
             size: 80,
-            color: themeProvider.themeData.textTheme.bodyMedium?.color?.withOpacity(0.3),
+            color: themeProvider.themeData.textTheme.bodyMedium?.color
+                ?.withOpacity(0.3),
           ),
           const SizedBox(height: 24),
           Text(
@@ -270,7 +275,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
               color: themeProvider.themeData.textTheme.bodyMedium?.color,
             ),
           ),
-          
+
           // Quick search suggestions
           const SizedBox(height: 40),
           Text(
@@ -295,7 +300,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildSuggestionChip(String label, ThemeProvider themeProvider) {
     return ActionChip(
       label: Text(label),
@@ -306,7 +311,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       },
     );
   }
-  
+
   Widget _buildNoResultsState(ThemeProvider themeProvider) {
     return Center(
       child: Column(
@@ -315,7 +320,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
           Icon(
             Icons.search_off,
             size: 80,
-            color: themeProvider.themeData.textTheme.bodyMedium?.color?.withOpacity(0.3),
+            color: themeProvider.themeData.textTheme.bodyMedium?.color
+                ?.withOpacity(0.3),
           ),
           const SizedBox(height: 24),
           Text(
@@ -337,14 +343,17 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildAllResults(ThemeProvider themeProvider) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
         if (_folderResults.isNotEmpty) ...[
-          _buildSectionHeader('Processos', Icons.folder_outlined, themeProvider),
-          ..._folderResults.take(3).map((folder) => _buildFolderItem(folder, themeProvider)),
+          _buildSectionHeader(
+              'Processos', Icons.folder_outlined, themeProvider),
+          ..._folderResults
+              .take(3)
+              .map((folder) => _buildFolderItem(folder, themeProvider)),
           if (_folderResults.length > 3)
             TextButton(
               onPressed: () => _tabController.animateTo(1),
@@ -352,10 +361,11 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             ),
           const SizedBox(height: 24),
         ],
-        
         if (_clientResults.isNotEmpty) ...[
           _buildSectionHeader('Clientes', Icons.person_outline, themeProvider),
-          ..._clientResults.take(3).map((client) => _buildClientItem(client, themeProvider)),
+          ..._clientResults
+              .take(3)
+              .map((client) => _buildClientItem(client, themeProvider)),
           if (_clientResults.length > 3)
             TextButton(
               onPressed: () => _tabController.animateTo(2),
@@ -363,10 +373,11 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             ),
           const SizedBox(height: 24),
         ],
-        
         if (_taskResults.isNotEmpty) ...[
           _buildSectionHeader('Tarefas', Icons.task_alt, themeProvider),
-          ..._taskResults.take(3).map((task) => _buildTaskItem(task, themeProvider)),
+          ..._taskResults
+              .take(3)
+              .map((task) => _buildTaskItem(task, themeProvider)),
           if (_taskResults.length > 3)
             TextButton(
               onPressed: () => _tabController.animateTo(3),
@@ -376,8 +387,9 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ],
     );
   }
-  
-  Widget _buildSectionHeader(String title, IconData icon, ThemeProvider themeProvider) {
+
+  Widget _buildSectionHeader(
+      String title, IconData icon, ThemeProvider themeProvider) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -396,12 +408,12 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildFolderResults(ThemeProvider themeProvider) {
     if (_folderResults.isEmpty) {
       return _buildNoResultsState(themeProvider);
     }
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: _folderResults.length,
@@ -410,12 +422,12 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       },
     );
   }
-  
+
   Widget _buildClientResults(ThemeProvider themeProvider) {
     if (_clientResults.isEmpty) {
       return _buildNoResultsState(themeProvider);
     }
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: _clientResults.length,
@@ -424,12 +436,12 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       },
     );
   }
-  
+
   Widget _buildTaskResults(ThemeProvider themeProvider) {
     if (_taskResults.isEmpty) {
       return _buildNoResultsState(themeProvider);
     }
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: _taskResults.length,
@@ -438,7 +450,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       },
     );
   }
-  
+
   Widget _buildFolderItem(Folder folder, ThemeProvider themeProvider) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -467,7 +479,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: _getStatusColor(folder.status).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -515,7 +528,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildClientItem(Client client, ThemeProvider themeProvider) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -529,7 +542,9 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: client.type == ClientType.corporate ? Colors.blue : Colors.green,
+              color: client.type == ClientType.corporate
+                  ? Colors.blue
+                  : Colors.green,
             ),
           ),
         ),
@@ -560,7 +575,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
                 if (client.status == ClientStatus.vip) ...[
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.amber.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
@@ -588,7 +604,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Widget _buildTaskItem(Task task, ThemeProvider themeProvider) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -617,7 +633,8 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: task.status.color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -635,14 +652,18 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
                 Icon(
                   Icons.schedule,
                   size: 14,
-                  color: task.isOverdue ? Colors.red : themeProvider.themeData.textTheme.bodySmall?.color,
+                  color: task.isOverdue
+                      ? Colors.red
+                      : themeProvider.themeData.textTheme.bodySmall?.color,
                 ),
                 const SizedBox(width: 4),
                 Text(
                   task.dueDateDisplay,
                   style: TextStyle(
                     fontSize: 12,
-                    color: task.isOverdue ? Colors.red : themeProvider.themeData.textTheme.bodySmall?.color,
+                    color: task.isOverdue
+                        ? Colors.red
+                        : themeProvider.themeData.textTheme.bodySmall?.color,
                   ),
                 ),
               ],
@@ -661,7 +682,7 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
       ),
     );
   }
-  
+
   Color _getStatusColor(FolderStatus status) {
     switch (status) {
       case FolderStatus.active:
@@ -678,5 +699,4 @@ class _SearchPageState extends State<SearchPage> with SingleTickerProviderStateM
         return const Color(0xFF8B5CF6);
     }
   }
-}
 }

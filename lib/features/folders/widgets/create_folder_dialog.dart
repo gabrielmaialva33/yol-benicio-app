@@ -234,29 +234,26 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                           ),
                                         ),
                                         const SizedBox(width: 8),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              client.name,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            if (client.activeFolders > 0)
                                               Text(
-                                                client.name,
-                                                overflow: TextOverflow.ellipsis,
+                                                '${client.activeFolders} processo(s) ativo(s)',
                                                 style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              if (client.activeFolders > 0)
-                                                Text(
-                                                  '${client.activeFolders} processo(s) ativo(s)',
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                    color: Color(0xFF6B7280),
-                                                  ),
+                                                  fontSize: 12,
+                                                  color: Color(0xFF6B7280),
                                                 ),
-                                            ],
-                                          ),
+                                              ),
+                                          ],
                                         ),
                                         if (client.status == ClientStatus.vip)
                                           Container(
@@ -421,25 +418,22 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(lawyer.name,
-                                            style:
-                                                const TextStyle(fontSize: 14)),
-                                        Text(
-                                          lawyer.role,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: themeProvider.themeData
-                                                .textTheme.bodySmall?.color,
-                                          ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(lawyer.name,
+                                          style: const TextStyle(fontSize: 14)),
+                                      Text(
+                                        lawyer.role,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: themeProvider.themeData
+                                              .textTheme.bodySmall?.color,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

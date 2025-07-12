@@ -27,19 +27,21 @@ class _HearingsCardState extends State<HearingsCard> {
       fromDate: DateTime.now(),
       toDate: DateTime.now().add(const Duration(days: 30)),
     );
-    
+
     // Calculate statistics
     final totalHearings = _hearings.length;
-    final completedHearings = _hearings.where((h) => h.status == HearingStatus.completed).length;
+    final completedHearings =
+        _hearings.where((h) => h.status == HearingStatus.completed).length;
     final todayHearings = _hearings.where((h) => h.isToday).length;
     final thisWeekHearings = _hearings.where((h) => h.isThisWeek).length;
-    
+
     _hearingStats = {
       'total': totalHearings,
       'completed': completedHearings,
       'today': todayHearings,
       'thisWeek': thisWeekHearings,
-      'completionRate': totalHearings > 0 ? (completedHearings / totalHearings * 100) : 0,
+      'completionRate':
+          totalHearings > 0 ? (completedHearings / totalHearings * 100) : 0,
     };
   }
 
@@ -123,9 +125,9 @@ class _HearingsCardState extends State<HearingsCard> {
               ],
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Upcoming hearings list
           const Text(
             'Próximas Audiências',
@@ -136,8 +138,10 @@ class _HearingsCardState extends State<HearingsCard> {
             ),
           ),
           const SizedBox(height: 16),
-          
-          if (_hearings.where((h) => h.status != HearingStatus.completed).isEmpty)
+
+          if (_hearings
+              .where((h) => h.status != HearingStatus.completed)
+              .isEmpty)
             const Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 40),
@@ -154,7 +158,10 @@ class _HearingsCardState extends State<HearingsCard> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _hearings.where((h) => h.status != HearingStatus.completed).take(3).length,
+              itemCount: _hearings
+                  .where((h) => h.status != HearingStatus.completed)
+                  .take(3)
+                  .length,
               itemBuilder: (context, index) {
                 final upcomingHearings = _hearings
                     .where((h) => h.status != HearingStatus.completed)
@@ -167,8 +174,9 @@ class _HearingsCardState extends State<HearingsCard> {
       ),
     );
   }
-  
-  Widget _buildStatCard(String label, String value, Color color, IconData icon) {
+
+  Widget _buildStatCard(
+      String label, String value, Color color, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -252,15 +260,24 @@ class _HearingsCardState extends State<HearingsCard> {
                     Icon(
                       Icons.schedule,
                       size: 14,
-                      color: hearing.isToday ? const Color(0xFFEF4444) : const Color(0xFF6B7280),
+                      color: hearing.isToday
+                          ? const Color(0xFFEF4444)
+                          : const Color(0xFF6B7280),
                     ),
                     const SizedBox(width: 4),
-                    Text(
-                      hearing.fullDisplay,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: hearing.isToday ? const Color(0xFFEF4444) : const Color(0xFF6B7280),
-                        fontWeight: hearing.isToday ? FontWeight.w600 : FontWeight.normal,
+                    Expanded(
+                      child: Text(
+                        hearing.fullDisplay,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: hearing.isToday
+                              ? const Color(0xFFEF4444)
+                              : const Color(0xFF6B7280),
+                          fontWeight: hearing.isToday
+                              ? FontWeight.w600
+                              : FontWeight.normal,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(width: 16),

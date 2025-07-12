@@ -37,7 +37,7 @@ class MockDataGenerator {
       email: faker.internet.email(),
       role: role,
       department: department,
-      avatarUrl: faker.image.loremPicsum(),
+      photoUrl: faker.image.loremPicsum(),
     );
   }
 

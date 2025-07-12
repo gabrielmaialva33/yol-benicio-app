@@ -119,262 +119,269 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Criar Novo Cliente',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: themeProvider.themeData.textTheme.titleLarge?.color,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Criar Novo Cliente',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color:
+                            themeProvider.themeData.textTheme.titleLarge?.color,
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 24),
 
                 Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Client type selection
-                      const Text(
-                        'Tipo de Cliente',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Client type selection
+                        const Text(
+                          'Tipo de Cliente',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: RadioListTile<ClientType>(
-                              title: const Text('Pessoa Física'),
-                              value: ClientType.individual,
-                              groupValue: _selectedType,
-                              dense: true,
-                              contentPadding: EdgeInsets.zero,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedType = value!;
-                                  _documentController.clear();
-                                });
-                              },
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: RadioListTile<ClientType>(
+                                title: const Text('Pessoa Física'),
+                                value: ClientType.individual,
+                                groupValue: _selectedType,
+                                dense: true,
+                                contentPadding: EdgeInsets.zero,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedType = value!;
+                                    _documentController.clear();
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: RadioListTile<ClientType>(
-                              title: const Text('Pessoa Jurídica'),
-                              value: ClientType.corporate,
-                              groupValue: _selectedType,
-                              dense: true,
-                              contentPadding: EdgeInsets.zero,
-                              onChanged: (value) {
-                                setState(() {
-                                  _selectedType = value!;
-                                  _documentController.clear();
-                                });
-                              },
+                            Expanded(
+                              child: RadioListTile<ClientType>(
+                                title: const Text('Pessoa Jurídica'),
+                                value: ClientType.corporate,
+                                groupValue: _selectedType,
+                                dense: true,
+                                contentPadding: EdgeInsets.zero,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedType = value!;
+                                    _documentController.clear();
+                                  });
+                                },
+                              ),
                             ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Name field
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            labelText: _selectedType == ClientType.individual
+                                ? 'Nome Completo *'
+                                : 'Razão Social *',
+                            hintText: _selectedType == ClientType.individual
+                                ? 'Ex: João Silva'
+                                : 'Ex: Empresa XYZ Ltda',
+                            prefixIcon: const Icon(Icons.person_outline),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Name field
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          labelText: _selectedType == ClientType.individual 
-                              ? 'Nome Completo *' 
-                              : 'Razão Social *',
-                          hintText: _selectedType == ClientType.individual
-                              ? 'Ex: João Silva'
-                              : 'Ex: Empresa XYZ Ltda',
-                          prefixIcon: const Icon(Icons.person_outline),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return _selectedType == ClientType.individual
+                                  ? 'Nome é obrigatório'
+                                  : 'Razão Social é obrigatória';
+                            }
+                            return null;
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return _selectedType == ClientType.individual
-                                ? 'Nome é obrigatório'
-                                : 'Razão Social é obrigatória';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
+                        const SizedBox(height: 16),
 
-                      // Document field
-                      TextFormField(
-                        controller: _documentController,
-                        decoration: InputDecoration(
-                          labelText: _selectedType == ClientType.individual ? 'CPF *' : 'CNPJ *',
-                          hintText: _selectedType == ClientType.individual
-                              ? '000.000.000-00'
-                              : '00.000.000/0000-00',
-                          prefixIcon: const Icon(Icons.badge_outlined),
-                        ),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          _selectedType == ClientType.individual
-                              ? _CpfInputFormatter()
-                              : _CnpjInputFormatter(),
-                        ],
-                        validator: _validateDocument,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Email field
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                          labelText: 'E-mail *',
-                          hintText: 'cliente@email.com',
-                          prefixIcon: Icon(Icons.email_outlined),
-                        ),
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'E-mail é obrigatório';
-                          }
-                          if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(value)) {
-                            return 'E-mail inválido';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Phone field
-                      TextFormField(
-                        controller: _phoneController,
-                        decoration: const InputDecoration(
-                          labelText: 'Telefone *',
-                          hintText: '(00) 00000-0000',
-                          prefixIcon: Icon(Icons.phone_outlined),
-                        ),
-                        keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          _PhoneInputFormatter(),
-                        ],
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Telefone é obrigatório';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Address field
-                      TextFormField(
-                        controller: _addressController,
-                        decoration: const InputDecoration(
-                          labelText: 'Endereço',
-                          hintText: 'Rua, número, bairro, cidade - UF',
-                          prefixIcon: Icon(Icons.location_on_outlined),
-                        ),
-                        maxLines: 2,
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Preferred contact
-                      DropdownButtonFormField<String>(
-                        value: _preferredContact,
-                        decoration: const InputDecoration(
-                          labelText: 'Contato Preferencial',
-                          prefixIcon: Icon(Icons.contact_phone_outlined),
-                        ),
-                        items: const [
-                          DropdownMenuItem(value: 'email', child: Text('E-mail')),
-                          DropdownMenuItem(value: 'phone', child: Text('Telefone')),
-                          DropdownMenuItem(value: 'whatsapp', child: Text('WhatsApp')),
-                        ],
-                        onChanged: (value) => setState(() => _preferredContact = value!),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Status
-                      DropdownButtonFormField<ClientStatus>(
-                        value: _selectedStatus,
-                        decoration: const InputDecoration(
-                          labelText: 'Status',
-                          prefixIcon: Icon(Icons.toggle_on_outlined),
-                        ),
-                        items: const [
-                          DropdownMenuItem(
-                            value: ClientStatus.active,
-                            child: Text('Ativo'),
+                        // Document field
+                        TextFormField(
+                          controller: _documentController,
+                          decoration: InputDecoration(
+                            labelText: _selectedType == ClientType.individual
+                                ? 'CPF *'
+                                : 'CNPJ *',
+                            hintText: _selectedType == ClientType.individual
+                                ? '000.000.000-00'
+                                : '00.000.000/0000-00',
+                            prefixIcon: const Icon(Icons.badge_outlined),
                           ),
-                          DropdownMenuItem(
-                            value: ClientStatus.inactive,
-                            child: Text('Inativo'),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            _selectedType == ClientType.individual
+                                ? _CpfInputFormatter()
+                                : _CnpjInputFormatter(),
+                          ],
+                          validator: _validateDocument,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Email field
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: const InputDecoration(
+                            labelText: 'E-mail *',
+                            hintText: 'cliente@email.com',
+                            prefixIcon: Icon(Icons.email_outlined),
                           ),
-                          DropdownMenuItem(
-                            value: ClientStatus.vip,
-                            child: Row(
-                              children: [
-                                Text('VIP'),
-                                SizedBox(width: 8),
-                                Icon(Icons.star, size: 16, color: Colors.amber),
-                              ],
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'E-mail é obrigatório';
+                            }
+                            if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
+                                .hasMatch(value)) {
+                              return 'E-mail inválido';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Phone field
+                        TextFormField(
+                          controller: _phoneController,
+                          decoration: const InputDecoration(
+                            labelText: 'Telefone *',
+                            hintText: '(00) 00000-0000',
+                            prefixIcon: Icon(Icons.phone_outlined),
+                          ),
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            _PhoneInputFormatter(),
+                          ],
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Telefone é obrigatório';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Address field
+                        TextFormField(
+                          controller: _addressController,
+                          decoration: const InputDecoration(
+                            labelText: 'Endereço',
+                            hintText: 'Rua, número, bairro, cidade - UF',
+                            prefixIcon: Icon(Icons.location_on_outlined),
+                          ),
+                          maxLines: 2,
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Preferred contact
+                        DropdownButtonFormField<String>(
+                          value: _preferredContact,
+                          decoration: const InputDecoration(
+                            labelText: 'Contato Preferencial',
+                            prefixIcon: Icon(Icons.contact_phone_outlined),
+                          ),
+                          items: const [
+                            DropdownMenuItem(
+                                value: 'email', child: Text('E-mail')),
+                            DropdownMenuItem(
+                                value: 'phone', child: Text('Telefone')),
+                            DropdownMenuItem(
+                                value: 'whatsapp', child: Text('WhatsApp')),
+                          ],
+                          onChanged: (value) =>
+                              setState(() => _preferredContact = value!),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // Status
+                        DropdownButtonFormField<ClientStatus>(
+                          value: _selectedStatus,
+                          decoration: const InputDecoration(
+                            labelText: 'Status',
+                            prefixIcon: Icon(Icons.toggle_on_outlined),
+                          ),
+                          items: const [
+                            DropdownMenuItem(
+                              value: ClientStatus.active,
+                              child: Text('Ativo'),
                             ),
-                          ),
-                        ],
-                        onChanged: (value) => setState(() => _selectedStatus = value!),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Notes
-                      TextFormField(
-                        controller: _notesController,
-                        decoration: const InputDecoration(
-                          labelText: 'Observações',
-                          hintText: 'Informações adicionais sobre o cliente...',
-                          prefixIcon: Icon(Icons.note_outlined),
+                            DropdownMenuItem(
+                              value: ClientStatus.inactive,
+                              child: Text('Inativo'),
+                            ),
+                            DropdownMenuItem(
+                              value: ClientStatus.vip,
+                              child: Row(
+                                children: [
+                                  Text('VIP'),
+                                  SizedBox(width: 8),
+                                  Icon(Icons.star,
+                                      size: 16, color: Colors.amber),
+                                ],
+                              ),
+                            ),
+                          ],
+                          onChanged: (value) =>
+                              setState(() => _selectedStatus = value!),
                         ),
-                        maxLines: 3,
-                      ),
-                    ],
+                        const SizedBox(height: 16),
+
+                        // Notes
+                        TextFormField(
+                          controller: _notesController,
+                          decoration: const InputDecoration(
+                            labelText: 'Observações',
+                            hintText:
+                                'Informações adicionais sobre o cliente...',
+                            prefixIcon: Icon(Icons.note_outlined),
+                          ),
+                          maxLines: 3,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
                 const SizedBox(height: 24),
 
                 // Action buttons
                 Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancelar'),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton.icon(
-                    onPressed: _createClient,
-                    icon: const Icon(Icons.person_add),
-                    label: const Text('Criar Cliente'),
-                  ),
-                ],
-                ),
-              ],
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('Cancelar'),
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton.icon(
+                      onPressed: _createClient,
+                      icon: const Icon(Icons.person_add),
+                      label: const Text('Criar Cliente'),
                     ),
                   ],
                 ),
-              ),
-            );
-          }
-        }
-      }
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
