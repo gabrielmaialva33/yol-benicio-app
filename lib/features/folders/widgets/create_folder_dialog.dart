@@ -212,15 +212,6 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Container(
-                                            width: 12,
-                                            height: 12,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: client.color,
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
                                           Flexible(
                                             child: Column(
                                               crossAxisAlignment:
@@ -235,7 +226,10 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                                 Text(
-                                                  client.type,
+                                                  client.type ==
+                                                          ClientType.individual
+                                                      ? 'Pessoa Física'
+                                                      : 'Pessoa Jurídica',
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.grey[600],
@@ -303,18 +297,24 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
 
                         // Area and Priority
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
+                            Flexible(
+                              flex: 2,
                               child: DropdownButtonFormField<FolderArea>(
                                 value: _selectedArea,
                                 decoration: const InputDecoration(
                                   labelText: 'Área',
                                   prefixIcon: Icon(Icons.category_outlined),
                                 ),
+                                isExpanded: true,
                                 items: FolderArea.values.map((area) {
                                   return DropdownMenuItem(
                                     value: area,
-                                    child: Text(area.displayName),
+                                    child: Text(
+                                      area.displayName,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   );
                                 }).toList(),
                                 onChanged: (value) =>
@@ -322,7 +322,8 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                               ),
                             ),
                             const SizedBox(width: 16),
-                            Expanded(
+                            Flexible(
+                              flex: 1,
                               child: DropdownButtonFormField<FolderPriority>(
                                 value: _selectedPriority,
                                 decoration: const InputDecoration(
@@ -366,42 +367,52 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                           items: _lawyers.map((lawyer) {
                             return DropdownMenuItem(
                               value: lawyer,
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 12,
-                                    backgroundColor: themeProvider.primaryColor
-                                        .withOpacity(0.1),
-                                    child: Text(
-                                      lawyer.initials,
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: themeProvider.primaryColor,
+                              child: Container(
+                                constraints:
+                                    const BoxConstraints(maxWidth: 400),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 12,
+                                      backgroundColor: themeProvider
+                                          .primaryColor
+                                          .withOpacity(0.1),
+                                      child: Text(
+                                        lawyer.initials,
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          color: themeProvider.primaryColor,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(lawyer.name,
+                                    const SizedBox(width: 8),
+                                    Flexible(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            lawyer.name,
                                             style:
-                                                const TextStyle(fontSize: 14)),
-                                        Text(
-                                          lawyer.role,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: themeProvider.themeData
-                                                .textTheme.bodySmall?.color,
+                                                const TextStyle(fontSize: 14),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                        ),
-                                      ],
+                                          Text(
+                                            lawyer.role,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: themeProvider.themeData
+                                                  .textTheme.bodySmall?.color,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           }).toList(),
