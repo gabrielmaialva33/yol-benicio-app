@@ -209,7 +209,7 @@ class _HistoryCardState extends State<HistoryCard>
                                 horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
                               color:
-                                  themeProvider.primaryColor.withOpacity(0.1),
+                              themeProvider.primaryColor.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(

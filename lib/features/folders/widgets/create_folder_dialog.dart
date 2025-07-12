@@ -207,8 +207,8 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                   return DropdownMenuItem(
                                     value: client,
                                     child: Container(
-                                      constraints: const BoxConstraints(
-                                          maxWidth: 200),
+                                      constraints:
+                                          const BoxConstraints(maxWidth: 200),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
@@ -229,9 +229,10 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                               children: [
                                                 Text(
                                                   client.name,
-                                                  style:
-                                                      const TextStyle(fontSize: 14),
-                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      fontSize: 14),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                                 Text(
                                                   client.type,
@@ -239,7 +240,8 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                                     fontSize: 12,
                                                     color: Colors.grey[600],
                                                   ),
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -685,50 +687,6 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                     ),
                     const SizedBox(width: 16),
                     ElevatedButton.icon(
-                      onPressed: _createFolder,
-                      icon: const Icon(Icons.create_new_folder),
-                      label: const Text('Criar Processo'),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Color _getPriorityColor(FolderPriority priority) {
-    switch (priority) {
-      case FolderPriority.low:
-        return Colors.green;
-      case FolderPriority.medium:
-        return Colors.orange;
-      case FolderPriority.high:
-        return Colors.deepOrange;
-      case FolderPriority.urgent:
-        return Colors.red;
-    }
-  }
-
-  String _getPriorityLabel(FolderPriority priority) {
-    switch (priority) {
-      case FolderPriority.low:
-        return 'Baixa';
-      case FolderPriority.medium:
-        return 'Média';
-      case FolderPriority.high:
-        return 'Alta';
-      case FolderPriority.urgent:
-        return 'Urgente';
-    }
-  }
-}
                       onPressed: _createFolder,
                       icon: const Icon(Icons.create_new_folder),
                       label: const Text('Criar Processo'),

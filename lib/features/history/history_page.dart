@@ -18,7 +18,7 @@ class HistoryPage extends StatefulWidget {
   State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage> 
+class _HistoryPageState extends State<HistoryPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -31,7 +31,7 @@ class _HistoryPageState extends State<HistoryPage>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
-    
+
     _fadeAnimation = Tween<double>(
       begin: 0.0,
       end: 1.0,
@@ -39,7 +39,7 @@ class _HistoryPageState extends State<HistoryPage>
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
-    
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(0, 0.3),
       end: Offset.zero,
@@ -47,7 +47,7 @@ class _HistoryPageState extends State<HistoryPage>
       parent: _animationController,
       curve: Curves.easeOutCubic,
     ));
-    
+
     _animationController.forward();
   }
 
@@ -84,7 +84,7 @@ class _HistoryPageState extends State<HistoryPage>
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final areaColor = _getAreaColor();
-    
+
     return Scaffold(
       backgroundColor: themeProvider.themeData.scaffoldBackgroundColor,
       body: CustomScrollView(
@@ -109,7 +109,8 @@ class _HistoryPageState extends State<HistoryPage>
               ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: const EdgeInsets.only(left: 20, bottom: 16, right: 20),
+              titlePadding: const EdgeInsets.only(
+                  left: 20, bottom: 16, right: 20),
               title: FadeTransition(
                 opacity: _fadeAnimation,
                 child: Container(
@@ -121,7 +122,8 @@ class _HistoryPageState extends State<HistoryPage>
                     children: [
                       Flexible(
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 12,
+                              vertical: 2),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(20),
@@ -195,7 +197,7 @@ class _HistoryPageState extends State<HistoryPage>
               ),
             ),
           ),
-          
+
           // Informações do processo
           SliverToBoxAdapter(
             child: SlideTransition(
@@ -244,10 +246,12 @@ class _HistoryPageState extends State<HistoryPage>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Processo #${widget.folder.processNumber ?? widget.folder.code}',
+                                'Processo #${widget.folder.processNumber ??
+                                    widget.folder.code}',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: themeProvider.themeData.textTheme.bodySmall?.color,
+                                  color: themeProvider.themeData.textTheme
+                                      .bodySmall?.color,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -256,19 +260,23 @@ class _HistoryPageState extends State<HistoryPage>
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: themeProvider.themeData.textTheme.titleMedium?.color,
+                                  color: themeProvider.themeData.textTheme
+                                      .titleMedium?.color,
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: _getStatusColor(widget.folder.status).withOpacity(0.1),
+                            color: _getStatusColor(widget.folder.status)
+                                .withOpacity(0.1),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: _getStatusColor(widget.folder.status).withOpacity(0.3),
+                              color: _getStatusColor(widget.folder.status)
+                                  .withOpacity(0.3),
                             ),
                           ),
                           child: Text(
@@ -300,7 +308,8 @@ class _HistoryPageState extends State<HistoryPage>
                         if (widget.folder.contractValue != null)
                           _buildInfoChip(
                             icon: FontAwesomeIcons.dollarSign,
-                            label: 'R\$ ${widget.folder.contractValue!.toStringAsFixed(2)}',
+                            label: 'R\$ ${widget.folder.contractValue!
+                                .toStringAsFixed(2)}',
                             color: const Color(0xFF10B981),
                           ),
                       ],
@@ -310,7 +319,7 @@ class _HistoryPageState extends State<HistoryPage>
               ),
             ),
           ),
-          
+
           // Título da seção
           SliverToBoxAdapter(
             child: Padding(
@@ -323,7 +332,8 @@ class _HistoryPageState extends State<HistoryPage>
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: themeProvider.themeData.textTheme.titleMedium?.color,
+                      color: themeProvider.themeData.textTheme.titleMedium
+                          ?.color,
                     ),
                   ),
                   TextButton.icon(
@@ -340,11 +350,11 @@ class _HistoryPageState extends State<HistoryPage>
               ),
             ),
           ),
-          
+
           const SliverToBoxAdapter(
             child: SizedBox(height: 16),
           ),
-          
+
           // Lista de atividades
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -444,7 +454,7 @@ class _HistoryPageState extends State<HistoryPage>
       ),
     );
   }
-  
+
   Widget _buildInfoChip({
     required IconData icon,
     required String label,
@@ -473,7 +483,7 @@ class _HistoryPageState extends State<HistoryPage>
       ),
     );
   }
-  
+
   Color _getStatusColor(FolderStatus status) {
     switch (status) {
       case FolderStatus.active:

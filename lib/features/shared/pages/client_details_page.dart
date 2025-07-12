@@ -195,7 +195,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       style: TextStyle(
                         fontSize: 14,
                         color:
-                            themeProvider.themeData.textTheme.bodyMedium?.color,
+                        themeProvider.themeData.textTheme.bodyMedium?.color,
                       ),
                     ),
                   ],
@@ -230,7 +230,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                       color:
-                          themeProvider.themeData.textTheme.titleMedium?.color,
+                      themeProvider.themeData.textTheme.titleMedium?.color,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -424,7 +424,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
         unselectedLabelColor:
-            themeProvider.themeData.textTheme.bodyMedium?.color,
+        themeProvider.themeData.textTheme.bodyMedium?.color,
         dividerColor: Colors.transparent,
         tabs: const [
           Tab(text: 'Processos'),
@@ -561,53 +561,54 @@ class _ClientDetailsPageState extends State<ClientDetailsPage>
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) => Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Editar Cliente'),
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Editar Cliente - Em desenvolvimento'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
+      builder: (context) =>
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.edit),
+                  title: const Text('Editar Cliente'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Editar Cliente - Em desenvolvimento'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.add),
+                  title: const Text('Novo Processo'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Novo Processo - Em desenvolvimento'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.share),
+                  title: const Text('Compartilhar'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Compartilhar - Em desenvolvimento'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.add),
-              title: const Text('Novo Processo'),
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Novo Processo - Em desenvolvimento'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.share),
-              title: const Text('Compartilhar'),
-              onTap: () {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Compartilhar - Em desenvolvimento'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }

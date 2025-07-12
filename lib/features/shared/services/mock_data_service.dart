@@ -9,7 +9,9 @@ import 'package:fl_chart/fl_chart.dart';
 
 class MockDataService {
   static final MockDataService _instance = MockDataService._internal();
+
   factory MockDataService() => _instance;
+
   MockDataService._internal();
 
   final _faker = Faker();
@@ -83,8 +85,8 @@ class MockDataService {
         status: _random.nextDouble() > 0.8
             ? ClientStatus.vip
             : _random.nextDouble() > 0.9
-                ? ClientStatus.inactive
-                : ClientStatus.active,
+            ? ClientStatus.inactive
+            : ClientStatus.active,
         email: _faker.internet.email(),
         phone: _faker.phoneNumber.us(),
         address: '${_faker.address.streetAddress()}, ${_faker.address.city()}',
@@ -146,12 +148,15 @@ class MockDataService {
       final folder = Folder(
         id: i + 1,
         code:
-            'PROC-${DateTime.now().year}-${(i + 1).toString().padLeft(4, '0')}',
+        'PROC-${DateTime
+            .now()
+            .year}-${(i + 1).toString().padLeft(4, '0')}',
         title:
-            '${processTypes[_random.nextInt(processTypes.length)]} - ${client.name}',
+        '${processTypes[_random.nextInt(processTypes.length)]} - ${client
+            .name}',
         description: _faker.lorem.sentences(3).join(' '),
         status:
-            FolderStatus.values[_random.nextInt(FolderStatus.values.length)],
+        FolderStatus.values[_random.nextInt(FolderStatus.values.length)],
         priority: FolderPriority
             .values[_random.nextInt(FolderPriority.values.length)],
         area: area,
@@ -159,12 +164,12 @@ class MockDataService {
         responsibleLawyer: responsibleLawyer,
         assistantLawyers: _random.nextBool()
             ? _users
-                .where((u) => u.id != responsibleLawyer.id)
-                .take(_random.nextInt(3) + 1)
-                .toList()
+            .where((u) => u.id != responsibleLawyer.id)
+            .take(_random.nextInt(3) + 1)
+            .toList()
             : null,
         createdAt:
-            DateTime.now().subtract(Duration(days: _random.nextInt(730))),
+        DateTime.now().subtract(Duration(days: _random.nextInt(730))),
         updatedAt: _random.nextBool()
             ? DateTime.now().subtract(Duration(days: _random.nextInt(30)))
             : null,
@@ -174,13 +179,16 @@ class MockDataService {
         documentsCount: _random.nextInt(50) + 5,
         isFavorite: _random.nextDouble() > 0.8,
         contractValue:
-            _random.nextBool() ? _random.nextDouble() * 100000 + 5000 : null,
+        _random.nextBool() ? _random.nextDouble() * 100000 + 5000 : null,
         alreadyBilled: _random.nextBool() && _random.nextBool()
             ? _random.nextDouble() * 50000
             : null,
         courtNumber: '${_random.nextInt(30) + 1}ª Vara ${area.displayName}',
         processNumber:
-            '${_random.nextInt(9999999).toString().padLeft(7, '0')}-${_random.nextInt(99)}.${DateTime.now().year}.8.26.0100',
+        '${_random.nextInt(9999999).toString().padLeft(7, '0')}-${_random
+            .nextInt(99)}.${DateTime
+            .now()
+            .year}.8.26.0100',
         tags: _random.nextBool()
             ? List.generate(_random.nextInt(4) + 1, (_) => _faker.lorem.word())
             : null,
@@ -209,7 +217,10 @@ class MockDataService {
     final historyCount = _random.nextInt(15) + 5;
     final history = <dynamic>[];
     final daysSinceCreation =
-        DateTime.now().difference(folder.createdAt).inDays;
+        DateTime
+            .now()
+            .difference(folder.createdAt)
+            .inDays;
     if (daysSinceCreation < 1) {
       history.add({
         'id': 1,
@@ -261,7 +272,7 @@ class MockDataService {
         description: _faker.lorem.sentence(),
         dueDate: DateTime.now().add(Duration(days: _random.nextInt(30) - 10)),
         priority:
-            TaskPriority.values[_random.nextInt(TaskPriority.values.length)],
+        TaskPriority.values[_random.nextInt(TaskPriority.values.length)],
         status: TaskStatus.values[_random.nextInt(TaskStatus.values.length)],
         assignedTo: _users[_random.nextInt(_users.length)],
         folder: _random.nextBool()
@@ -288,7 +299,7 @@ class MockDataService {
         type: hearingTypes[_random.nextInt(hearingTypes.length)],
         dateTime: DateTime.now().add(Duration(days: _random.nextInt(60) - 20)),
         location:
-            '${_random.nextInt(30) + 1}ª Vara - Fórum ${_faker.address.city()}',
+        '${_random.nextInt(30) + 1}ª Vara - Fórum ${_faker.address.city()}',
         folder: folder,
         judge: 'Dr. ${_faker.person.name()}',
         notes: _random.nextBool() ? _faker.lorem.sentence() : null,
@@ -299,14 +310,20 @@ class MockDataService {
   // Generate dashboard metrics
   void _generateDashboardMetrics() {
     final activeFolders =
-        _folders.where((f) => f.status == FolderStatus.active).length;
+        _folders
+            .where((f) => f.status == FolderStatus.active)
+            .length;
     final completedFolders =
-        _folders.where((f) => f.status == FolderStatus.completed).length;
+        _folders
+            .where((f) => f.status == FolderStatus.completed)
+            .length;
     final totalFolders = _folders.length;
     final deliveredFolders = _folders
         .where((f) => f.status == FolderStatus.completed && !f.isOverdue)
         .length;
-    final delayedFolders = _folders.where((f) => f.isOverdue).length;
+    final delayedFolders = _folders
+        .where((f) => f.isOverdue)
+        .length;
 
     _dashboardMetrics['activeFolders'] = activeFolders;
     _dashboardMetrics['completedFolders'] = completedFolders;
@@ -315,15 +332,19 @@ class MockDataService {
     _dashboardMetrics['delayedFolders'] = delayedFolders;
     _dashboardMetrics['newThisMonth'] = _folders
         .where((f) =>
-            f.createdAt.isAfter(DateTime.now().subtract(Duration(days: 30))))
+        f.createdAt.isAfter(DateTime.now().subtract(Duration(days: 30))))
         .length;
     _dashboardMetrics['totalRevenue'] = _folders
         .where((f) => f.contractValue != null)
         .fold<double>(0, (sum, f) => sum + f.contractValue!);
     _dashboardMetrics['pendingTasks'] =
-        _tasks.where((t) => t.status != TaskStatus.completed).length;
+        _tasks
+            .where((t) => t.status != TaskStatus.completed)
+            .length;
     _dashboardMetrics['upcomingHearings'] =
-        _hearings.where((h) => h.dateTime.isAfter(DateTime.now())).length;
+        _hearings
+            .where((h) => h.dateTime.isAfter(DateTime.now()))
+            .length;
   }
 
   // Public methods to access data
@@ -336,9 +357,9 @@ class MockDataService {
     if (search != null && search.isNotEmpty) {
       result = result
           .where((f) =>
-              f.title.toLowerCase().contains(search.toLowerCase()) ||
-              f.client.name.toLowerCase().contains(search.toLowerCase()) ||
-              f.code.toLowerCase().contains(search.toLowerCase()))
+      f.title.toLowerCase().contains(search.toLowerCase()) ||
+          f.client.name.toLowerCase().contains(search.toLowerCase()) ||
+          f.code.toLowerCase().contains(search.toLowerCase()))
           .toList();
     }
 
@@ -413,7 +434,9 @@ class MockDataService {
     final newFolder = Folder(
       id: _folders.length + 1,
       code:
-          'PROC-${DateTime.now().year}-${(_folders.length + 1).toString().padLeft(4, '0')}',
+      'PROC-${DateTime
+          .now()
+          .year}-${(_folders.length + 1).toString().padLeft(4, '0')}',
       title: data['title'],
       description: data['description'],
       status: data['status'] ?? FolderStatus.active,
@@ -453,9 +476,9 @@ class MockDataService {
       area: updates['area'] ?? oldFolder.area,
       client: updates['client'] ?? oldFolder.client,
       responsibleLawyer:
-          updates['responsibleLawyer'] ?? oldFolder.responsibleLawyer,
+      updates['responsibleLawyer'] ?? oldFolder.responsibleLawyer,
       assistantLawyers:
-          updates['assistantLawyers'] ?? oldFolder.assistantLawyers,
+      updates['assistantLawyers'] ?? oldFolder.assistantLawyers,
       createdAt: oldFolder.createdAt,
       updatedAt: DateTime.now(),
       dueDate: updates['dueDate'] ?? oldFolder.dueDate,
@@ -552,18 +575,18 @@ class MockDataService {
 
     // Search folders
     results.addAll(_folders.where((f) =>
-        f.title.toLowerCase().contains(lowerQuery) ||
+    f.title.toLowerCase().contains(lowerQuery) ||
         f.code.toLowerCase().contains(lowerQuery) ||
         f.client.name.toLowerCase().contains(lowerQuery)));
 
     // Search clients
     results.addAll(_clients.where((c) =>
-        c.name.toLowerCase().contains(lowerQuery) ||
+    c.name.toLowerCase().contains(lowerQuery) ||
         c.document.contains(query)));
 
     // Search tasks
     results.addAll(_tasks.where((t) =>
-        t.title.toLowerCase().contains(lowerQuery) ||
+    t.title.toLowerCase().contains(lowerQuery) ||
         t.description.toLowerCase().contains(lowerQuery)));
 
     return results;

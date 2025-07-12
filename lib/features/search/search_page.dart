@@ -125,12 +125,12 @@ class _SearchPageState extends State<SearchPage>
                     prefixIcon: const Icon(Icons.search, size: 24),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _searchController.clear();
-                              _performSearch('');
-                            },
-                          )
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        _searchController.clear();
+                        _performSearch('');
+                      },
+                    )
                         : null,
                     filled: true,
                     fillColor: themeProvider.isDarkMode
@@ -188,7 +188,7 @@ class _SearchPageState extends State<SearchPage>
                 controller: _tabController,
                 labelColor: themeProvider.primaryColor,
                 unselectedLabelColor:
-                    themeProvider.themeData.textTheme.bodyMedium?.color,
+                themeProvider.themeData.textTheme.bodyMedium?.color,
                 indicatorColor: themeProvider.primaryColor,
                 tabs: [
                   Tab(
@@ -388,8 +388,8 @@ class _SearchPageState extends State<SearchPage>
     );
   }
 
-  Widget _buildSectionHeader(
-      String title, IconData icon, ThemeProvider themeProvider) {
+  Widget _buildSectionHeader(String title, IconData icon,
+      ThemeProvider themeProvider) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -480,7 +480,7 @@ class _SearchPageState extends State<SearchPage>
               children: [
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: _getStatusColor(folder.status).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -576,7 +576,7 @@ class _SearchPageState extends State<SearchPage>
                   const SizedBox(width: 8),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.amber.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
@@ -634,7 +634,7 @@ class _SearchPageState extends State<SearchPage>
               children: [
                 Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
                     color: task.status.color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),

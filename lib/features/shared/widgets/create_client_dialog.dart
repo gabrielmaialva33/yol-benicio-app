@@ -44,7 +44,9 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
     if (_formKey.currentState!.validate()) {
       // Create client through mock service
       final newClient = Client(
-        id: DateTime.now().millisecondsSinceEpoch,
+        id: DateTime
+            .now()
+            .millisecondsSinceEpoch,
         name: _nameController.text,
         document: _documentController.text.replaceAll(RegExp(r'[^0-9]'), ''),
         type: _selectedType,
@@ -97,7 +99,9 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery
+        .of(context)
+        .size;
     final isSmallScreen = screenSize.height < 700;
 
     return Dialog(
@@ -127,7 +131,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color:
-                            themeProvider.themeData.textTheme.titleLarge?.color,
+                        themeProvider.themeData.textTheme.titleLarge?.color,
                       ),
                     ),
                     IconButton(
@@ -349,7 +353,7 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
                           decoration: const InputDecoration(
                             labelText: 'Observações',
                             hintText:
-                                'Informações adicionais sobre o cliente...',
+                            'Informações adicionais sobre o cliente...',
                             prefixIcon: Icon(Icons.note_outlined),
                           ),
                           maxLines: 3,
@@ -389,10 +393,8 @@ class _CreateClientDialogState extends State<CreateClientDialog> {
 // CPF formatter
 class _CpfInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue,
+      TextEditingValue newValue,) {
     final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     final buffer = StringBuffer();
 
@@ -412,10 +414,8 @@ class _CpfInputFormatter extends TextInputFormatter {
 // CNPJ formatter
 class _CnpjInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue,
+      TextEditingValue newValue,) {
     final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     final buffer = StringBuffer();
 
@@ -436,10 +436,8 @@ class _CnpjInputFormatter extends TextInputFormatter {
 // Phone formatter
 class _PhoneInputFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(
-    TextEditingValue oldValue,
-    TextEditingValue newValue,
-  ) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue,
+      TextEditingValue newValue,) {
     final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
     final buffer = StringBuffer();
 

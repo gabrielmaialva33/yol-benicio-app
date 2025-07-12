@@ -32,7 +32,7 @@ extension TaskStatusExtension on TaskStatus {
         return 'Atrasada';
     }
   }
-  
+
   Color get color {
     switch (this) {
       case TaskStatus.pending:
@@ -62,7 +62,7 @@ extension TaskPriorityExtension on TaskPriority {
         return 'Urgente';
     }
   }
-  
+
   Color get color {
     switch (this) {
       case TaskPriority.low:
@@ -115,17 +115,20 @@ class Task {
   }) : completed = completed ?? (status == TaskStatus.completed);
 
   // Helper methods
-  bool get isOverdue => 
-    status != TaskStatus.completed && 
-    status != TaskStatus.cancelled && 
-    DateTime.now().isAfter(dueDate);
-    
-  int get daysUntilDue => dueDate.difference(DateTime.now()).inDays;
-  
+  bool get isOverdue =>
+      status != TaskStatus.completed &&
+          status != TaskStatus.cancelled &&
+          DateTime.now().isAfter(dueDate);
+
+  int get daysUntilDue =>
+      dueDate
+          .difference(DateTime.now())
+          .inDays;
+
   bool get isDueSoon => daysUntilDue <= 3 && daysUntilDue >= 0;
-  
+
   bool get isCompleted => status == TaskStatus.completed;
-  
+
   String get dueDateDisplay {
     final days = daysUntilDue;
     if (days < 0) return 'Atrasado ${-days} dia(s)';

@@ -11,13 +11,13 @@ class GeneralHistoryPage extends StatefulWidget {
   State<GeneralHistoryPage> createState() => _GeneralHistoryPageState();
 }
 
-class _GeneralHistoryPageState extends State<GeneralHistoryPage> 
+class _GeneralHistoryPageState extends State<GeneralHistoryPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final ScrollController _scrollController = ScrollController();
   String _selectedFilter = 'Todos';
   bool _isLoading = false;
-  
+
   final List<String> _filterOptions = [
     'Todos',
     'Faturamento',
@@ -118,7 +118,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
 
   List<Map<String, dynamic>> get _filteredActivities {
     if (_selectedFilter == 'Todos') return _mockActivities;
-    
+
     final filterMap = {
       'Faturamento': 'billing',
       'Audiências': 'hearing',
@@ -126,7 +126,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
       'Documentos': 'document',
       'Movimentações': 'movement',
     };
-    
+
     final type = filterMap[_selectedFilter];
     return _mockActivities.where((a) => a['type'] == type).toList();
   }
@@ -134,7 +134,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    
+
     return Scaffold(
       backgroundColor: themeProvider.themeData.scaffoldBackgroundColor,
       body: NestedScrollView(
@@ -243,20 +243,18 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
     );
   }
 
-  Widget _buildActivityList(
-    BuildContext context, 
-    ThemeProvider themeProvider,
-    {bool filterToday = false, bool filterWeek = false}
-  ) {
+  Widget _buildActivityList(BuildContext context,
+      ThemeProvider themeProvider,
+      {bool filterToday = false, bool filterWeek = false}) {
     List<Map<String, dynamic>> activities = _filteredActivities;
-    
+
     if (filterToday) {
       final today = DateTime.now();
       activities = activities.where((a) {
         final date = a['date'] as DateTime;
-        return date.year == today.year && 
-               date.month == today.month && 
-               date.day == today.day;
+        return date.year == today.year &&
+            date.month == today.month &&
+            date.day == today.day;
       }).toList();
     } else if (filterWeek) {
       final now = DateTime.now();
@@ -266,13 +264,13 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
         return date.isAfter(weekAgo);
       }).toList();
     }
-    
+
     if (_isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
-    
+
     if (activities.isEmpty) {
       return Center(
         child: Column(
@@ -281,7 +279,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
             Icon(
               FontAwesomeIcons.clipboardList,
               size: 64,
-              color: themeProvider.themeData.textTheme.bodyMedium?.color?.withOpacity(0.3),
+              color: themeProvider.themeData.textTheme.bodyMedium?.color
+                  ?.withOpacity(0.3),
             ),
             const SizedBox(height: 16),
             Text(
@@ -305,7 +304,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
         ),
       );
     }
-    
+
     return RefreshIndicator(
       onRefresh: _loadActivities,
       child: CustomScrollView(
@@ -325,7 +324,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                       itemBuilder: (context, index) {
                         final filter = _filterOptions[index];
                         final isSelected = _selectedFilter == filter;
-                        
+
                         return Padding(
                           padding: const EdgeInsets.only(right: 8),
                           child: FilterChip(
@@ -336,21 +335,21 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                                 _selectedFilter = selected ? filter : 'Todos';
                               });
                             },
-                            backgroundColor: isSelected 
-                                ? themeProvider.primaryColor 
+                            backgroundColor: isSelected
+                                ? themeProvider.primaryColor
                                 : const Color(0xFFF1F5F9),
                             selectedColor: themeProvider.primaryColor,
                             labelStyle: TextStyle(
-                              color: isSelected 
-                                  ? Colors.white 
+                              color: isSelected
+                                  ? Colors.white
                                   : const Color(0xFF64748B),
                               fontWeight: FontWeight.w500,
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                               side: BorderSide(
-                                color: isSelected 
-                                    ? themeProvider.primaryColor 
+                                color: isSelected
+                                    ? themeProvider.primaryColor
                                     : Colors.transparent,
                               ),
                             ),
@@ -360,7 +359,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                     ),
                   ),
                   const SizedBox(height: 20),
-                  
+
                   // Título da seção
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -370,14 +369,16 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
-                          color: themeProvider.themeData.textTheme.titleMedium?.color,
+                          color: themeProvider.themeData.textTheme.titleMedium
+                              ?.color,
                         ),
                       ),
                       Text(
                         '${activities.length} atividades',
                         style: TextStyle(
                           fontSize: 14,
-                          color: themeProvider.themeData.textTheme.bodySmall?.color,
+                          color: themeProvider.themeData.textTheme.bodySmall
+                              ?.color,
                         ),
                       ),
                     ],
@@ -386,12 +387,12 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ),
             ),
           ),
-          
+
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                (context, index) {
+                    (context, index) {
                   final activity = activities[index];
                   return _buildActivityCard(activity, themeProvider);
                 },
@@ -399,7 +400,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ),
             ),
           ),
-          
+
           const SliverToBoxAdapter(
             child: SizedBox(height: 100),
           ),
@@ -408,11 +409,12 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
     );
   }
 
-  Widget _buildActivityCard(Map<String, dynamic> activity, ThemeProvider themeProvider) {
+  Widget _buildActivityCard(Map<String, dynamic> activity,
+      ThemeProvider themeProvider) {
     final dateFormat = DateFormat('dd/MM/yyyy');
     final timeFormat = DateFormat('HH:mm');
     final date = activity['date'] as DateTime;
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(20),
@@ -420,8 +422,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
         color: themeProvider.themeData.cardColor,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: themeProvider.isDarkMode 
-              ? Colors.white.withOpacity(0.1) 
+          color: themeProvider.isDarkMode
+              ? Colors.white.withOpacity(0.1)
               : const Color(0xFFE2E8F0),
         ),
         boxShadow: [
@@ -463,7 +465,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: themeProvider.themeData.textTheme.titleMedium?.color,
+                        color: themeProvider.themeData.textTheme.titleMedium
+                            ?.color,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -473,11 +476,13 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                           'Adicionado por ',
                           style: TextStyle(
                             fontSize: 12,
-                            color: themeProvider.themeData.textTheme.bodySmall?.color,
+                            color: themeProvider.themeData.textTheme.bodySmall
+                                ?.color,
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: themeProvider.primaryColor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
@@ -511,14 +516,15 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                     timeFormat.format(date),
                     style: TextStyle(
                       fontSize: 10,
-                      color: themeProvider.themeData.textTheme.bodySmall?.color?.withOpacity(0.7),
+                      color: themeProvider.themeData.textTheme.bodySmall?.color
+                          ?.withOpacity(0.7),
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          
+
           if (activity['description'] != null) ...[
             const SizedBox(height: 12),
             Container(
@@ -538,9 +544,9 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ),
             ),
           ],
-          
+
           const SizedBox(height: 12),
-          
+
           // Pasta relacionada
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -569,7 +575,7 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ],
             ),
           ),
-          
+
           if (activity['attachments'] != null) ...[
             const SizedBox(height: 12),
             Container(
@@ -598,14 +604,15 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
               ),
             ),
           ],
-          
+
           if (activity['status'] != null || activity['priority'] != null) ...[
             const SizedBox(height: 12),
             Row(
               children: [
                 if (activity['priority'] == 'high')
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xFFEF4444).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(6),
@@ -638,7 +645,8 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF10B981),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -652,25 +660,27 @@ class _GeneralHistoryPageState extends State<GeneralHistoryPage>
                       ),
                     ),
                   )
-                else if (activity['status'] == 'view')
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: themeProvider.primaryColor,
-                      side: BorderSide(color: themeProvider.primaryColor),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                else
+                  if (activity['status'] == 'view')
+                    OutlinedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: themeProvider.primaryColor,
+                        side: BorderSide(color: themeProvider.primaryColor),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: const Text(
+                        'Visualizar',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                    child: const Text(
-                      'Visualizar',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
               ],
             ),
           ],

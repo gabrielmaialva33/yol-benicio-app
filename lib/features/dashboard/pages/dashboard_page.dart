@@ -310,7 +310,7 @@ class _DashboardPageState extends State<DashboardPage> {
             MetricCard(
               title: 'Receita',
               value:
-                  _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
+              _formatCurrency((_metrics['totalRevenue'] ?? 0).toDouble()),
               subtitle: 'Este mês',
               backgroundColor: Colors.white,
               valueColor: const Color(0xFF059669),
@@ -364,7 +364,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       Icons.calendar_today_outlined,
                       'Agenda',
                       const Color(0xFFF59E0B),
-                      () {
+                          () {
                         // TODO: Navigate to calendar
                       },
                     ),
@@ -459,8 +459,8 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildMobileQuickAction(
-      IconData icon, String label, Color color, VoidCallback onTap) {
+  Widget _buildMobileQuickAction(IconData icon, String label, Color color,
+      VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -613,7 +613,7 @@ class _DashboardPageState extends State<DashboardPage> {
               return ListTile(
                 dense: true,
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 leading: CircleAvatar(
                   radius: 16,
                   backgroundColor: types[index] == 'PF'
@@ -638,7 +638,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 subtitle: Text(
                   'Adicionado há ${dates[index]}',
                   style:
-                      const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
+                  const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
                 ),
                 trailing: const Icon(Icons.arrow_forward_ios, size: 12),
                 onTap: () {
@@ -739,7 +739,10 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 12),
           _buildStatRow(
               'Taxa de Sucesso',
-              '${((_metrics['totalFolders'] ?? 0) > 0 ? (((_metrics['deliveredFolders'] ?? 0) / (_metrics['totalFolders'] ?? 1)) * 100).round() : 0)}%',
+              '${((_metrics['totalFolders'] ?? 0) > 0
+                  ? (((_metrics['deliveredFolders'] ?? 0) /
+                  (_metrics['totalFolders'] ?? 1)) * 100).round()
+                  : 0)}%',
               const Color(0xFF3B82F6)),
         ],
       ),

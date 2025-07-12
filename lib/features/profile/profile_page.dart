@@ -32,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // Get mock user data (in real app, this would come from auth service)
     final users = _mockService.getUsers();
     _currentUser = users.first;
-    
+
     _nameController.text = _currentUser.name;
     _emailController.text = _currentUser.email;
     _phoneController.text = _currentUser.phone ?? '';
@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void _logout() async {
     final authService = Provider.of<AuthService>(context, listen: false);
     await authService.logout();
-    
+
     if (mounted) {
       Navigator.pushReplacementNamed(context, '/login');
     }
@@ -105,21 +105,21 @@ class _ProfilePageState extends State<ProfilePage> {
                           backgroundColor: Colors.white,
                           child: _currentUser.photoUrl != null
                               ? ClipOval(
-                                  child: Image.network(
-                                    _currentUser.photoUrl!,
-                                    width: 96,
-                                    height: 96,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
+                            child: Image.network(
+                              _currentUser.photoUrl!,
+                              width: 96,
+                              height: 96,
+                              fit: BoxFit.cover,
+                            ),
+                          )
                               : Text(
-                                  _currentUser.initials,
-                                  style: TextStyle(
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w600,
-                                    color: themeProvider.primaryColor,
-                                  ),
-                                ),
+                            _currentUser.initials,
+                            style: TextStyle(
+                              fontSize: 36,
+                              fontWeight: FontWeight.w600,
+                              color: themeProvider.primaryColor,
+                            ),
+                          ),
                         ),
                         if (_isEditing)
                           Container(
@@ -155,7 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     const SizedBox(height: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
@@ -221,7 +222,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          color: themeProvider.themeData.textTheme.titleLarge?.color,
+                          color: themeProvider.themeData.textTheme.titleLarge
+                              ?.color,
                         ),
                       ),
                       IconButton(
@@ -263,7 +265,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
-                      color: themeProvider.themeData.textTheme.titleLarge?.color,
+                      color: themeProvider.themeData.textTheme.titleLarge
+                          ?.color,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -307,7 +310,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 16,
-                      color: themeProvider.themeData.textTheme.bodyMedium?.color,
+                      color: themeProvider.themeData.textTheme.bodyMedium
+                          ?.color,
                     ),
                     themeProvider,
                     onTap: () {
@@ -339,7 +343,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon, ThemeProvider themeProvider) {
+  Widget _buildStatCard(String label, String value, IconData icon,
+      ThemeProvider themeProvider) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -375,12 +380,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildTextField(
-    String label,
-    TextEditingController controller,
-    IconData icon, {
-    bool enabled = true,
-  }) {
+  Widget _buildTextField(String label,
+      TextEditingController controller,
+      IconData icon, {
+        bool enabled = true,
+      }) {
     return TextField(
       controller: controller,
       enabled: enabled,
@@ -396,14 +400,13 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildSettingItem(
-    String title,
-    String subtitle,
-    IconData icon,
-    Widget trailing,
-    ThemeProvider themeProvider, {
-    VoidCallback? onTap,
-  }) {
+  Widget _buildSettingItem(String title,
+      String subtitle,
+      IconData icon,
+      Widget trailing,
+      ThemeProvider themeProvider, {
+        VoidCallback? onTap,
+      }) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -432,14 +435,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: themeProvider.themeData.textTheme.titleMedium?.color,
+                      color: themeProvider.themeData.textTheme.titleMedium
+                          ?.color,
                     ),
                   ),
                   Text(
                     subtitle,
                     style: TextStyle(
                       fontSize: 14,
-                      color: themeProvider.themeData.textTheme.bodyMedium?.color,
+                      color: themeProvider.themeData.textTheme.bodyMedium
+                          ?.color,
                     ),
                   ),
                 ],

@@ -31,9 +31,9 @@ class User {
     }
     return name.substring(0, 2).toUpperCase();
   }
-  
+
   String get fullName => name;
-  
+
   String get shortName {
     final parts = name.split(' ');
     if (parts.length >= 2) {
@@ -43,10 +43,10 @@ class User {
   }
 
   bool get isSenior => role.contains('Sócio') || role.contains('Sênior');
-  
+
   bool get canApprove => permissions?['canApprove'] ?? isSenior;
-  
+
   bool get canCreateFolders => permissions?['canCreateFolders'] ?? true;
-  
+
   bool get canEditBilling => permissions?['canEditBilling'] ?? isSenior;
 }

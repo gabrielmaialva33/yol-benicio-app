@@ -49,7 +49,7 @@ extension HearingStatusExtension on HearingStatus {
         return 'Realizada';
     }
   }
-  
+
   Color get color {
     switch (this) {
       case HearingStatus.scheduled:
@@ -81,13 +81,14 @@ class Hearing {
   final bool isVirtual;
   final String? meetingLink;
   final Duration? estimatedDuration;
-  
+
   // Legacy fields for compatibility
   final String? label;
   final double? percentage;
   final int? total;
   final int? completed;
   final Color? color;
+
   DateTime get date => dateTime;
 
   Hearing({
@@ -115,39 +116,39 @@ class Hearing {
 
   // Helper methods
   bool get isPast => DateTime.now().isAfter(dateTime);
-  
+
   bool get isToday {
     final now = DateTime.now();
     return dateTime.year == now.year &&
-           dateTime.month == now.month &&
-           dateTime.day == now.day;
+        dateTime.month == now.month &&
+        dateTime.day == now.day;
   }
-  
+
   bool get isTomorrow {
     final tomorrow = DateTime.now().add(const Duration(days: 1));
     return dateTime.year == tomorrow.year &&
-           dateTime.month == tomorrow.month &&
-           dateTime.day == tomorrow.day;
+        dateTime.month == tomorrow.month &&
+        dateTime.day == tomorrow.day;
   }
-  
+
   bool get isThisWeek {
     final now = DateTime.now();
     final weekStart = now.subtract(Duration(days: now.weekday - 1));
     final weekEnd = weekStart.add(const Duration(days: 7));
     return dateTime.isAfter(weekStart) && dateTime.isBefore(weekEnd);
   }
-  
+
   String get timeDisplay {
     final hour = dateTime.hour.toString().padLeft(2, '0');
     final minute = dateTime.minute.toString().padLeft(2, '0');
     return '$hour:$minute';
   }
-  
+
   String get dateDisplay {
     if (isToday) return 'Hoje';
     if (isTomorrow) return 'Amanhã';
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
-  
+
   String get fullDisplay => '$dateDisplay às $timeDisplay';
 }

@@ -8,8 +8,11 @@ class JudgmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final isSmallScreen = MediaQuery.of(context).size.width < 600;
-    
+    final isSmallScreen = MediaQuery
+        .of(context)
+        .size
+        .width < 600;
+
     if (isSmallScreen) {
       // Mobile layout - stack vertically
       return Column(
@@ -27,13 +30,13 @@ class JudgmentCard extends StatelessWidget {
               Chip(
                 label: const Text('Recursal'),
                 backgroundColor:
-                    themeProvider.themeData.scaffoldBackgroundColor,
+                themeProvider.themeData.scaffoldBackgroundColor,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
               Chip(
                 label: const Text('Interno'),
                 backgroundColor:
-                    themeProvider.themeData.scaffoldBackgroundColor,
+                themeProvider.themeData.scaffoldBackgroundColor,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
               SizedBox(
@@ -43,7 +46,8 @@ class JudgmentCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                   ),
-                  child: const Text('Visualizar', style: TextStyle(fontSize: 14)),
+                  child: const Text(
+                      'Visualizar', style: TextStyle(fontSize: 14)),
                 ),
               ),
             ],
@@ -51,7 +55,7 @@ class JudgmentCard extends StatelessWidget {
         ],
       );
     }
-    
+
     // Desktop/Tablet layout
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +78,7 @@ class JudgmentCard extends StatelessWidget {
                 child: Chip(
                   label: const Text('Recursal', style: TextStyle(fontSize: 12)),
                   backgroundColor:
-                      themeProvider.themeData.scaffoldBackgroundColor,
+                  themeProvider.themeData.scaffoldBackgroundColor,
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                 ),
               ),
@@ -83,7 +87,7 @@ class JudgmentCard extends StatelessWidget {
                 child: Chip(
                   label: const Text('Interno', style: TextStyle(fontSize: 12)),
                   backgroundColor:
-                      themeProvider.themeData.scaffoldBackgroundColor,
+                  themeProvider.themeData.scaffoldBackgroundColor,
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                 ),
               ),
@@ -96,7 +100,8 @@ class JudgmentCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                     ),
-                    child: const Text('Visualizar', style: TextStyle(fontSize: 12)),
+                    child: const Text(
+                        'Visualizar', style: TextStyle(fontSize: 12)),
                   ),
                 ),
               ),

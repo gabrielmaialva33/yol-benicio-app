@@ -28,23 +28,28 @@ class MockService {
 
   List<Hearing> getHearings() => _dataService.getHearings();
 
-  Map<String, dynamic> getDashboardMetrics() => _dataService.getDashboardMetrics();
+  Map<String, dynamic> getDashboardMetrics() =>
+      _dataService.getDashboardMetrics();
 
-  List<dynamic> getFolderHistory(int folderId) => _dataService.getFolderHistory(folderId);
+  List<dynamic> getFolderHistory(int folderId) =>
+      _dataService.getFolderHistory(folderId);
 
   // CRUD operations
-  Folder createFolder(Map<String, dynamic> data) => _dataService.createFolder(data);
+  Folder createFolder(Map<String, dynamic> data) =>
+      _dataService.createFolder(data);
 
-  Folder updateFolder(int id, Map<String, dynamic> updates) => _dataService.updateFolder(id, updates);
+  Folder updateFolder(int id, Map<String, dynamic> updates) =>
+      _dataService.updateFolder(id, updates);
 
   void deleteFolder(int id) => _dataService.deleteFolder(id);
-  
+
   Client createClient(Client client) => _dataService.createClient(client);
-  
+
   Task createTask(Map<String, dynamic> data) => _dataService.createTask(data);
-  
-  void updateTask(int id, Map<String, dynamic> updates) => _dataService.updateTask(id, updates);
-  
+
+  void updateTask(int id, Map<String, dynamic> updates) =>
+      _dataService.updateTask(id, updates);
+
   // Search
   List<dynamic> search(String query) => _dataService.search(query);
 
@@ -52,11 +57,16 @@ class MockService {
   List<AreaDivisionData> getAreaDivisionData() {
     // Generate mock area division data
     return [
-      AreaDivisionData(name: 'Cível', value: 35, color: const Color(0xFF3B82F6)),
-      AreaDivisionData(name: 'Trabalhista', value: 25, color: const Color(0xFF10B981)),
-      AreaDivisionData(name: 'Tributário', value: 20, color: const Color(0xFFF59E0B)),
-      AreaDivisionData(name: 'Criminal', value: 10, color: const Color(0xFFEF4444)),
-      AreaDivisionData(name: 'Outros', value: 10, color: const Color(0xFF6B7280)),
+      AreaDivisionData(
+          name: 'Cível', value: 35, color: const Color(0xFF3B82F6)),
+      AreaDivisionData(
+          name: 'Trabalhista', value: 25, color: const Color(0xFF10B981)),
+      AreaDivisionData(
+          name: 'Tributário', value: 20, color: const Color(0xFFF59E0B)),
+      AreaDivisionData(
+          name: 'Criminal', value: 10, color: const Color(0xFFEF4444)),
+      AreaDivisionData(
+          name: 'Outros', value: 10, color: const Color(0xFF6B7280)),
     ];
   }
 }

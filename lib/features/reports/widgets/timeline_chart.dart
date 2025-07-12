@@ -75,7 +75,7 @@ class _TimelineChartState extends State<TimelineChart>
               ),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFF582FFF).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),

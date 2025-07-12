@@ -31,9 +31,15 @@ class _HearingsCardState extends State<HearingsCard> {
     // Calculate statistics
     final totalHearings = _hearings.length;
     final completedHearings =
-        _hearings.where((h) => h.status == HearingStatus.completed).length;
-    final todayHearings = _hearings.where((h) => h.isToday).length;
-    final thisWeekHearings = _hearings.where((h) => h.isThisWeek).length;
+        _hearings
+            .where((h) => h.status == HearingStatus.completed)
+            .length;
+    final todayHearings = _hearings
+        .where((h) => h.isToday)
+        .length;
+    final thisWeekHearings = _hearings
+        .where((h) => h.isThisWeek)
+        .length;
 
     _hearingStats = {
       'total': totalHearings,
@@ -41,7 +47,7 @@ class _HearingsCardState extends State<HearingsCard> {
       'today': todayHearings,
       'thisWeek': thisWeekHearings,
       'completionRate':
-          totalHearings > 0 ? (completedHearings / totalHearings * 100) : 0,
+      totalHearings > 0 ? (completedHearings / totalHearings * 100) : 0,
     };
   }
 
@@ -175,8 +181,8 @@ class _HearingsCardState extends State<HearingsCard> {
     );
   }
 
-  Widget _buildStatCard(
-      String label, String value, Color color, IconData icon) {
+  Widget _buildStatCard(String label, String value, Color color,
+      IconData icon) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

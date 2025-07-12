@@ -28,11 +28,19 @@ class _TasksCardState extends State<TasksCard> {
     // Calculate statistics
     _taskStats = {
       'total': _tasks.length,
-      'pending': _tasks.where((t) => t.status == TaskStatus.pending).length,
+      'pending': _tasks
+          .where((t) => t.status == TaskStatus.pending)
+          .length,
       'inProgress':
-          _tasks.where((t) => t.status == TaskStatus.inProgress).length,
-      'completed': _tasks.where((t) => t.status == TaskStatus.completed).length,
-      'overdue': _tasks.where((t) => t.isOverdue).length,
+      _tasks
+          .where((t) => t.status == TaskStatus.inProgress)
+          .length,
+      'completed': _tasks
+          .where((t) => t.status == TaskStatus.completed)
+          .length,
+      'overdue': _tasks
+          .where((t) => t.isOverdue)
+          .length,
     };
   }
 
@@ -135,7 +143,9 @@ class _TasksCardState extends State<TasksCard> {
             ],
           ),
           const SizedBox(height: 20),
-          if (_tasks.where((t) => !t.isCompleted).isEmpty)
+          if (_tasks
+              .where((t) => !t.isCompleted)
+              .isEmpty)
             const Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 40),
@@ -152,10 +162,13 @@ class _TasksCardState extends State<TasksCard> {
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _tasks.where((t) => !t.isCompleted).take(5).length,
+              itemCount: _tasks
+                  .where((t) => !t.isCompleted)
+                  .take(5)
+                  .length,
               itemBuilder: (context, index) {
                 final pendingTasks =
-                    _tasks.where((t) => !t.isCompleted).take(5).toList();
+                _tasks.where((t) => !t.isCompleted).take(5).toList();
                 final task = pendingTasks[index];
                 return TaskItem(
                   task: task,

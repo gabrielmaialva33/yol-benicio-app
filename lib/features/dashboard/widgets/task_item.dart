@@ -77,16 +77,17 @@ class TaskItem extends StatelessWidget {
                       color: Color(0xFF6B7280),
                     ),
                   ),
-                ] else if (task.folder != null) ...[
-                  const SizedBox(height: 4),
-                  Text(
-                    '${task.folder!.code} - ${task.folder!.client.name}',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF6B7280),
+                ] else
+                  if (task.folder != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      '${task.folder!.code} - ${task.folder!.client.name}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF6B7280),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
               ],
             ),
           ),
