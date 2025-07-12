@@ -341,33 +341,27 @@ class _DashboardPageState extends State<DashboardPage> {
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(
-                    child: _buildMobileQuickAction(
-                      Icons.add_circle_outline,
-                      'Nova\nPasta',
-                      const Color(0xFF3B82F6),
-                      _showCreateFolderDialog,
-                    ),
+                  _buildMobileQuickAction(
+                    Icons.add_circle_outline,
+                    'Nova\nPasta',
+                    const Color(0xFF3B82F6),
+                    _showCreateFolderDialog,
                   ),
                   const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildMobileQuickAction(
-                      Icons.person_add_outlined,
-                      'Novo\nCliente',
-                      const Color(0xFF10B981),
-                      _showCreateClientDialog,
-                    ),
+                  _buildMobileQuickAction(
+                    Icons.person_add_outlined,
+                    'Novo\nCliente',
+                    const Color(0xFF10B981),
+                    _showCreateClientDialog,
                   ),
                   const SizedBox(width: 12),
-                  Expanded(
-                    child: _buildMobileQuickAction(
-                      Icons.calendar_today_outlined,
-                      'Agenda',
-                      const Color(0xFFF59E0B),
-                      () {
-                        // TODO: Navigate to calendar
-                      },
-                    ),
+                  _buildMobileQuickAction(
+                    Icons.calendar_today_outlined,
+                    'Agenda',
+                    const Color(0xFFF59E0B),
+                    () {
+                      // TODO: Navigate to calendar
+                    },
                   ),
                 ],
               ),
@@ -461,10 +455,11 @@ class _DashboardPageState extends State<DashboardPage> {
 
   Widget _buildMobileQuickAction(
       IconData icon, String label, Color color, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: color.withOpacity(0.1),
