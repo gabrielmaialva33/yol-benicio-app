@@ -29,7 +29,7 @@ class MockDataGenerator {
         _generatedClients.isNotEmpty &&
         _random.nextDouble() < 0.6) {
       final existingClient =
-      _generatedClients[_random.nextInt(_generatedClients.length)];
+          _generatedClients[_random.nextInt(_generatedClients.length)];
       // Atualizar contador de pastas ativas
       return Client(
         id: existingClient.id,
@@ -43,7 +43,7 @@ class MockDataGenerator {
         clientSince: existingClient.clientSince,
         activeFolders: existingClient.activeFolders + 1,
         totalBilled:
-        existingClient.totalBilled + (_random.nextDouble() * 50000),
+            existingClient.totalBilled + (_random.nextDouble() * 50000),
         notes: existingClient.notes,
         folderIds: [
           ...(existingClient.folderIds ?? []),
@@ -83,8 +83,8 @@ class MockDataGenerator {
       status: _random.nextDouble() < 0.85
           ? ClientStatus.active
           : (_random.nextDouble() < 0.1
-          ? ClientStatus.vip
-          : ClientStatus.inactive),
+              ? ClientStatus.vip
+              : ClientStatus.inactive),
       email: faker.internet.email(),
       phone: _generatePhone(),
       address: _generateAddress(),
@@ -97,15 +97,15 @@ class MockDataGenerator {
       responsibleLawyer: faker.person.name(),
       customFields: _random.nextBool()
           ? {
-        'observacoes': faker.lorem.sentence(),
-        'prioridade': ['baixa', 'media', 'alta'][_random.nextInt(3)],
-        'origem': [
-          'indicacao',
-          'site',
-          'redes_sociais',
-          'marketing'
-        ][_random.nextInt(4)],
-      }
+              'observacoes': faker.lorem.sentence(),
+              'prioridade': ['baixa', 'media', 'alta'][_random.nextInt(3)],
+              'origem': [
+                'indicacao',
+                'site',
+                'redes_sociais',
+                'marketing'
+              ][_random.nextInt(4)],
+            }
           : null,
     );
 
@@ -114,25 +114,15 @@ class MockDataGenerator {
   }
 
   String _generateCNPJ() {
-    return '${_random.nextInt(99).toString().padLeft(2, '0')}.${_random.nextInt(
-        999).toString().padLeft(3, '0')}.${_random
-        .nextInt(999)
-        .toString()
-        .padLeft(3, '0')}/0001-${_random.nextInt(99).toString().padLeft(
-        2, '0')}';
+    return '${_random.nextInt(99).toString().padLeft(2, '0')}.${_random.nextInt(999).toString().padLeft(3, '0')}.${_random.nextInt(999).toString().padLeft(3, '0')}/0001-${_random.nextInt(99).toString().padLeft(2, '0')}';
   }
 
   String _generateCPF() {
-    return '${_random.nextInt(999).toString().padLeft(3, '0')}.${_random
-        .nextInt(999).toString().padLeft(3, '0')}.${_random
-        .nextInt(999)
-        .toString()
-        .padLeft(3, '0')}-${_random.nextInt(99).toString().padLeft(2, '0')}';
+    return '${_random.nextInt(999).toString().padLeft(3, '0')}.${_random.nextInt(999).toString().padLeft(3, '0')}.${_random.nextInt(999).toString().padLeft(3, '0')}-${_random.nextInt(99).toString().padLeft(2, '0')}';
   }
 
   String _generatePhone() {
-    return '(${_random.nextInt(89) + 11}) 9${_random.nextInt(8999) +
-        1000}-${_random.nextInt(8999) + 1000}';
+    return '(${_random.nextInt(89) + 11}) 9${_random.nextInt(8999) + 1000}-${_random.nextInt(8999) + 1000}';
   }
 
   String _generateAddress() {
@@ -144,7 +134,7 @@ class MockDataGenerator {
       'Rua Oscar Freire'
     ];
     final number = _random.nextInt(999) + 1;
-    return '${streets[_random.nextInt(streets.length)]}, ${number}';
+    return '${streets[_random.nextInt(streets.length)]}, $number';
   }
 
   Folder generateFolder() {
@@ -154,19 +144,10 @@ class MockDataGenerator {
     final processType = processTypes[_random.nextInt(processTypes.length)];
 
     // Gerar códigos de processo mais realistas
-    final year = DateTime
-        .now()
-        .year;
+    final year = DateTime.now().year;
     final sequential = _random.nextInt(99999) + 1;
     final processCode =
-        '${sequential.toString().padLeft(7, '0')}-${_random
-        .nextInt(99)
-        .toString()
-        .padLeft(2, '0')}.${year}.${_random.nextInt(9) + 1}.${_random.nextInt(
-        99).toString().padLeft(2, '0')}.${_random
-        .nextInt(9999)
-        .toString()
-        .padLeft(4, '0')}';
+        '${sequential.toString().padLeft(7, '0')}-${_random.nextInt(99).toString().padLeft(2, '0')}.$year.${_random.nextInt(9) + 1}.${_random.nextInt(99).toString().padLeft(2, '0')}.${_random.nextInt(9999).toString().padLeft(4, '0')}';
 
     final createdAt = faker.date.dateTime(minYear: 2020, maxYear: 2024);
     final status = _generateRealisticStatus(createdAt);
@@ -182,7 +163,7 @@ class MockDataGenerator {
       client: client,
       responsibleLawyer: generateUser(),
       assistantLawyers:
-      _random.nextBool() ? [generateUser(), generateUser()] : null,
+          _random.nextBool() ? [generateUser(), generateUser()] : null,
       createdAt: createdAt,
       updatedAt: _random.nextBool()
           ? faker.date.dateTime(minYear: createdAt.year, maxYear: 2024)
@@ -258,10 +239,7 @@ class MockDataGenerator {
   }
 
   FolderStatus _generateRealisticStatus(DateTime createdAt) {
-    final daysSinceCreation = DateTime
-        .now()
-        .difference(createdAt)
-        .inDays;
+    final daysSinceCreation = DateTime.now().difference(createdAt).inDays;
 
     if (daysSinceCreation < 30) {
       // Processos recentes têm maior chance de estar ativos

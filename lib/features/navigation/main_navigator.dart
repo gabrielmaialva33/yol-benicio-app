@@ -13,7 +13,7 @@ import 'widgets/desktop_sidebar.dart';
 import '../auth/services/auth_service.dart';
 
 class MainNavigator extends StatefulWidget {
-  const MainNavigator({Key? key}) : super(key: key);
+  const MainNavigator({super.key});
 
   @override
   State<MainNavigator> createState() => _MainNavigatorState();

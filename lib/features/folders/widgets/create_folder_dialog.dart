@@ -29,11 +29,11 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
   // Form data
   Client? _selectedClient;
   User? _selectedLawyer;
-  List<User> _selectedAssistants = [];
+  final List<User> _selectedAssistants = [];
   FolderArea _selectedArea = FolderArea.civilLitigation;
   FolderPriority _selectedPriority = FolderPriority.medium;
   DateTime? _dueDate;
-  List<String> _tags = [];
+  final List<String> _tags = [];
   String _currentTag = '';
 
   // Lists

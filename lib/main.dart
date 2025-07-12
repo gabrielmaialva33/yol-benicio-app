@@ -43,7 +43,8 @@ class MyApp extends StatelessWidget {
               // Wrap in MediaQuery to ensure proper constraints
               return MediaQuery(
                 data: MediaQuery.of(context).copyWith(
-                  textScaleFactor: 1.0, // Prevent font scaling issues
+                  textScaler:
+                      TextScaler.linear(1.0), // Prevent font scaling issues
                 ),
                 child: child ?? const SizedBox.shrink(),
               );

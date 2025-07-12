@@ -20,7 +20,7 @@ class _AdvancedFiltersPanelState extends State<AdvancedFiltersPanel>
 
   // Filter states
   RangeValues _dateRange = const RangeValues(0, 12);
-  List<String> _selectedAreas = [];
+  final List<String> _selectedAreas = [];
   String _selectedStatus = 'Todos';
   double _minValue = 0;
   double _maxValue = 100000;

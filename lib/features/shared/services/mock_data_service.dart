@@ -5,7 +5,6 @@ import '../../shared/models/client.dart';
 import '../../shared/models/user.dart';
 import '../../dashboard/models/task.dart';
 import '../../dashboard/models/hearing.dart';
-import '../../dashboard/models/billing_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class MockDataService {
@@ -102,15 +101,22 @@ class MockDataService {
 
   // Generate mock users (lawyers)
   void _generateUsers() {
-    final roles = ['Sócio', 'Advogado Sênior', 'Advogado Pleno', 'Advogado Júnior', 'Estagiário'];
-    
+    final roles = [
+      'Sócio',
+      'Advogado Sênior',
+      'Advogado Pleno',
+      'Advogado Júnior',
+      'Estagiário'
+    ];
+
     for (int i = 0; i < 15; i++) {
       _users.add(User(
         id: i + 1,
         name: 'Dr. ${_faker.person.name()}',
         email: _faker.internet.email(),
         role: roles[_random.nextInt(roles.length)],
-        department: FolderArea.values[_random.nextInt(FolderArea.values.length)].displayName,
+        department: FolderArea
+            .values[_random.nextInt(FolderArea.values.length)].displayName,
         isActive: _random.nextDouble() > 0.1,
         photoUrl: 'https://i.pravatar.cc/150?img=${i + 1}',
       ));
@@ -136,22 +142,30 @@ class MockDataService {
       final client = _clients[_random.nextInt(_clients.length)];
       final responsibleLawyer = _users[_random.nextInt(_users.length)];
       final area = FolderArea.values[_random.nextInt(FolderArea.values.length)];
-      
+
       final folder = Folder(
         id: i + 1,
-        code: 'PROC-${DateTime.now().year}-${(i + 1).toString().padLeft(4, '0')}',
-        title: '${processTypes[_random.nextInt(processTypes.length)]} - ${client.name}',
+        code:
+            'PROC-${DateTime.now().year}-${(i + 1).toString().padLeft(4, '0')}',
+        title:
+            '${processTypes[_random.nextInt(processTypes.length)]} - ${client.name}',
         description: _faker.lorem.sentences(3).join(' '),
-        status: FolderStatus.values[_random.nextInt(FolderStatus.values.length)],
-        priority: FolderPriority.values[_random.nextInt(FolderPriority.values.length)],
+        status:
+            FolderStatus.values[_random.nextInt(FolderStatus.values.length)],
+        priority: FolderPriority
+            .values[_random.nextInt(FolderPriority.values.length)],
         area: area,
         client: client,
         responsibleLawyer: responsibleLawyer,
-        assistantLawyers: _random.nextBool() 
-            ? _users.where((u) => u.id != responsibleLawyer.id).take(_random.nextInt(3) + 1).toList()
+        assistantLawyers: _random.nextBool()
+            ? _users
+                .where((u) => u.id != responsibleLawyer.id)
+                .take(_random.nextInt(3) + 1)
+                .toList()
             : null,
-        createdAt: DateTime.now().subtract(Duration(days: _random.nextInt(730))),
-        updatedAt: _random.nextBool() 
+        createdAt:
+            DateTime.now().subtract(Duration(days: _random.nextInt(730))),
+        updatedAt: _random.nextBool()
             ? DateTime.now().subtract(Duration(days: _random.nextInt(30)))
             : null,
         dueDate: _random.nextBool()
@@ -159,19 +173,19 @@ class MockDataService {
             : null,
         documentsCount: _random.nextInt(50) + 5,
         isFavorite: _random.nextDouble() > 0.8,
-        contractValue: _random.nextBool() 
-            ? _random.nextDouble() * 100000 + 5000
-            : null,
+        contractValue:
+            _random.nextBool() ? _random.nextDouble() * 100000 + 5000 : null,
         alreadyBilled: _random.nextBool() && _random.nextBool()
             ? _random.nextDouble() * 50000
             : null,
         courtNumber: '${_random.nextInt(30) + 1}ª Vara ${area.displayName}',
-        processNumber: '${_random.nextInt(9999999).toString().padLeft(7, '0')}-${_random.nextInt(99)}.${DateTime.now().year}.8.26.0100',
+        processNumber:
+            '${_random.nextInt(9999999).toString().padLeft(7, '0')}-${_random.nextInt(99)}.${DateTime.now().year}.8.26.0100',
         tags: _random.nextBool()
             ? List.generate(_random.nextInt(4) + 1, (_) => _faker.lorem.word())
             : null,
       );
-      
+
       _folders.add(folder);
       _generateFolderHistory(folder);
     }
@@ -196,9 +210,10 @@ class MockDataService {
     final history = <dynamic>[];
 
     for (int i = 0; i < historyCount; i++) {
-      final date = folder.createdAt.add(Duration(days: _random.nextInt(
-        DateTime.now().difference(folder.createdAt).inDays)));
-      
+      final date = folder.createdAt.add(Duration(
+          days: _random
+              .nextInt(DateTime.now().difference(folder.createdAt).inDays)));
+
       history.add({
         'id': i + 1,
         'type': historyTypes[_random.nextInt(historyTypes.length)],
@@ -232,10 +247,13 @@ class MockDataService {
         title: taskTypes[_random.nextInt(taskTypes.length)],
         description: _faker.lorem.sentence(),
         dueDate: DateTime.now().add(Duration(days: _random.nextInt(30) - 10)),
-        priority: TaskPriority.values[_random.nextInt(TaskPriority.values.length)],
+        priority:
+            TaskPriority.values[_random.nextInt(TaskPriority.values.length)],
         status: TaskStatus.values[_random.nextInt(TaskStatus.values.length)],
         assignedTo: _users[_random.nextInt(_users.length)],
-        folder: _random.nextBool() ? _folders[_random.nextInt(_folders.length)] : null,
+        folder: _random.nextBool()
+            ? _folders[_random.nextInt(_folders.length)]
+            : null,
       ));
     }
   }
@@ -256,7 +274,8 @@ class MockDataService {
         id: i + 1,
         type: hearingTypes[_random.nextInt(hearingTypes.length)],
         dateTime: DateTime.now().add(Duration(days: _random.nextInt(60) - 20)),
-        location: '${_random.nextInt(30) + 1}ª Vara - Fórum ${_faker.address.city()}',
+        location:
+            '${_random.nextInt(30) + 1}ª Vara - Fórum ${_faker.address.city()}',
         folder: folder,
         judge: 'Dr. ${_faker.person.name()}',
         notes: _random.nextBool() ? _faker.lorem.sentence() : null,
@@ -266,49 +285,58 @@ class MockDataService {
 
   // Generate dashboard metrics
   void _generateDashboardMetrics() {
-    final activeFolders = _folders.where((f) => f.status == FolderStatus.active).length;
-    final completedFolders = _folders.where((f) => f.status == FolderStatus.completed).length;
+    final activeFolders =
+        _folders.where((f) => f.status == FolderStatus.active).length;
+    final completedFolders =
+        _folders.where((f) => f.status == FolderStatus.completed).length;
     final totalFolders = _folders.length;
-    final deliveredFolders = _folders.where((f) => 
-      f.status == FolderStatus.completed && !f.isOverdue).length;
+    final deliveredFolders = _folders
+        .where((f) => f.status == FolderStatus.completed && !f.isOverdue)
+        .length;
     final delayedFolders = _folders.where((f) => f.isOverdue).length;
-    
+
     _dashboardMetrics['activeFolders'] = activeFolders;
     _dashboardMetrics['completedFolders'] = completedFolders;
     _dashboardMetrics['totalFolders'] = totalFolders;
     _dashboardMetrics['deliveredFolders'] = deliveredFolders;
     _dashboardMetrics['delayedFolders'] = delayedFolders;
-    _dashboardMetrics['newThisMonth'] = _folders.where((f) => 
-      f.createdAt.isAfter(DateTime.now().subtract(Duration(days: 30)))).length;
+    _dashboardMetrics['newThisMonth'] = _folders
+        .where((f) =>
+            f.createdAt.isAfter(DateTime.now().subtract(Duration(days: 30))))
+        .length;
     _dashboardMetrics['totalRevenue'] = _folders
-      .where((f) => f.contractValue != null)
-      .fold<double>(0, (sum, f) => sum + f.contractValue!);
-    _dashboardMetrics['pendingTasks'] = _tasks.where((t) => t.status != TaskStatus.completed).length;
-    _dashboardMetrics['upcomingHearings'] = _hearings.where((h) => h.dateTime.isAfter(DateTime.now())).length;
+        .where((f) => f.contractValue != null)
+        .fold<double>(0, (sum, f) => sum + f.contractValue!);
+    _dashboardMetrics['pendingTasks'] =
+        _tasks.where((t) => t.status != TaskStatus.completed).length;
+    _dashboardMetrics['upcomingHearings'] =
+        _hearings.where((h) => h.dateTime.isAfter(DateTime.now())).length;
   }
 
   // Public methods to access data
-  List<Folder> getFolders({String? search, FolderStatus? status, int? clientId}) {
+  List<Folder> getFolders(
+      {String? search, FolderStatus? status, int? clientId}) {
     _initializeData();
-    
+
     var result = List<Folder>.from(_folders);
-    
+
     if (search != null && search.isNotEmpty) {
-      result = result.where((f) => 
-        f.title.toLowerCase().contains(search.toLowerCase()) ||
-        f.client.name.toLowerCase().contains(search.toLowerCase()) ||
-        f.code.toLowerCase().contains(search.toLowerCase())
-      ).toList();
+      result = result
+          .where((f) =>
+              f.title.toLowerCase().contains(search.toLowerCase()) ||
+              f.client.name.toLowerCase().contains(search.toLowerCase()) ||
+              f.code.toLowerCase().contains(search.toLowerCase()))
+          .toList();
     }
-    
+
     if (status != null) {
       result = result.where((f) => f.status == status).toList();
     }
-    
+
     if (clientId != null) {
       result = result.where((f) => f.client.id == clientId).toList();
     }
-    
+
     return result;
   }
 
@@ -324,33 +352,33 @@ class MockDataService {
 
   List<Task> getTasks({TaskStatus? status, int? userId}) {
     _initializeData();
-    
+
     var result = List<Task>.from(_tasks);
-    
+
     if (status != null) {
       result = result.where((t) => t.status == status).toList();
     }
-    
+
     if (userId != null) {
       result = result.where((t) => t.assignedTo.id == userId).toList();
     }
-    
+
     return result;
   }
 
   List<Hearing> getHearings({DateTime? fromDate, DateTime? toDate}) {
     _initializeData();
-    
+
     var result = List<Hearing>.from(_hearings);
-    
+
     if (fromDate != null) {
       result = result.where((h) => h.dateTime.isAfter(fromDate)).toList();
     }
-    
+
     if (toDate != null) {
       result = result.where((h) => h.dateTime.isBefore(toDate)).toList();
     }
-    
+
     result.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return result;
   }
@@ -368,10 +396,11 @@ class MockDataService {
   // CRUD Operations
   Folder createFolder(Map<String, dynamic> data) {
     _initializeData();
-    
+
     final newFolder = Folder(
       id: _folders.length + 1,
-      code: 'PROC-${DateTime.now().year}-${(_folders.length + 1).toString().padLeft(4, '0')}',
+      code:
+          'PROC-${DateTime.now().year}-${(_folders.length + 1).toString().padLeft(4, '0')}',
       title: data['title'],
       description: data['description'],
       status: data['status'] ?? FolderStatus.active,
@@ -386,20 +415,20 @@ class MockDataService {
       processNumber: data['processNumber'],
       courtNumber: data['courtNumber'],
     );
-    
+
     _folders.add(newFolder);
     _generateFolderHistory(newFolder);
     _updateDashboardMetrics();
-    
+
     return newFolder;
   }
 
   Folder updateFolder(int id, Map<String, dynamic> updates) {
     _initializeData();
-    
+
     final index = _folders.indexWhere((f) => f.id == id);
     if (index == -1) throw Exception('Folder not found');
-    
+
     final oldFolder = _folders[index];
     final updatedFolder = Folder(
       id: oldFolder.id,
@@ -410,8 +439,10 @@ class MockDataService {
       priority: updates['priority'] ?? oldFolder.priority,
       area: updates['area'] ?? oldFolder.area,
       client: updates['client'] ?? oldFolder.client,
-      responsibleLawyer: updates['responsibleLawyer'] ?? oldFolder.responsibleLawyer,
-      assistantLawyers: updates['assistantLawyers'] ?? oldFolder.assistantLawyers,
+      responsibleLawyer:
+          updates['responsibleLawyer'] ?? oldFolder.responsibleLawyer,
+      assistantLawyers:
+          updates['assistantLawyers'] ?? oldFolder.assistantLawyers,
       createdAt: oldFolder.createdAt,
       updatedAt: DateTime.now(),
       dueDate: updates['dueDate'] ?? oldFolder.dueDate,
@@ -424,10 +455,10 @@ class MockDataService {
       tags: updates['tags'] ?? oldFolder.tags,
       notes: updates['notes'] ?? oldFolder.notes,
     );
-    
+
     _folders[index] = updatedFolder;
     _updateDashboardMetrics();
-    
+
     return updatedFolder;
   }
 
@@ -437,7 +468,7 @@ class MockDataService {
     _folderHistory.remove(id);
     _updateDashboardMetrics();
   }
-  
+
   Client createClient(Client newClient) {
     _initializeData();
     _clients.add(newClient);
@@ -446,7 +477,7 @@ class MockDataService {
 
   Task createTask(Map<String, dynamic> data) {
     _initializeData();
-    
+
     final newTask = Task(
       id: _tasks.length + 1,
       title: data['title'],
@@ -457,17 +488,17 @@ class MockDataService {
       assignedTo: data['assignedTo'],
       folder: data['folder'],
     );
-    
+
     _tasks.add(newTask);
     return newTask;
   }
 
   void updateTask(int id, Map<String, dynamic> updates) {
     _initializeData();
-    
+
     final index = _tasks.indexWhere((t) => t.id == id);
     if (index == -1) return;
-    
+
     final oldTask = _tasks[index];
     _tasks[index] = Task(
       id: oldTask.id,
@@ -489,42 +520,39 @@ class MockDataService {
   List<FlSpot> generateChartData(int points) {
     final spots = <FlSpot>[];
     double lastValue = _random.nextDouble() * 3 + 1;
-    
+
     for (int i = 0; i < points; i++) {
       lastValue += (_random.nextDouble() - 0.5) * 2;
       lastValue = lastValue.clamp(0, 5);
       spots.add(FlSpot(i.toDouble(), lastValue));
     }
-    
+
     return spots;
   }
 
   // Search functionality
   List<dynamic> search(String query) {
     _initializeData();
-    
+
     final results = <dynamic>[];
     final lowerQuery = query.toLowerCase();
-    
+
     // Search folders
     results.addAll(_folders.where((f) =>
-      f.title.toLowerCase().contains(lowerQuery) ||
-      f.code.toLowerCase().contains(lowerQuery) ||
-      f.client.name.toLowerCase().contains(lowerQuery)
-    ));
-    
+        f.title.toLowerCase().contains(lowerQuery) ||
+        f.code.toLowerCase().contains(lowerQuery) ||
+        f.client.name.toLowerCase().contains(lowerQuery)));
+
     // Search clients
     results.addAll(_clients.where((c) =>
-      c.name.toLowerCase().contains(lowerQuery) ||
-      c.document.contains(query)
-    ));
-    
+        c.name.toLowerCase().contains(lowerQuery) ||
+        c.document.contains(query)));
+
     // Search tasks
     results.addAll(_tasks.where((t) =>
-      t.title.toLowerCase().contains(lowerQuery) ||
-      t.description.toLowerCase().contains(lowerQuery)
-    ));
-    
+        t.title.toLowerCase().contains(lowerQuery) ||
+        t.description.toLowerCase().contains(lowerQuery)));
+
     return results;
   }
 }

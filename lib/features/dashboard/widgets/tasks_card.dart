@@ -21,15 +21,16 @@ class _TasksCardState extends State<TasksCard> {
     super.initState();
     _loadTasks();
   }
-  
+
   void _loadTasks() {
     _tasks = _mockService.getTasks(status: null);
-    
+
     // Calculate statistics
     _taskStats = {
       'total': _tasks.length,
       'pending': _tasks.where((t) => t.status == TaskStatus.pending).length,
-      'inProgress': _tasks.where((t) => t.status == TaskStatus.inProgress).length,
+      'inProgress':
+          _tasks.where((t) => t.status == TaskStatus.inProgress).length,
       'completed': _tasks.where((t) => t.status == TaskStatus.completed).length,
       'overdue': _tasks.where((t) => t.isOverdue).length,
     };
@@ -85,7 +86,8 @@ class _TasksCardState extends State<TasksCard> {
                       runSpacing: 4,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
                             color: const Color(0xFF10B981).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
@@ -101,7 +103,8 @@ class _TasksCardState extends State<TasksCard> {
                         ),
                         if (_taskStats['overdue']! > 0)
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
                               color: const Color(0xFFEF4444).withOpacity(0.1),
                               borderRadius: BorderRadius.circular(12),
@@ -124,10 +127,10 @@ class _TasksCardState extends State<TasksCard> {
                 onPressed: () {
                   // TODO: View all tasks
                 },
-                child: const Text('Ver todas'),
                 style: TextButton.styleFrom(
                   foregroundColor: const Color(0xFF6B7280),
                 ),
+                child: const Text('Ver todas'),
               ),
             ],
           ),
@@ -151,7 +154,8 @@ class _TasksCardState extends State<TasksCard> {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: _tasks.where((t) => !t.isCompleted).take(5).length,
               itemBuilder: (context, index) {
-                final pendingTasks = _tasks.where((t) => !t.isCompleted).take(5).toList();
+                final pendingTasks =
+                    _tasks.where((t) => !t.isCompleted).take(5).toList();
                 final task = pendingTasks[index];
                 return TaskItem(
                   task: task,
@@ -163,5 +167,4 @@ class _TasksCardState extends State<TasksCard> {
       ),
     );
   }
-
 }
