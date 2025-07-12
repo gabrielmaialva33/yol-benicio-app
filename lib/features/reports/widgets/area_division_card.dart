@@ -63,15 +63,19 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Divisão por Áreas Jurídicas',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF111827),
+              const Expanded(
+                child: Text(
+                  'Divisão por Áreas Jurídicas',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF111827),
+                  ),
                 ),
               ),
+              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -132,10 +136,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
   }
 
   List<PieChartSectionData> _getAnimatedSections() {
-    return widget.areaDivisionData
-        .asMap()
-        .entries
-        .map((entry) {
+    return widget.areaDivisionData.asMap().entries.map((entry) {
       final index = entry.key;
       final data = entry.value;
       final isTouched = index == touchedIndex;
@@ -171,10 +172,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
       child: Wrap(
         spacing: 16,
         runSpacing: 12,
-        children: widget.areaDivisionData
-            .asMap()
-            .entries
-            .map((entry) {
+        children: widget.areaDivisionData.asMap().entries.map((entry) {
           final index = entry.key;
           final data = entry.value;
           final isSelected = index == touchedIndex;
@@ -210,12 +208,12 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
                       borderRadius: BorderRadius.circular(isSelected ? 8 : 2),
                       boxShadow: isSelected
                           ? [
-                        BoxShadow(
-                          color: data.color.withOpacity(0.3),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ]
+                              BoxShadow(
+                                color: data.color.withOpacity(0.3),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ]
                           : null,
                     ),
                   ),
@@ -225,7 +223,7 @@ class _AreaDivisionCardState extends State<AreaDivisionCard>
                     style: TextStyle(
                       fontSize: isSelected ? 14 : 12,
                       fontWeight:
-                      isSelected ? FontWeight.w600 : FontWeight.w500,
+                          isSelected ? FontWeight.w600 : FontWeight.w500,
                       color: isSelected ? data.color : const Color(0xFF64748B),
                     ),
                   ),

@@ -60,7 +60,7 @@ class BenicioBottomNavigation extends StatelessWidget {
             ),
             _buildNavItem(
               index: 4,
-              icon: FontAwesomeIcons.user,
+              icon: FontAwesomeIcons.solidUser,
               label: 'Perfil',
               isActive: currentIndex == 4,
             ),
@@ -99,7 +99,7 @@ class BenicioBottomNavigation extends StatelessWidget {
               icon,
               size: 20,
               color:
-              isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
+                  isActive ? const Color(0xFF582FFF) : const Color(0xFF484C52),
             ),
             AnimatedSize(
               duration: const Duration(milliseconds: 300),
