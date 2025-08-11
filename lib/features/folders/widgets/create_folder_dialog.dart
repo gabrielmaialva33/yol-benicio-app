@@ -224,18 +224,21 @@ class _CreateFolderDialogState extends State<CreateFolderDialog> {
                                                       fontSize: 14),
                                                   overflow:
                                                       TextOverflow.ellipsis,
+                                                  maxLines: 1,
                                                 ),
+                                                SizedBox(height: 2),
                                                 Text(
                                                   client.type ==
                                                           ClientType.individual
                                                       ? 'Pessoa Física'
                                                       : 'Pessoa Jurídica',
                                                   style: TextStyle(
-                                                    fontSize: 12,
+                                                    fontSize: 11,
                                                     color: Colors.grey[600],
                                                   ),
                                                   overflow:
                                                       TextOverflow.ellipsis,
+                                                  maxLines: 1,
                                                 ),
                                               ],
                                             ),

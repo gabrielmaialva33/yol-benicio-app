@@ -1,6 +1,7 @@
 import 'package:benicio/core/theme/theme_provider.dart';
 import 'package:benicio/features/navigation/bottom_navigation.dart';
 import 'package:benicio/features/shared/widgets/quick_theme_toggle.dart';
+import 'package:benicio/features/shared/widgets/notifications_badge.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,10 +69,8 @@ class MobileLayout extends StatelessWidget {
                 ],
               ),
               actions: [
-                IconButton(
-                  icon: const Icon(Icons.notifications_outlined),
-                  onPressed: () {},
-                ),
+                const NotificationsBadge(),
+                const SizedBox(width: 8),
                 const QuickThemeToggle(),
                 const SizedBox(width: 8),
               ],
@@ -95,10 +94,8 @@ class MobileLayout extends StatelessWidget {
                     icon: const Icon(Icons.logout),
                     onPressed: onLogout,
                   ),
-                IconButton(
-                  icon: const Icon(Icons.notifications_outlined),
-                  onPressed: () {},
-                ),
+                const NotificationsBadge(),
+                const SizedBox(width: 8),
                 const QuickThemeToggle(),
                 const SizedBox(width: 8),
               ],

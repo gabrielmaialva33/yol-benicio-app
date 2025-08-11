@@ -50,31 +50,32 @@ class _MainNavigatorState extends State<MainNavigator> {
     }
   }
 
-  void _handleLogout() {
-    showDialog(
+  void _handleLogout() async {
+    final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Confirmar Logout'),
         content: const Text('Tem certeza que deseja sair da sua conta?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancelar'),
           ),
           TextButton(
-            onPressed: () async {
-              Navigator.pop(context);
-              final authService = context.read<AuthService>();
-              await authService.logout();
-              if (mounted) {
-                Navigator.pushReplacementNamed(context, '/login');
-              }
-            },
+            onPressed: () => Navigator.pop(context, true),
             child: const Text('Sair', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
     );
+
+    if (confirmed == true) {
+      final authService = context.read<AuthService>();
+      await authService.logout();
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    }
   }
 
   @override

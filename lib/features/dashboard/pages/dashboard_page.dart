@@ -75,30 +75,83 @@ class _DashboardPageState extends State<DashboardPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Dashboard - Processos',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: isDesktop ? 30 : (isTablet ? 26 : 22),
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF161C24),
-                    ),
+              child:                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Dashboard - Processos',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: isDesktop ? 30 : (isTablet ? 26 : 22),
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF161C24),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF10B981).withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: const Color(0xFF10B981).withOpacity(0.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFF10B981),
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'Atualizado agora',
+                                  style: TextStyle(
+                                    fontSize: isDesktop ? 12 : 10,
+                                    fontWeight: FontWeight.w600,
+                                    color: const Color(0xFF10B981),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Text(
+                            'Acompanhe suas pastas e clientes em tempo real',
+                            style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: isDesktop ? 18 : (isTablet ? 16 : 14),
+                              fontWeight: FontWeight.w500,
+                              color: const Color(0xFFA1A5B7),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          if (isDesktop || isTablet)
+                            Text(
+                              '• ${_getTotalProcesses()} processos ativos',
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: isDesktop ? 16 : 14,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xFF3B82F6),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Acompanhe suas pastas e clientes em tempo real',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: isDesktop ? 18 : (isTablet ? 16 : 14),
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFFA1A5B7),
-                    ),
-                  ),
-                ],
-              ),
             ),
             if (isDesktop || isTablet) ...[
               const SizedBox(width: 16),
@@ -837,5 +890,9 @@ class _DashboardPageState extends State<DashboardPage> {
         );
       }
     }
+  }
+
+  int _getTotalProcesses() {
+    return (_metrics['activeFolders'] ?? 0) + (_metrics['completedFolders'] ?? 0);
   }
 }

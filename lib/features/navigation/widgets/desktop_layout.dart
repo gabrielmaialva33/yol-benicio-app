@@ -1,6 +1,8 @@
 import 'package:benicio/core/theme/theme_provider.dart';
 import 'package:benicio/features/navigation/widgets/desktop_sidebar.dart';
 import 'package:benicio/features/shared/widgets/quick_theme_toggle.dart';
+import 'package:benicio/features/shared/widgets/notifications_badge.dart';
+import 'package:benicio/features/shared/widgets/header_search_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -59,16 +61,10 @@ class DesktopLayout extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {
-              // TODO: Mostrar notificações
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => onNavigationTap(2),
-          ),
+          const NotificationsBadge(),
+          const SizedBox(width: 8),
+          const HeaderSearchButton(),
+          const SizedBox(width: 8),
           const QuickThemeToggle(),
           const SizedBox(width: 16),
         ],

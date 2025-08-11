@@ -26,6 +26,7 @@ class MockDataService {
   late final List<Hearing> _hearings;
   late final Map<int, List<dynamic>> _folderHistory;
   late final Map<String, dynamic> _dashboardMetrics;
+  Map<String, dynamic>? _currentDashboardMetrics;
   bool _isInitialized = false;
 
   // Initialize data on first access
@@ -115,7 +116,7 @@ class MockDataService {
 
   Map<String, dynamic> getDashboardMetrics() {
     _initializeData();
-    return Map<String, dynamic>.from(_dashboardMetrics);
+    return _currentDashboardMetrics ?? Map<String, dynamic>.from(_dashboardMetrics);
   }
 
   List<dynamic> getFolderHistory(int folderId) {
@@ -256,7 +257,7 @@ class MockDataService {
   }
 
   void _updateDashboardMetrics() {
-    _dashboardMetrics =
+    _currentDashboardMetrics =
         _generator.generateDashboardMetrics(_folders, _tasks, _hearings);
   }
 

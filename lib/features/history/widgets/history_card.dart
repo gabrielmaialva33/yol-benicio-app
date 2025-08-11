@@ -110,7 +110,7 @@ class _HistoryCardState extends State<HistoryCard>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Icon(
-                          FontAwesomeIcons.pencilAlt,
+                          FontAwesomeIcons.pencil,
                           size: 16,
                           color: themeProvider
                               .themeData.textTheme.bodySmall?.color,
